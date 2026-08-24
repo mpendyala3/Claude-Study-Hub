@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A1 Mock Exam — CCAR-F Study Hub</title>
-<meta name="description" content="60-question, 120-minute scenario-based mock exam for the Claude Certified Architect – Foundations certification, with a teaching explanation for every option.">
+<title>A2 Mock Exam — CCAR-F Study Hub</title>
+<meta name="description" content="60-question, 120-minute mock exam written to the 37 Attempt-2 CCAR-F test objectives, with long multi-objective scenarios and a teaching explanation for every option.">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <script src="assets/js/app.js"></script>
@@ -50,20 +50,21 @@
 
   <!-- ============ INTRO ============ -->
   <section id="intro">
-    <div class="track-badge"><b>A1</b> Attempt-1 blueprint</div>
-    <div class="eyebrow">A1 Mock exam</div>
+    <div class="track-badge"><b>A2</b> Attempt-2 blueprint</div>
+    <div class="eyebrow">A2 Mock exam</div>
     <h1>60 questions · 120 minutes · pass at 720</h1>
-    <p class="lede">Scenario-based items weighted to the Attempt-1 blueprint, set inside six realistic businesses:
-    a retail bank's support agent, a marketplace's multi-agent order operations, an SRE incident agent, an IT
-    service desk, an insurance extraction pipeline, and a 400-engineer Claude Code rollout. Every question explains
-    the rule behind the right answer and why each distractor fails.</p>
+    <p class="lede">Written to the <strong>37 Attempt-2 test objectives</strong> and shaped like the exam you
+    actually sat: long scenarios, and <strong>every item spanning two or three objectives at once</strong>, so no
+    question can be answered from a single remembered fact. Six systems recur throughout &mdash; an automated
+    pull-request reviewer, a bank's support orchestrator, a parallel research pipeline, a claims extraction
+    pipeline, a 400-engineer Claude Code rollout, and a multi-tenant MCP service desk. Every question explains the
+    rule behind the right answer and why each distractor fails.</p>
 
-    <div class="note trap">
-      <b>This bank was rewritten to be hard</b>
-      Every item was replaced. Distractors are now <em>near-misses</em> &mdash; options that are partly correct, or
-      correct about something other than what was asked, or that fix the symptom one layer away from the cause. A
-      third of the items are select-two. Several require tracing code or reading a measurement rather than
-      recalling a rule. If you were scoring comfortably on the old bank, expect this one to hurt; that is the point.
+    <div class="note rule">
+      <b>Read the objective tags</b>
+      Each item is labelled with the objectives it draws on (for example <span class="tag">O7 &middot; O10</span>).
+      When you get one wrong, that tag tells you which section of the
+      <a href="a2-docs.html">A2 documentation</a> to go back to.
     </div>
 
     <div class="grid grid-2" style="margin:24px 0">
@@ -82,15 +83,17 @@
     <div class="card">
       <h3 class="mt0">Before you start</h3>
       <ul class="small">
-        <li><strong>Select-2 items.</strong> <span id="multiCount">10</span> questions ask for exactly two answers.
+        <li><strong>Select-2 items.</strong> <span id="multiCount">9</span> questions ask for exactly two answers.
         They are marked. Both must be right to score — and the two are usually complementary layers, not two
         phrasings of the same idea. If your picks are near duplicates, one is wrong.</li>
-        <li><strong>Scenarios repeat.</strong> Several questions share a business context. Read the scenario
-        carefully the first time; after that you can skim it.</li>
-        <li><strong>Scoring.</strong> Scaled 100–1000 like the real exam. 720 passes, which is about 42 of 60.
-        On this rewritten bank, 780+ is a genuinely strong result.</li>
+        <li><strong>Scenarios repeat.</strong> Six systems carry all 60 items. Read each one carefully the
+        first time; after that you can skim it.</li>
+        <li><strong>Items are deliberately long.</strong> Read the last sentence of the stem first to find out what
+        is actually being asked, then go back for the two or three facts that bear on it.</li>
         <li><strong>No length tell.</strong> The correct option is never the longest and never the shortest, and
-        the answer key is balanced across A/B/C/D. Guessing strategies score at chance.</li>
+        the answer key is balanced across A/B/C/D. Guessing strategies score at chance here.</li>
+        <li><strong>Scoring.</strong> Scaled 100–1000 like the real exam. 720 passes, which is about 42 of 60. Aim
+        for 850+ here before you book.</li>
         <li><strong>Your progress is saved</strong> in this browser, so you can close the tab mid-attempt and come
         back. In exam mode the clock keeps running.</li>
         <li><strong>Keyboard:</strong> <kbd>1</kbd>–<kbd>4</kbd> to select, <kbd>←</kbd><kbd>→</kbd> to move,
@@ -118,8 +121,8 @@
 
     <div class="note warn" style="margin-top:24px">
       <b>What these questions are and are not</b>
-      They are original items written to the published exam blueprint, to documented Claude Code / Claude API / MCP
-      behaviour, and to the traps reported by candidates who have sat the exam. They are not recalled or leaked
+      They are original items written to the objective list printed on your own Attempt-2 score report and to
+      documented Claude Code / Claude API / MCP behaviour. They are not recalled or leaked
       exam content, and no source claiming to hold verbatim exam items was used. A strong score here is evidence
       you understand the material — treat it as that, not as a preview of the live item pool.
     </div>
@@ -138,8 +141,8 @@
 
 <footer class="footer"><div class="narrow">CCAR-F Study Hub · Independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
 
-<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'exam' };</script>
-<script src="assets/js/exam-data.js"></script>
+<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'a2-exam' };</script>
+<script src="assets/js/a2-exam-data.js"></script>
 <script src="assets/js/exam.js"></script>
 </body>
 </html>

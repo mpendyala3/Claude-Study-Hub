@@ -2,20 +2,38 @@
 
 ### 🔗 Live site: **https://mpendyala3.github.io/CCAR-F-study-hub/**
 
-Direct links: [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/) ·
+**A1 track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/) ·
 [Docs](https://mpendyala3.github.io/CCAR-F-study-hub/docs.html) ·
 [Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/exercises.html) ·
 [Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/exam.html)
 
+**A2 track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/a2-index.html) ·
+[Docs](https://mpendyala3.github.io/CCAR-F-study-hub/a2-docs.html) ·
+[Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/a2-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/a2-exam.html)
+
 ---
 
-A single-place study site for the **Anthropic Claude Certified Architect – Foundations** exam
-(CCA-F / CCAR-F): full documentation for all nine test topics, sixteen hands-on exercises graded in
-the browser, and a 60-question / 120-minute mock exam that explains the rule behind every right
-answer and why each distractor fails.
+A study site for the **Anthropic Claude Certified Architect – Foundations** exam (CCA-F / CCAR-F), built around
+two published objective lists from two sittings of the exam.
 
-Static HTML, CSS and vanilla JavaScript. No build step, no dependencies, no network calls at
-runtime — it works offline and on GitHub Pages as-is.
+Static HTML, CSS and vanilla JavaScript. No build step, no dependencies, no network calls at runtime — it works
+offline and on GitHub Pages as-is.
+
+---
+
+## Two tracks
+
+The exam's published objective list changed materially between the two attempts, so the hub carries both rather
+than merging them.
+
+| Track | Built from | Emphasis |
+|---|---|---|
+| **A1** | The Attempt-1 objective list (29 objectives) | Orchestration safeguards, hooks and permissions, Messages API mechanics, extraction pipelines, tool design |
+| **A2** | The Attempt-2 objective list (37 objectives) | Multi-agent orchestration and subagent context contracts, Claude Code driven non-interactively, automated review, `context: fork`, MCP |
+
+Each track has the same four pages: an **Overview** (blueprint and study plan), **Documentation**, browser-graded
+**Exercises**, and a 60-question / 120-minute **Mock Exam**.
 
 ---
 
@@ -23,40 +41,30 @@ runtime — it works offline and on GitHub Pages as-is.
 
 | Page | Contents |
 |---|---|
-| `index.html` | Exam blueprint, domain weightings, the seven anti-patterns used as distractors, a study plan, and primary sources |
-| `docs.html` | A four-part primer (agentic loop and stop reasons, Claude Code config surfaces, MCP, cost/latency levers), then all nine test topics end-to-end with 54 Q&A drills, an exam-day playbook and a one-page cheat sheet |
-| `exercises.html` | 16 exercises: 9 browser-graded editors (write real `settings.json`, hooks, schemas, tool definitions, error payloads), 3 classification drills, 2 multiple-choice drills, 2 terminal labs |
-| `exam.html` | 60 scenario-based questions weighted to the published blueprint, with a 120-minute timer, study/exam modes, flagging, per-domain scoring and full explanations |
+| `index.html` — A1 Overview | Exam blueprint, domain weightings, the seven anti-patterns used as distractors, a study plan, and primary sources |
+| `docs.html` — A1 Documentation | A four-part primer (agentic loop and stop reasons, Claude Code config surfaces, MCP, cost/latency levers), then all nine A1 test topics end-to-end with 54 Q&A drills, an exam-day playbook and a cheat sheet |
+| `exercises.html` — A1 Exercises | 24 exercises: 16 original drills (write real `settings.json`, hooks, schemas, tool definitions, error payloads) plus an 8-exercise **build track** — a PR-review multi-agent system, a support orchestrator's tool distribution, the orchestrator/subagent/synthesis context contract, and an orchestrator loop that cannot drop a session |
+| `exam.html` — A1 Mock Exam | 60 scenario items, **rewritten from scratch at a much higher difficulty**: near-miss distractors, 10 select-two items, code-tracing and measurement-reading questions |
+| `a2-index.html` — A2 Overview | All 37 Attempt-2 objectives with per-objective scores, a gap analysis against Attempt 1, the repeat-failure list, and a derived domain weighting |
+| `a2-docs.html` — A2 Documentation | 41 sections written from first principles across five domains, deepest on the seven objectives scored 0%: dynamic decomposition, review architecture, review configurations, `context: fork`, test generation, tool distribution, and `tool_choice` sequencing |
+| `a2-exercises.html` — A2 Exercises | 14 exercises weighted to the failed objectives — seven target the 0% list — with 9 graded in the browser and one terminal lab |
+| `a2-exam.html` — A2 Mock Exam | 60 items in the real exam's shape: long scenarios, **each item spanning two or three objectives**, weighted to the derived A2 blueprint |
 
-### Coverage of the nine test topics
+### Mock exam construction
 
-| # | Objective | Docs | Exercises | Exam items |
-|---|---|---|---|---|
-| 1 | Orchestration safeguards for session termination | `#t1` | 11, 12 | Q1–16 |
-| 2 | Permissions / hooks vs CLAUDE.md | `#t2` | 1, 2, 15, 16 | Q17, 22–28 |
-| 3 | PostToolUse quality-gate hooks | `#t3` | 3, 4, 5, 15 | Q18–21 |
-| 4 | Escalation decision criteria | `#t4` | 10, 12 | Q52–56, 58, 60 |
-| 5 | Extraction schema design (optional / nullable / enum) | `#t5` | 6 | Q29–32, 40 |
-| 6 | Extraction accuracy across document formats | `#t6` | 7 | Q33–37 |
-| 7 | Feedback loops from structured error metadata | `#t7` | 7, 14 | Q38, 39 |
-| 8 | Tool descriptions and selection reliability | `#t8` | 8, 13 | Q41, 45, 46, 51 |
-| 9 | `tool_choice` and multi-tool sequencing | `#t9` | 9, 13 | Q42–44, 47, 49, 50 |
+Both banks are built to the same rules:
 
-### Mock exam item distribution
+- **Weighted to the blueprint**, so a weak per-domain score is a real signal.
+- **The answer key is balanced** across A/B/C/D, and select-two items use all six distinct letter pairs.
+- **No length tell.** Within every question the options are written to a similar length, and the correct option is
+  deliberately never the longest and never the shortest. Measured across both banks, the key is the longest option
+  on 2% (A1) and 7% (A2) of items, against 25% by chance.
+- **Every option is explained** — the rule behind the right answer and why each distractor fails.
 
-Matched to the published blueprint, so a weak per-domain score is a real signal:
-
-| Domain | Blueprint weight | Items |
-|---|---|---|
-| Agentic Architecture & Orchestration | 27% | 16 |
-| Claude Code Configuration & Workflows | 20% | 12 |
-| Prompt Engineering & Structured Output | 20% | 12 |
-| Tool Design & MCP Integration | 18% | 11 |
-| Context Management & Reliability | 15% | 9 |
-
-Six items are **select-2**. Scoring is scaled 100–1000 with a 720 pass mark, matching the real exam.
-The answer key is balanced (A:14 B:14 C:13 D:13 across single-answer items, and all six distinct
-letter pairs across the select-2 items), so guessing a favourite letter gains you nothing.
+| Bank | Items | Select-two | Key letters (A/B/C/D) |
+|---|---|---|---|
+| A1 | 60 | 10 | 19 / 18 / 17 / 16 |
+| A2 | 60 | 9 | 19 / 17 / 17 / 16 |
 
 ---
 
@@ -118,10 +126,13 @@ The documentation is written from Anthropic's product documentation plus public 
 - [Claude API — Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 - [Anthropic Academy — certification page and official exam guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)
 
-**The 60 mock questions are original.** They were written to the published blueprint, to documented
-product behaviour, and to the traps reported by candidates who have sat the exam. They are not
-recalled or leaked exam items, and no source claiming to hold verbatim exam content was used. Treat
-a strong score as evidence you understand the material, not as a preview of the live item pool.
+**All 120 mock questions are original.** They were written to the two published objective lists, to
+documented product behaviour, and to the traps reported by candidates who have sat the exam. They are
+not recalled or leaked exam items, and no source claiming to hold verbatim exam content was used.
+Treat a strong score as evidence you understand the material, not as a preview of the live item pool.
+
+The per-objective percentages on the A2 Overview page are transcribed from the candidate's own score
+reports. Everything else on the site is original material written to those objectives.
 
 Some details are version-sensitive — CLI flag names, hook event names, supported JSON Schema
 keywords. Verify those against the live documentation close to your exam date.

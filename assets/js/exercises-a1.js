@@ -1,37 +1,6 @@
 /* =============================================================
-   CCAR-F Study Hub — exercise engine + exercise definitions
+   CCAR-F Study Hub — A1 exercise bank
    Types: classify | json | text | choice | lab
-   ============================================================= */
-(function () {
-'use strict';
-
-/* ---------- small helpers used by check functions ---------- */
-function has(raw, re) { return re.test(raw); }
-function arr(x) { return Array.isArray(x) ? x : []; }
-function deepFind(obj, pred, path) {
-  path = path || '';
-  var out = [];
-  if (obj && typeof obj === 'object') {
-    Object.keys(obj).forEach(function (k) {
-      var p = path ? path + '.' + k : k;
-      if (pred(k, obj[k], p)) out.push({ key: k, val: obj[k], path: p });
-      out = out.concat(deepFind(obj[k], pred, p));
-    });
-  }
-  return out;
-}
-/* true if a JSON-schema-ish node allows null */
-function nullable(node) {
-  if (!node || typeof node !== 'object') return false;
-  var t = node.type;
-  if (Array.isArray(t) && t.indexOf('null') !== -1) return true;
-  if (Array.isArray(node.enum) && node.enum.indexOf(null) !== -1) return true;
-  if (Array.isArray(node.anyOf)) return node.anyOf.some(function (s) { return s && s.type === 'null'; });
-  return false;
-}
-
-/* =============================================================
-   EXERCISES
    ============================================================= */
 
 var EXERCISES = [
@@ -527,239 +496,306 @@ var EXERCISES = [
          '<code>--output-format json</code> is how a pipeline consumes the result; and each CI run must be an ' +
          'isolated session, because a reused session leaks the previous diff and produces confident comments about ' +
          'code that is not under review. Scope tools explicitly rather than granting a blanket permissions bypass.'
+},
+
+/* ==========================================================================
+   BUILD TRACK — multi-agent systems, end to end.
+   These are longer than the drills above. Each one asks you to design a whole
+   system rather than a single configuration object, and the checklists name
+   the properties the exam grades on.
+   ========================================================================== */
+
+/* ---------------------------------------------------------- 17 */
+{
+  id: 'ex17', type: 'json', topics: 'Build · Orchestration', level: 'Build',
+  title: 'Build a PR-review multi-agent system: the agent manifest',
+  brief: 'Design the agent set for an automated pull-request reviewer on a monorepo covering payments, identity ' +
+         'and a public API. Requirements: three specialised review passes (security, business logic, API ' +
+         'compatibility) that can run concurrently; one synthesis agent that merges them into a single gated ' +
+         'verdict; and a coordinator that dispatches and owns the outcome. Reviewers must not be able to modify ' +
+         'files. Synthesis must not be able to introduce claims no reviewer produced. Emit a JSON manifest: an ' +
+         '<code>agents</code> array where each entry has <code>name</code>, <code>role</code>, ' +
+         '<code>description</code>, <code>tools</code> (array) and <code>model</code>, plus a top-level ' +
+         '<code>topology</code> string.',
+  starter: '{\n  "topology": "",\n  "agents": [\n    {\n      "name": "",\n      "role": "",\n      "description": "",\n      "tools": [],\n      "model": ""\n    }\n  ]\n}',
+  checks: [
+    { label: 'Valid JSON with a topology and an agents array', fn: function (o) { return o && typeof o.topology === 'string' && Array.isArray(o.agents); } },
+    { label: 'Five agents: coordinator, three specialised reviewers, one synthesis', fn: function (o) { return arr(o && o.agents).length >= 5; } },
+    { label: 'The three review passes are separated by concern, not by file type', fn: function (o, raw) { return /security/i.test(raw) && /(business|logic|domain)/i.test(raw) && /(api|compat|contract)/i.test(raw); } },
+    { label: 'Every reviewer is read-only (no Edit, Write or unscoped Bash)', fn: function (o) {
+        return arr(o && o.agents).filter(function (a) { return /review|security|logic|api/i.test((a.name || '') + (a.role || '')); })
+          .every(function (a) { return arr(a.tools).every(function (t) { return !/^(Edit|Write|MultiEdit)$/i.test(t) && !/^Bash$/i.test(t); }); }); } },
+    { label: 'Reviewers can actually read the code (Read and/or Grep/Glob present)', fn: function (o) {
+        return arr(o && o.agents).some(function (a) { return arr(a.tools).some(function (t) { return /^(Read|Grep|Glob)$/i.test(t); }); }); } },
+    { label: 'The synthesis agent has an EMPTY tools array', fn: function (o) {
+        var syn = arr(o && o.agents).filter(function (a) { return /synth|merge|verdict/i.test((a.name || '') + (a.role || '')); });
+        return syn.length > 0 && syn.every(function (a) { return arr(a.tools).length === 0; }); } },
+    { label: 'Each description says WHEN to use the agent, not only what it is', fn: function (o) {
+        return arr(o && o.agents).filter(function (a) { return a.description; })
+          .every(function (a) { return /\b(use|when|invoke|for)\b/i.test(a.description) && String(a.description).length > 40; }); } },
+    { label: 'Any scoped Bash is scoped to a command family (e.g. Bash(git diff:*))', fn: function (o, raw) { return !/"Bash"/.test(raw) || /Bash\([^)]+\)/.test(raw); } },
+    { label: 'Topology names a hybrid: fan-out for the passes, then synthesis', fn: function (o) { return /parallel|fan|concurrent/i.test(o && o.topology || '') && /synth|merge|then/i.test(o && o.topology || ''); } }
+  ],
+  solution:
+'{\n  "topology": "coordinator dispatches three review passes in parallel (fan-out), then a synthesis stage merges them into one verdict",\n  "agents": [\n    {\n      "name": "review-coordinator",\n      "role": "coordinator",\n      "description": "Use to run a full pull-request review. Decomposes the diff, dispatches the specialised passes, and owns the final gated verdict.",\n      "tools": ["Bash(git diff:*)", "Bash(git log:*)"],\n      "model": "sonnet"\n    },\n    {\n      "name": "security-reviewer",\n      "role": "review-pass",\n      "description": "Use when a diff touches auth, crypto, input handling, secrets or tenant-scoped data. Reports authorization gaps, injection paths and secret handling only.",\n      "tools": ["Read", "Grep", "Glob"],\n      "model": "sonnet"\n    },\n    {\n      "name": "logic-reviewer",\n      "role": "review-pass",\n      "description": "Use when a diff changes domain rules, state transitions, money handling or invariants. Reports business-logic defects only.",\n      "tools": ["Read", "Grep", "Glob"],\n      "model": "sonnet"\n    },\n    {\n      "name": "api-reviewer",\n      "role": "review-pass",\n      "description": "Use when a diff changes a public route, request or response shape. Reports breaking changes, pagination and error-contract problems only.",\n      "tools": ["Read", "Grep", "Glob"],\n      "model": "sonnet"\n    },\n    {\n      "name": "review-synthesis",\n      "role": "synthesis",\n      "description": "Use after all review passes return. Merges finding sets into one verdict, de-duplicates on file/line/class, and preserves per-pass attribution.",\n      "tools": [],\n      "model": "sonnet"\n    }\n  ]\n}',
+  notes: 'Three properties carry most of the marks. <strong>Reviewers are read-only</strong> because a reviewer ' +
+         'that can edit will helpfully fix things unreviewed — and that is an allowlist decision, never a system-prompt ' +
+         'instruction. <strong>Synthesis has no tools at all</strong>: a synthesis stage that can fetch will introduce ' +
+         'claims no pass produced, which is untraceable by construction. And <strong>descriptions are the routing ' +
+         'signal</strong> — an agent whose description says what it is but not when to use it never gets delegated to.'
+},
+
+/* ---------------------------------------------------------- 18 */
+{
+  id: 'ex18', type: 'text', topics: 'Build · Delegation', level: 'Build',
+  title: 'Write the delegation package for one review pass',
+  brief: 'The coordinator has the diff, the PR metadata and the project standards. It is about to dispatch the ' +
+         'security reviewer. Write the delegation prompt it sends. The subagent starts with an empty context: it ' +
+         'sees only its system prompt, its tools, and what you write here. It must complete without coming back ' +
+         'for missing context. Cover all five parts of the package: objective, established facts, structured data, ' +
+         'source metadata, and constraints plus the output contract.',
+  starter: '## Objective\n\n\n## Established facts (do not re-derive)\n\n\n## Changed surface\n\n\n## Constraints\n\n\n## Return exactly\n',
+  checks: [
+    { label: 'States a single outcome-shaped objective', fn: function (o, raw) { return has(raw, /##\s*Objective[\s\S]{25,}/i); } },
+    { label: 'Packs concrete values (a PR number, a branch, a commit SHA or file paths)', fn: function (o, raw) { return has(raw, /(#\d+|[0-9a-f]{7,40}|\/[\w.-]+\.(ts|js|py|go|rb|java|tsx))/); } },
+    { label: 'Lists the changed files or surface explicitly rather than saying "the diff"', fn: function (o, raw) { return has(raw, /\.(ts|tsx|js|py|go|rb|java)\b/) && !/^\s*the diff\s*$/im.test(raw); } },
+    { label: 'Carries facts the coordinator already established, marked not to re-derive', fn: function (o, raw) { return has(raw, /(do not re-?derive|already (established|verified|known)|established facts)/i); } },
+    { label: 'Names the applicable standard or rule source, not just "our standards"', fn: function (o, raw) { return has(raw, /(CLAUDE\.md|\.claude\/rules|rules\/|standards?\/|payments-rules|policy)/i); } },
+    { label: 'States what is OUT of scope (exclusions)', fn: function (o, raw) { return has(raw, /(do not report|out of scope|exclude|ignore|not in scope)/i); } },
+    { label: 'Constrains the tools or forbids modification', fn: function (o, raw) { return has(raw, /(you may (only )?(call|use)|read-only|do not (edit|modify|write))/i); } },
+    { label: 'Specifies an exact return shape, not "a summary"', fn: function (o, raw) { return has(raw, /\{[\s\S]*\}/) && has(raw, /return|output|respond with/i); } },
+    { label: 'Return shape carries per-finding evidence or source references', fn: function (o, raw) { return has(raw, /(evidence|source|ref|line|citation)/i); } },
+    { label: 'No pointers into a conversation the subagent cannot see', fn: function (o, raw) { return !has(raw, /(as (discussed|mentioned|noted) (above|earlier)|the address they (gave|provided)|earlier in (the|this) (chat|conversation)|see above)/i); } }
+  ],
+  solution:
+'## Objective\nDetermine whether PR #4471 introduces an authorization regression on tenant-scoped data.\nReport findings only; do not fix anything.\n\n## Established facts (do not re-derive)\n- Base commit 8f2a91c, head commit d41c07b, branch feature/orders-bulk.\n- Auth runs in src/api/middleware/auth.ts:44 and is applied per-router, not globally\n  (verified by the coordinator via Grep on `router.use(requireAuth`).\n- The payments review standards in .claude/rules/payments.md are the applicable ruleset.\n- A previous review (PR #4402) accepted direct process.env reads inside config/*.ts.\n\n## Changed surface\n- src/api/orders.ts            (+118 / -12)\n- src/api/routers/bulk.ts      (new file)\n- src/db/queries/orders.sql    (+9)\n\n## Constraints\n- You may call Read, Grep and Glob only. You may not edit, write or run shell commands.\n- Do not report style, naming or formatting; the linter owns those.\n- Do not report anything in **/generated/** or in test fixtures.\n- Report a finding only where you can state a concrete exploit path in this codebase.\n\n## Return exactly\n{\n  "status": "complete" | "partial" | "failed",\n  "findings": [\n    { "id": "SEC-1",\n      "severity": "high" | "medium" | "low",\n      "class": "missing_authz" | "injection" | "secret_exposure" | "other",\n      "file": "src/api/orders.ts",\n      "line": 142,\n      "claim": "one sentence",\n      "exploit_path": "concrete steps",\n      "evidence": [{ "source": "src/api/orders.ts", "ref": "L138-L151" }],\n      "confidence": "established" | "probable" | "contested" }\n  ],\n  "coverage": { "files_examined": 3, "files_skipped": 0, "skipped_reason": null },\n  "unresolved": ["free-text list of what you could not settle"]\n}',
+  notes: 'The single highest-value habit here is packing <strong>values, not pointers</strong>. "The address they ' +
+         'provided" and "as discussed above" are references into a conversation the subagent has never seen; ' +
+         '"14 Bridge St, Bristol BS1 4ND" is a value. The other easily-missed part is <code>coverage</code> and ' +
+         '<code>unresolved</code>: without them, a reviewer that looked in the wrong place is indistinguishable ' +
+         'from one that found nothing.'
+},
+
+/* ---------------------------------------------------------- 19 */
+{
+  id: 'ex19', type: 'classify', topics: 'Build · Context contracts', level: 'Build',
+  title: 'Context handling: orchestrator, subagent, synthesis, scratchpad',
+  brief: 'The hardest part of a multi-agent system is deciding <em>where each piece of information lives</em>. ' +
+         'For each item below, choose the one place it belongs. Remember: the system prompt carries the ' +
+         '<strong>role</strong>, the delegation prompt carries the <strong>task</strong>, the orchestrator holds ' +
+         'what must outlive any single agent, and the scratchpad holds what must outlive the context window.',
+  bins: [
+    { id: 'sys',   label: "Subagent's system prompt" },
+    { id: 'deleg', label: 'Delegation prompt' },
+    { id: 'orch',  label: 'Orchestrator state' },
+    { id: 'pad',   label: 'Scratchpad / durable store' }
+  ],
+  items: [
+    { t: 'You are a security reviewer. You never modify files.', a: 'sys',
+      why: 'A standing property of the role, identical on every invocation. Role in the body; task in the delegation prompt.' },
+    { t: 'The head commit of the PR under review is <code>d41c07b</code>.', a: 'deleg',
+      why: 'A per-task value. Put it in the system prompt and the next invocation inherits the wrong commit.' },
+    { t: 'Which of the twelve review passes have completed and which are still running.', a: 'orch',
+      why: 'No single subagent can know this. Ownership of the merged outcome is the coordinator\'s job.' },
+    { t: 'For each finding, report the file, the line and the exploit path.', a: 'sys',
+      why: 'A standing output convention for the role. It does not change between tasks, so it does not belong in every delegation prompt.' },
+    { t: 'The customer said at turn 6 that they cannot receive SMS.', a: 'orch',
+      why: 'An established constraint that must survive compaction and be passed to every subagent that could offer SMS. It lives in the structured state object.' },
+    { t: 'Conclusions reached over a 90-minute exploration, needed again tomorrow.', a: 'pad',
+      why: 'Anything that must outlive the context window or the session goes to durable storage, written as it is discovered rather than at the end.' },
+    { t: 'Do not report anything under <code>**/generated/**</code> on this task.', a: 'deleg',
+      why: 'Exclusions belong with the task. A project-wide exclusion could live in the role, but a task-specific one is delegation.' },
+    { t: 'The per-task status of each of 400 file analyses in a long pipeline.', a: 'pad',
+      why: 'Task graph plus per-task output, in a store that outlives the worker. In-process state does not survive a kill.' },
+    { t: 'You may call Read, Grep and Glob only.', a: 'sys',
+      why: 'The role\'s standing capability boundary. In Claude Code this is the <code>tools:</code> frontmatter, which is part of the agent definition, not the per-task prompt.' },
+    { t: 'The content hash of every file analysed, so a resume can detect staleness.', a: 'pad',
+      why: 'Fingerprints are what make targeted re-analysis possible, and they are only useful if they outlive the run that computed them.' },
+    { t: 'Auth runs in <code>middleware/auth.ts:44</code> — verified, do not re-derive.', a: 'deleg',
+      why: 'An established fact for this task. Packing it stops the subagent spending turns rediscovering it.' },
+    { t: 'Which subagent produced each claim in the final report.', a: 'orch',
+      why: 'Attribution is a property of the merge, owned by the component that performed it. A subagent cannot attribute claims it did not make.' }
+  ]
+},
+
+/* ---------------------------------------------------------- 20 */
+{
+  id: 'ex20', type: 'json', topics: 'Build · Output schemas', level: 'Build',
+  title: 'Design the subagent return schema and the synthesis contract',
+  brief: 'Three review passes return to a synthesis stage that must produce one gated verdict. Design the JSON a ' +
+         'single pass returns. It has to support four things the exam cares about: deterministic merging, ' +
+         'per-claim attribution, honest uncertainty, and the ability to tell "clean" apart from "not examined". ' +
+         'Emit an example return object for the security pass with at least two findings.',
+  starter: '{\n  "agent": "security-reviewer",\n  "status": "",\n  "findings": [],\n  "coverage": {},\n  "unresolved": []\n}',
+  checks: [
+    { label: 'Valid JSON naming the producing agent', fn: function (o) { return o && typeof o.agent === 'string' && o.agent.length > 0; } },
+    { label: 'A status field distinguishing complete from partial or failed', fn: function (o, raw) { return typeof (o && o.status) === 'string' && /complete|partial|failed/i.test(raw); } },
+    { label: 'Findings is an array with at least two entries', fn: function (o) { return arr(o && o.findings).length >= 2; } },
+    { label: 'Every finding carries a file and a line (mergeable identity)', fn: function (o) { return arr(o && o.findings).length > 0 && arr(o.findings).every(function (f) { return f && f.file && (f.line !== undefined); }); } },
+    { label: 'Every finding carries an enum-style class or category', fn: function (o) { return arr(o && o.findings).every(function (f) { return f && (f.class || f.category || f.error_class); }); } },
+    { label: 'Every finding carries a severity', fn: function (o) { return arr(o && o.findings).every(function (f) { return f && f.severity; }); } },
+    { label: 'Per-claim evidence or source references, not one reference for the report', fn: function (o) { return arr(o && o.findings).every(function (f) { return f && (arr(f.evidence).length > 0 || f.source || f.ref); }); } },
+    { label: 'Per-finding confidence or epistemic status (established / probable / contested)', fn: function (o, raw) { return arr(o && o.findings).every(function (f) { return f && (f.confidence || f.status); }) && /established|probable|contested|confirmed/i.test(raw); } },
+    { label: 'A coverage object saying what was examined and what was skipped', fn: function (o) { return o && o.coverage && typeof o.coverage === 'object' && Object.keys(o.coverage).length >= 2; } },
+    { label: 'An unresolved list, so silence is not read as an all-clear', fn: function (o) { return o && Array.isArray(o.unresolved); } },
+    { label: 'A bounded prose summary field alongside the structured data', fn: function (o) { return o && typeof o.summary === 'string' && o.summary.length > 0; } }
+  ],
+  solution:
+'{\n  "agent": "security-reviewer",\n  "status": "partial",\n  "findings": [\n    {\n      "id": "SEC-1",\n      "severity": "high",\n      "class": "missing_authz",\n      "file": "src/api/orders.ts",\n      "line": 142,\n      "claim": "Bulk handler reads :orgId from the path without checking membership.",\n      "exploit_path": "Authenticated user of org A requests /orgs/B/orders/bulk and receives org B rows.",\n      "evidence": [\n        { "source": "src/api/orders.ts", "ref": "L138-L151" },\n        { "source": "src/api/middleware/auth.ts", "ref": "L44-L58" }\n      ],\n      "confidence": "established"\n    },\n    {\n      "id": "SEC-2",\n      "severity": "medium",\n      "class": "injection",\n      "file": "src/db/queries/orders.sql",\n      "line": 17,\n      "claim": "Sort column is interpolated into the ORDER BY clause.",\n      "exploit_path": "Reachable only if the sort parameter bypasses the allowlist in bulk.ts; not demonstrated.",\n      "evidence": [{ "source": "src/db/queries/orders.sql", "ref": "L14-L20" }],\n      "confidence": "contested"\n    }\n  ],\n  "summary": "One confirmed tenant-isolation gap on the new bulk router, and one ORDER BY interpolation whose reachability I could not settle.",\n  "coverage": {\n    "files_examined": 3,\n    "files_skipped": 1,\n    "skipped_reason": "src/generated/schema.ts is generated code and is excluded by the review standards"\n  },\n  "unresolved": [\n    "Could not determine whether requireAuth is applied to the new bulk router; the router is registered dynamically in src/api/index.ts."\n  ]\n}',
+  notes: '<code>coverage</code> and <code>unresolved</code> are the fields people leave out, and they are the ones ' +
+         'that make the system honest. A pass that returns an empty findings array is indistinguishable from a pass ' +
+         'that looked in the wrong place — unless it also says what it examined and what it could not settle. ' +
+         'Per-finding <code>confidence</code> is what lets synthesis report a contested claim as contested instead ' +
+         'of flattening three different epistemic states into one confident paragraph.'
+},
+
+/* ---------------------------------------------------------- 21 */
+{
+  id: 'ex21', type: 'json', topics: 'Build · Support orchestration', level: 'Build',
+  title: 'Build a customer-support multi-agent system: tool distribution',
+  brief: 'A retail bank runs a support orchestrator with four specialised subagents: <em>accounts</em>, ' +
+         '<em>disputes</em>, <em>cards</em> and <em>policy</em>. Available tools are ' +
+         '<code>verify_identity</code>, <code>get_account</code>, <code>get_transactions</code>, ' +
+         '<code>get_statement</code>, <code>block_card</code>, <code>issue_replacement</code>, ' +
+         '<code>issue_refund</code>, <code>get_seller_policy</code>, <code>escalate_to_human</code> and ' +
+         '<code>close_session</code>. Refunds up to $50 are auto-approvable; above that a human must approve. ' +
+         'Produce a JSON object mapping each agent name to its tool array, plus a <code>rationale</code> object ' +
+         'mapping each agent to one sentence naming a tool it deliberately does NOT have and why.',
+  starter: '{\n  "coordinator": [],\n  "accounts": [],\n  "disputes": [],\n  "cards": [],\n  "policy": [],\n  "rationale": {}\n}',
+  checks: [
+    { label: 'All five agents present with array tool lists', fn: function (o) { return o && ['coordinator','accounts','disputes','cards','policy'].every(function (k) { return Array.isArray(o[k]); }); } },
+    { label: 'The disputes agent does NOT hold issue_refund', fn: function (o) { return arr(o && o.disputes).every(function (t) { return !/issue_refund/i.test(t); }); } },
+    { label: 'Exactly one agent holds issue_refund, and it is the coordinator', fn: function (o) {
+        var holders = ['coordinator','accounts','disputes','cards','policy'].filter(function (k) { return arr(o && o[k]).some(function (t) { return /issue_refund/i.test(t); }); });
+        return holders.length === 1 && holders[0] === 'coordinator'; } },
+    { label: 'escalate_to_human is on the coordinator (it owns the authority boundary)', fn: function (o) { return arr(o && o.coordinator).some(function (t) { return /escalate_to_human/i.test(t); }); } },
+    { label: 'close_session is on the coordinator only', fn: function (o) {
+        var holders = ['coordinator','accounts','disputes','cards','policy'].filter(function (k) { return arr(o && o[k]).some(function (t) { return /close_session/i.test(t); }); });
+        return holders.length === 1 && holders[0] === 'coordinator'; } },
+    { label: 'The cards agent holds the card tools and nothing outside its role', fn: function (o) {
+        var t = arr(o && o.cards).join(' ');
+        return /block_card/.test(t) && /issue_replacement/.test(t) && !/issue_refund|get_seller_policy|get_transactions/.test(t); } },
+    { label: 'The policy agent is read-only (no action tools at all)', fn: function (o) {
+        return arr(o && o.policy).length > 0 && arr(o.policy).every(function (t) { return !/(issue_|block_|close_|escalate_)/i.test(t); }); } },
+    { label: 'No agent holds the full catalogue', fn: function (o) { return ['coordinator','accounts','disputes','cards','policy'].every(function (k) { return arr(o && o[k]).length < 9; }); } },
+    { label: 'A rationale for every agent naming a deliberately absent tool', fn: function (o) {
+        return o && o.rationale && ['coordinator','accounts','disputes','cards','policy'].every(function (k) { return typeof o.rationale[k] === 'string' && o.rationale[k].length > 25; }); } }
+  ],
+  solution:
+'{\n  "coordinator": ["verify_identity", "issue_refund", "escalate_to_human", "close_session"],\n  "accounts":    ["get_account", "get_transactions", "get_statement"],\n  "disputes":    ["get_transactions", "get_account"],\n  "cards":       ["get_account", "block_card", "issue_replacement"],\n  "policy":      ["get_seller_policy"],\n  "rationale": {\n    "coordinator": "No get_statement or block_card: it delegates domain work rather than doing a worker\'s job badly, but it must own issue_refund because the $50 authority boundary and the escalation path are its responsibility.",\n    "accounts": "No issue_refund: an accounts agent that can move money will eventually settle a dispute it was only asked to explain.",\n    "disputes": "No issue_refund: its output contract is a recommendation, so it does not need an execution tool, and holding one is how four $49.99 refunds get issued to dodge a $50 limit.",\n    "cards": "No issue_refund and no get_transactions: card replacement never needs transaction history, and narrowing the catalogue improves selection among the tools it does hold.",\n    "policy": "No action tools whatsoever: it answers a question, and any ability to act would let a read-only lookup change the world."\n  }\n}',
+  notes: 'The rule is that <strong>tool access follows the output contract, not the topic</strong>. The disputes ' +
+         'agent is about disputes, so a refund tool feels natural — and that is exactly the trap. Its contract is a ' +
+         'recommendation, so it needs no execution tool. Note also that concentrating <code>issue_refund</code> on ' +
+         'the coordinator is what makes a per-dispute authority check possible at all: you cannot aggregate an ' +
+         'exposure limit across four agents that can each spend independently.'
+},
+
+/* ---------------------------------------------------------- 22 */
+{
+  id: 'ex22', type: 'text', topics: 'Build · Terminal state', level: 'Build',
+  title: 'Write the orchestrator loop that cannot drop a session',
+  brief: 'Write the session runner in pseudocode or JavaScript. Every exit path must record an outcome. Handle ' +
+         'each stop reason explicitly; bound the loop three ways; and account for the case where the process is ' +
+         'killed mid-session and no in-process code runs at all. Assume <code>callModel()</code>, ' +
+         '<code>runTools()</code>, <code>persist(state)</code> and <code>escalate(reason, partial)</code> exist.',
+  starter: 'async function runSession(session) {\n  // three budgets\n\n  while (true) {\n    const r = await callModel(session);\n\n    switch (r.stop_reason) {\n\n    }\n  }\n}\n',
+  checks: [
+    { label: 'Handles tool_use by running tools and continuing the loop', fn: function (o, raw) { return has(raw, /tool_use/) && has(raw, /runTools|executeTools/); } },
+    { label: 'Handles end_turn as terminal AND verifies before recording success', fn: function (o, raw) { return has(raw, /end_turn/) && has(raw, /verif|systemOfRecord|confirm|check[A-Z]/); } },
+    { label: 'Handles max_tokens as truncation rather than as a completed answer', fn: function (o, raw) { return has(raw, /max_tokens/); } },
+    { label: 'Handles refusal as terminal and escalates it', fn: function (o, raw) { return has(raw, /refusal/) && has(raw, /refusal[\s\S]{0,160}escalate/); } },
+    { label: 'Has a default branch that escalates on any unrecognised stop reason', fn: function (o, raw) { return has(raw, /default\s*:|else\s*\{/) && has(raw, /(default\s*:|else\s*\{)[\s\S]{0,200}escalate/); } },
+    { label: 'Bounds iterations with a turn budget', fn: function (o, raw) { return has(raw, /(turn|iteration)s?\s*(<|>|\+\+|>=|<=)|MAX_TURNS|maxTurns/i); } },
+    { label: 'Bounds elapsed time with a wall-clock deadline checked inside the loop', fn: function (o, raw) { return has(raw, /(Date\.now|deadline|elapsed|wallClock|nowMs)/i); } },
+    { label: 'Bounds spend with a cost or token budget', fn: function (o, raw) { return has(raw, /(cost|tokens?|usage|spend)\s*(>|>=|\+=)/i); } },
+    { label: 'EVERY budget exit escalates rather than merely breaking or returning', fn: function (o, raw) {
+        var m = raw.match(/(TURN_BUDGET|DEADLINE|COST|BUDGET)[A-Z_]*/g) || [];
+        return m.length >= 2 && has(raw, /escalate\([^)]*(BUDGET|DEADLINE|EXHAUST|TIMEOUT)/i); } },
+    { label: 'Persists session state durably as the session progresses', fn: function (o, raw) { return has(raw, /persist\s*\(/); } },
+    { label: 'Names the out-of-band sweeper for the killed-process case', fn: function (o, raw) { return has(raw, /(sweeper|reaper|out-of-band|cron|reconcil)/i); } },
+    { label: 'No path can fall through without recording something', fn: function (o, raw) { return !/\breturn;\s*$/m.test(raw) || has(raw, /escalate/); } }
+  ],
+  solution:
+'async function runSession(session) {\n  const deadline = Date.now() + session.slaMs;   // wall clock\n  let turns = 0;                                 // iterations\n  let cost  = 0;                                 // spend\n\n  await persist({ ...session, status: "RUNNING" });   // durable BEFORE work starts\n\n  while (true) {\n    if (turns++ >= MAX_TURNS)     return escalate("TURN_BUDGET_EXHAUSTED", session);\n    if (Date.now() > deadline)    return escalate("SLA_DEADLINE_EXCEEDED", session);\n    if (cost > MAX_COST_USD)      return escalate("COST_BUDGET_EXHAUSTED", session);\n\n    const r = await callModel(session);\n    cost += r.usage.costUsd;\n    session.messages.push(r);\n    await persist(session);\n\n    switch (r.stop_reason) {\n      case "tool_use": {\n        const results = await runTools(r);          // parallel where independent\n        session.messages.push(results);\n        await persist(session);\n        continue;\n      }\n      case "end_turn": {\n        // end_turn means generation stopped, NOT that anything happened in the world\n        const verified = await verifyAgainstSystemOfRecord(session);\n        return verified.ok\n          ? persist({ ...session, status: "RESOLVED", reason: verified.reason })\n          : escalate("CLAIMED_BUT_UNVERIFIED", session);\n      }\n      case "max_tokens":\n        // truncated mid-generation: never parse as final\n        return escalate("OUTPUT_TRUNCATED", session);\n      case "refusal":\n        return escalate("MODEL_REFUSAL", session);       // terminal; do not retry\n      case "pause_turn":\n        continue;                                        // send back unchanged\n      default:\n        // unknown stop reasons fail INTO escalation, never into silence\n        return escalate("UNKNOWN_STOP_REASON:" + r.stop_reason, session);\n    }\n  }\n}\n\n// The path no in-process code can cover: SIGKILL, node eviction, deploy restart.\n// A separate out-of-band sweeper reads durable state on a schedule and escalates\n// any session left in a non-terminal status past its SLA. try/finally and even a\n// SIGTERM handler do not run when the process is killed outright.',
+  notes: 'The property being graded is that <strong>every exit is a decision</strong>. A budget that merely ' +
+         '<code>break</code>s is not a safeguard: "the loop ended" is not an outcome. Two details separate a good ' +
+         'answer from a complete one — <code>end_turn</code> must be verified against the system of record before ' +
+         'it is recorded as success, and the killed-process path needs an <em>external</em> reaper, because a ' +
+         '<code>finally</code> block and a <code>SIGTERM</code> handler both need a process that is still running.'
+},
+
+/* ---------------------------------------------------------- 23 */
+{
+  id: 'ex23', type: 'choice', topics: 'Build · Orchestration decisions', level: 'Build',
+  title: 'Orchestration decisions under pressure',
+  brief: 'Ten judgement calls of the kind the exam builds whole scenarios around. Each has one best answer; ' +
+         'several of the wrong answers work, they are just not the thing being asked for.',
+  questions: [
+    { q: 'Four investigations; three of them need the first one\'s output. What topology?',
+      opts: ['All four in parallel, reconciling afterwards', 'Investigation one alone, then the other three in parallel', 'All four strictly sequential', 'One subagent per investigation, chained peer to peer'],
+      a: 1,
+      why: 'Read the dependency graph: one independent node, then three that become independent once it returns. Two waves is the minimum that respects the dependency, and parallelising all four just makes three agents guess.' },
+    { q: 'A subagent returns "cannot determine — I need the customer\'s prior claim history". The coordinator has it. Systemic fix?',
+      opts: ['Let the subagent query the coordinator mid-task', 'Give the subagent the coordinator\'s transcript', 'Build delegation packages from a structured state object', 'Move the determination into the coordinator'],
+      a: 2,
+      why: 'Round-tripping normalises the latency; transcript access destroys isolation and costs the whole history per turn. Building the package from maintained state fixes the class of failure for every subagent, not just this prompt.' },
+    { q: 'A worker returns an empty result because its upstream timed out. What must change?',
+      opts: ['Retry the worker three times before merging', 'Return a structured error and treat a missing required input as blocking', 'Note in the coordinator\'s prompt that empty may mean failure', 'Run that worker first so failures surface earlier'],
+      a: 1,
+      why: 'An empty result is indistinguishable from a legitimate absence. The failure must be expressible as data, and the merge step must refuse to proceed without a required input — that second half is the one people drop.' },
+    { q: 'Your synthesis agent has web search so it can "fill gaps". Assess.',
+      opts: ['Good: it makes reports more complete', 'Good, provided it cites what it finds', 'Bad: remove all tools; route gaps back to an investigator or a human', 'Bad: replace search with scratchpad read access'],
+      a: 2,
+      why: 'A synthesis stage reasons over worker output and introduces nothing. Any tool there is a path for claims to enter a report with no worker behind them — and citing a claim synthesis found itself just makes it an uncontrolled investigator with no brief.' },
+    { q: 'Which is the strongest reason to split one agent into several?',
+      opts: ['Specialised prompts make the model smarter', 'It mirrors how the team is organised', 'Context isolation: a wide read whose useful output is narrow', 'It reduces total token cost'],
+      a: 2,
+      why: 'Isolation and parallelism are the two real reasons. Multi-agent almost always costs MORE tokens — every subagent re-pays for a system prompt and a tool block — so a question framing it as the cheap option is signalling a trap.' },
+    { q: 'A goal-oriented brief needs coordinator visibility and control. Where does the control come from?',
+      opts: ['Enumerating the steps the agent must follow', 'The tool allowlist and the output schema', 'A lower temperature setting', 'Requiring approval before each tool call'],
+      a: 1,
+      why: 'Control over what it may touch and what must come back, latitude over how. Scripting the steps buys control by giving away the adaptability you delegated for.' },
+    { q: 'A defined subagent is never selected; invoked by name it works perfectly. Cause?',
+      opts: ['Its tools list is incomplete', 'Its description does not say when to use it', 'The parent session lacks a permission', 'It is in the project rather than user directory'],
+      a: 1,
+      why: 'Manual invocation succeeding rules out the definition, the tools and the permissions in one stroke. Description is the only routing signal left, and it must say WHEN, not merely what.' },
+    { q: 'Three specialised review passes share one library of few-shot examples drawn from security incidents. Effect?',
+      opts: ['Efficient: one library is easier to maintain', 'The API pass inherits the security severity bar and notion of a finding', 'No effect: examples only teach format', 'It improves recall on all three passes equally'],
+      a: 1,
+      why: 'Few-shot examples calibrate the severity bar as much as the category. Shared examples are the subtle wrong answer: each pass needs its own, ideally including a look-alike that is deliberately NOT a finding.' },
+    { q: 'A pipeline is killed at 45% and the re-run produces a different answer. What was missing?',
+      opts: ['A longer pod termination grace period', 'Durable per-task state plus an input fingerprint per task', 'A larger context window on the coordinator', 'Checkpointing every task to the conversation history'],
+      a: 1,
+      why: 'Two properties: durable state so completed work is skipped, and fingerprints so restored conclusions are still true. Grace periods move the cliff; conversation history dies with the process.' },
+    { q: 'An agent has looped for nine turns making identical tool calls. Best detection?',
+      opts: ['Ask the model each turn whether it is making progress', 'Compare tool-call signatures and observed state across turns', 'Raise the turn budget so it can find a new angle', 'Lower the temperature so it stops varying its approach'],
+      a: 1,
+      why: 'Repetition is directly observable and needs no introspection. Asking a stuck agent whether it is stuck is asking the failing component to diagnose itself — it believes each turn is productive.' }
+  ]
+},
+
+/* ---------------------------------------------------------- 24 */
+{
+  id: 'ex24', type: 'lab', topics: 'Build · Terminal lab', level: 'Terminal lab',
+  title: 'Lab — build and run a two-agent review pipeline locally',
+  brief: 'Everything above is on paper. This lab takes about thirty minutes and makes the delegation boundary ' +
+         'physical: you will watch a subagent succeed with a good package and fail with a bad one, and you will ' +
+         'see exactly what the coordinator does and does not receive back.',
+  steps: [
+    'Create a scratch repo with a real defect to find: <code>mkdir agent-lab &amp;&amp; cd agent-lab &amp;&amp; git init</code>. Add <code>src/api/orders.ts</code> containing a handler that reads an <code>orgId</code> from the path and queries by it with no membership check, plus two or three innocuous files.',
+    'Create <code>.claude/agents/security-reviewer.md</code>. Frontmatter: <code>name</code>, a <code>description</code> that says <em>when</em> to use it, <code>tools: Read, Grep, Glob</code>, and a model. Body: the role, the finding format, and a rule that a finding requires a concrete exploit path.',
+    'Ask Claude Code to review the diff using that subagent. Read the output: does it name the file and line? Does it say what it did not examine?',
+    'Now break the allowlist deliberately — add <code>Edit</code> to <code>tools:</code> and ask for a review of a file with an obvious small bug. Watch whether the reviewer stays a reviewer. This is the single most persuasive demonstration of why role boundaries are allowlists and not system prompts.',
+    'Restore the allowlist. Now break the description instead: change it to just <code>Reviews code.</code> Start a fresh session and ask for a security review without naming the agent. Observe whether it is selected at all.',
+    'Delegation experiment. Write two delegation prompts for the same task. Prompt A says "review the changes we discussed for auth problems". Prompt B names the commit, lists the changed files, states the applicable rules file, gives the exclusions and specifies the exact return shape. Run both. Compare what comes back — and count how many turns each one takes.',
+    'Add a second agent, <code>.claude/agents/api-reviewer.md</code>, with its own concern and its own examples. Ask for both reviews in one request and watch whether they are dispatched together or one after the other.',
+    'Finally, write a tiny synthesis step yourself: take both agents\' outputs and merge them by hand into one verdict. Notice what you needed in order to de-duplicate — file, line and class — and notice what you could not do because one of the reports gave you a paragraph instead of a structure. That gap is what the output-schema exercise is about.'
+  ],
+  reveal:
+'What the lab is designed to make permanent:\n\n1. tools: is the boundary. A reviewer with Edit edits. Every time. Not because the\n   model is disobedient, but because in some situation fixing the bug is obviously\n   the helpful thing to do, and nothing in the system prevents it.\n\n2. description is the router. "Reviews code." is not a routing signal. The\n   coordinator matches a task against descriptions, so a description that does not\n   say WHEN produces an agent that exists and is never used.\n\n3. The delegation prompt is a closure. Prompt A sends the subagent to look for a\n   conversation it cannot see; it will either ask, or guess, or review the wrong\n   thing confidently. Prompt B finishes in fewer turns AND produces a mergeable\n   result. That difference is the whole of objective "construct subagent prompts\n   that include everything required for task completion".\n\n4. Structure is what makes synthesis possible. You cannot de-duplicate prose. The\n   moment you try to merge two reports by hand you discover exactly which fields\n   the schema needed: a stable identity (file + line + class), an epistemic status,\n   and a statement of what was not examined.',
+  notes: 'If you only do one step, do the delegation experiment. Running the same task with a pointer-style ' +
+         'prompt and a closure-style prompt, back to back, is the fastest way to internalise the single idea that ' +
+         'the largest family of exam questions turns on.'
 }
 
 ];
-
-/* =============================================================
-   RENDERING
-   ============================================================= */
-
-function el(tag, cls, html) {
-  var e = document.createElement(tag);
-  if (cls) e.className = cls;
-  if (html != null) e.innerHTML = html;
-  return e;
-}
-
-function render(ex) {
-  var card = el('div', 'ex-card');
-  card.id = ex.id;
-
-  var head = el('div', 'ex-head');
-  head.appendChild(el('h3', null, ex.title));
-  head.appendChild(el('span', 'tag accent', ex.topics));
-  head.appendChild(el('span', 'tag', ex.level));
-  card.appendChild(head);
-  card.appendChild(el('p', 'small muted', ex.brief));
-
-  if (ex.type === 'classify') renderClassify(ex, card);
-  else if (ex.type === 'choice') renderChoice(ex, card);
-  else if (ex.type === 'lab') renderLab(ex, card);
-  else renderEditor(ex, card);
-
-  return card;
-}
-
-/* ---- classify ---- */
-function renderClassify(ex, card) {
-  var state = {};
-  var wrap = el('div');
-  wrap.style.margin = '14px 0';
-
-  ex.items.forEach(function (item, i) {
-    var row = el('div');
-    row.style.cssText = 'border:1px solid var(--border);border-radius:6px;padding:10px 12px;margin:7px 0;background:var(--bg-elev)';
-    row.appendChild(el('div', null, item.t));
-
-    var btns = el('div');
-    btns.style.cssText = 'display:flex;gap:6px;flex-wrap:wrap;margin-top:8px';
-    ex.bins.forEach(function (b) {
-      var btn = el('button', 'chip', b.label);
-      btn.style.cssText = 'width:auto;display:inline-block;margin:0;padding:4px 10px;font-size:12.5px';
-      btn.onclick = function () {
-        state[i] = b.id;
-        Array.prototype.forEach.call(btns.children, function (c) { c.style.borderColor = 'var(--border)'; c.style.background = 'var(--bg-elev)'; });
-        btn.style.borderColor = 'var(--accent)';
-        btn.style.background = 'var(--accent-soft)';
-      };
-      btns.appendChild(btn);
-    });
-    row.appendChild(btns);
-
-    var fb = el('div', 'small');
-    fb.style.cssText = 'margin-top:8px;display:none';
-    row.appendChild(fb);
-    row._fb = fb; row._btns = btns;
-    wrap.appendChild(row);
-  });
-  card.appendChild(wrap);
-
-  var bar = el('div');
-  bar.style.cssText = 'display:flex;gap:10px;align-items:center;flex-wrap:wrap';
-  var check = el('button', 'btn sm', 'Check answers');
-  var reset = el('button', 'btn ghost sm', 'Reset');
-  var score = el('span', 'small muted');
-  bar.appendChild(check); bar.appendChild(reset); bar.appendChild(score);
-  card.appendChild(bar);
-
-  check.onclick = function () {
-    var right = 0;
-    Array.prototype.forEach.call(wrap.children, function (row, i) {
-      var item = ex.items[i], ok = state[i] === item.a;
-      if (ok) right++;
-      var binLabel = (ex.bins.filter(function (b) { return b.id === item.a; })[0] || {}).label;
-      row._fb.style.display = 'block';
-      row._fb.innerHTML = (ok ? '<span style="color:var(--ok);font-weight:700">✓ Correct</span> — '
-                              : '<span style="color:var(--bad);font-weight:700">✗ ' + (state[i] ? 'Not quite' : 'No answer') +
-                                '</span> — answer: <strong>' + binLabel + '</strong>. ') + item.why;
-      row.style.borderColor = ok ? 'var(--ok-line)' : 'var(--bad-line)';
-    });
-    score.innerHTML = '<strong>' + right + ' / ' + ex.items.length + '</strong> correct';
-  };
-  reset.onclick = function () {
-    state = {};
-    Array.prototype.forEach.call(wrap.children, function (row) {
-      row._fb.style.display = 'none';
-      row.style.borderColor = 'var(--border)';
-      Array.prototype.forEach.call(row._btns.children, function (c) { c.style.borderColor = 'var(--border)'; c.style.background = 'var(--bg-elev)'; });
-    });
-    score.textContent = '';
-  };
-}
-
-/* ---- choice ---- */
-function renderChoice(ex, card) {
-  ex.questions.forEach(function (q, qi) {
-    var box = el('div');
-    box.style.cssText = 'border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin:10px 0;background:var(--bg-elev)';
-    box.appendChild(el('div', null, '<strong>' + (qi + 1) + '.</strong> ' + q.q));
-    var opts = el('div');
-    opts.style.cssText = 'display:flex;flex-direction:column;gap:6px;margin-top:9px';
-    var fb = el('div', 'small');
-    fb.style.cssText = 'margin-top:9px;display:none';
-
-    q.opts.forEach(function (t, oi) {
-      var b = el('button', 'chip', '<code>' + t + '</code>');
-      b.onclick = function () {
-        Array.prototype.forEach.call(opts.children, function (c, ci) {
-          c.classList.remove('right', 'wrong');
-          if (ci === q.a) c.classList.add('right');
-        });
-        if (oi !== q.a) b.classList.add('wrong');
-        fb.style.display = 'block';
-        fb.innerHTML = (oi === q.a ? '<span style="color:var(--ok);font-weight:700">✓ Correct.</span> '
-                                   : '<span style="color:var(--bad);font-weight:700">✗ Not this one.</span> ') + q.why;
-      };
-      opts.appendChild(b);
-    });
-    box.appendChild(opts); box.appendChild(fb);
-    card.appendChild(box);
-  });
-}
-
-/* ---- lab ---- */
-function renderLab(ex, card) {
-  var ol = el('ol');
-  ol.style.cssText = 'font-size:14.5px;margin:14px 0';
-  ex.steps.forEach(function (s) { ol.appendChild(el('li', null, s)); });
-  card.appendChild(ol);
-
-  var d = el('details', 'reveal');
-  d.appendChild(el('summary', null, 'Show reference solution'));
-  var inner = el('div');
-  var pre = el('pre'); pre.appendChild(el('code', null, escapeHtml(ex.reveal)));
-  inner.appendChild(pre);
-  if (ex.notes) inner.appendChild(el('div', 'note rule', '<b>What this teaches</b>' + ex.notes));
-  d.appendChild(inner);
-  card.appendChild(d);
-}
-
-/* ---- json / text editor ---- */
-function renderEditor(ex, card) {
-  var ta = el('textarea', 'code-input');
-  ta.spellcheck = false;
-  var savedVal = store.get('ex-' + ex.id, null);
-  ta.value = savedVal != null ? savedVal : ex.starter;
-  ta.addEventListener('input', function () { store.set('ex-' + ex.id, ta.value); });
-  card.appendChild(ta);
-
-  var bar = el('div');
-  bar.style.cssText = 'display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px';
-  var check = el('button', 'btn sm', 'Check my answer');
-  var reset = el('button', 'btn ghost sm', 'Reset to starter');
-  var score = el('span', 'small muted');
-  bar.appendChild(check); bar.appendChild(reset); bar.appendChild(score);
-  card.appendChild(bar);
-
-  var list = el('ul', 'checks');
-  card.appendChild(list);
-
-  var sol = el('details', 'reveal');
-  sol.appendChild(el('summary', null, 'Show reference solution'));
-  var inner = el('div');
-  var pre = el('pre'); pre.appendChild(el('code', null, escapeHtml(ex.solution)));
-  inner.appendChild(pre);
-  if (ex.notes) inner.appendChild(el('div', 'note rule', '<b>Why this is the answer</b>' + ex.notes));
-  sol.appendChild(inner);
-  card.appendChild(sol);
-
-  check.onclick = function () {
-    var raw = ta.value, obj = null, parseErr = null;
-    if (ex.type === 'json') {
-      try { obj = JSON.parse(raw); }
-      catch (e) { parseErr = e.message; }
-    }
-    list.innerHTML = '';
-    if (parseErr) {
-      var li = el('li', 'fail');
-      li.appendChild(el('span', 'm', '✗'));
-      li.appendChild(el('span', null, 'That is not valid JSON — ' + escapeHtml(parseErr)));
-      list.appendChild(li);
-      score.innerHTML = '<strong>0 / ' + ex.checks.length + '</strong>';
-      return;
-    }
-    var pass = 0;
-    ex.checks.forEach(function (c) {
-      var ok = false;
-      try { ok = !!c.fn(obj, raw); } catch (e) { ok = false; }
-      if (ok) pass++;
-      var li = el('li', ok ? 'pass' : 'fail');
-      li.appendChild(el('span', 'm', ok ? '✓' : '✗'));
-      li.appendChild(el('span', null, c.label));
-      list.appendChild(li);
-    });
-    score.innerHTML = '<strong>' + pass + ' / ' + ex.checks.length + '</strong> checks passed' +
-      (pass === ex.checks.length ? ' — <span style="color:var(--ok);font-weight:700">complete</span>' : '');
-    if (pass === ex.checks.length) sol.open = true;
-  };
-
-  reset.onclick = function () {
-    ta.value = ex.starter;
-    store.del('ex-' + ex.id);
-    list.innerHTML = '';
-    score.textContent = '';
-  };
-}
-
-function escapeHtml(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-/* ---- boot ---- */
-document.addEventListener('DOMContentLoaded', function () {
-  var root = document.getElementById('exRoot');
-  var nav = document.getElementById('exNav');
-  if (!root) return;
-  EXERCISES.forEach(function (ex, i) {
-    root.appendChild(render(ex));
-    if (nav) {
-      var a = document.createElement('a');
-      a.href = '#' + ex.id;
-      a.innerHTML = '<span class="sb-num">' + (i + 1) + '</span> ' + ex.title;
-      nav.appendChild(a);
-    }
-  });
-});
-
-})();

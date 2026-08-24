@@ -43,7 +43,11 @@
     if (page === '') page = 'index.html';
     document.querySelectorAll('.nav a').forEach(function (a) {
       var href = (a.getAttribute('href') || '').split('#')[0].toLowerCase();
-      if (href === page) a.classList.add('active');
+      if (href === page) {
+        a.classList.add('active');
+        var g = a.closest ? a.closest('.navgroup') : null;
+        if (g) g.classList.add('is-current');
+      }
     });
 
     /* sidebar scrollspy */

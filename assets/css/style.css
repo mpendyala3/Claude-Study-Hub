@@ -649,3 +649,54 @@ kbd {
 @media print {
   .topbar, .sidebar, .footer, .exam-bar, .q-nav, .exam-actions { display: none !important; }
 }
+
+/* ---------- two-track nav (A1 / A2) ---------- */
+.navgroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  padding: 2px 3px 2px 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+}
+.navgroup + .navgroup { margin-left: 8px; }
+.navgroup .navlabel {
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .06em;
+  color: var(--text-faint);
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: var(--bg-sunk);
+}
+.navgroup.is-current .navlabel { background: var(--accent-soft); color: var(--accent); }
+.navgroup a { padding: 5px 9px; font-size: 13px; }
+
+/* track badge used on page headers */
+.track-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12px; font-weight: 700; letter-spacing: .04em;
+  padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg-elev); color: var(--text-dim);
+}
+.track-badge b { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .nav { gap: 6px; }
+  .navgroup + .navgroup { margin-left: 0; }
+}
+
+/* ---------- objective tables and lists (A2 overview) ---------- */
+ol.spaced, ul.spaced { padding-left: 20px; }
+ol.spaced > li, ul.spaced > li { margin: 0 0 12px; line-height: 1.55; }
+ul.tight { margin: 6px 0 0; padding-left: 20px; }
+ul.tight > li { margin: 0 0 4px; }
+.objtable td.oid { font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, monospace); font-size: 12px; color: var(--text-faint); }
+.objtable tr.domrow td { background: var(--bg-sunk); padding-top: 14px; padding-bottom: 12px; }
+.objtable tr.domrow strong { font-size: 15px; }
+
+/* ---------- A2 docs additions ---------- */
+.sidebar a.prio { border-left: 2px solid var(--bad); padding-left: 8px; }
+pre.mini { margin: 6px 0 10px; }
+pre.mini code { font-size: 12px; line-height: 1.5; }

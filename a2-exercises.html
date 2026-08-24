@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A1 Exercises — CCAR-F Study Hub</title>
-<meta name="description" content="Twenty-four hands-on exercises for the Claude Certified Architect – Foundations exam, graded in the browser, including a build track of multi-agent system designs.">
+<title>A2 Exercises — CCAR-F Study Hub</title>
+<meta name="description" content="Fourteen graded exercises written to the Attempt-2 CCAR-F objectives, weighted towards the seven scored at 0%: tool distribution, context: fork, review architecture, dynamic decomposition, tool_choice sequencing, CI invocation and test generation.">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <script src="assets/js/app.js"></script>
@@ -40,27 +40,26 @@
     <h4>Exercises</h4>
     <div id="exNav"></div>
     <h4>Elsewhere</h4>
-    <a href="docs.html">← Documentation</a>
-    <a href="exam.html">Mock exam →</a>
+    <a href="a2-docs.html">← A2 Documentation</a>
+    <a href="a2-exam.html">A2 mock exam →</a>
   </aside>
 
   <main class="content">
-    <div class="track-badge"><b>A1</b> Attempt-1 blueprint</div>
-    <div class="eyebrow">A1 Exercises · hands-on</div>
-    <h1>Twenty-four exercises, graded against the exam's rules</h1>
-    <p class="lede">Most are checked in your browser as you type — write the real configuration, the real schema,
-    the real hook, and see exactly which requirements you missed. Three are terminal labs you run on your own
-    machine, because the exit-code semantics of a hook only become permanent once you have watched one block an
-    edit.</p>
+    <div class="track-badge"><b>A2</b> Attempt-2 blueprint</div>
+    <div class="eyebrow">A2 Exercises · hands-on</div>
+    <h1>Fourteen exercises, aimed at what you actually got wrong</h1>
+    <p class="lede">Written to the Attempt-2 objectives and weighted deliberately: seven of these fourteen
+    target objectives you scored <strong>0%</strong> on, and the rest target the 50&ndash;67% tail. Nine are graded
+    in your browser as you type; one is a terminal lab. The checklists name the exact properties the objective is
+    written around, so a partial score tells you which property you missed.</p>
 
     <div class="note rule">
-      <b>Two tracks on this page</b>
-      Exercises <strong>1&ndash;16</strong> are the original drills: one configuration surface, one schema, one hook
-      at a time. Exercises <strong>17&ndash;24</strong> are the <strong>build track</strong>, added because the exam
-      asks you to design whole systems rather than single objects: a PR-review multi-agent pipeline, a support
-      orchestrator's tool distribution, the context contract between orchestrator, subagent and synthesis stage, and
-      an orchestrator loop that cannot silently drop a session. Start with the drills if you are new to a topic;
-      the build track is where the exam actually lives.
+      <b>Do these in order</b>
+      They are sequenced by priority, not by difficulty. Exercises 1&ndash;7 cover the zeros: review architecture,
+      CI invocation, <code>context: fork</code>, tool distribution, <code>tool_choice</code> and sequencing,
+      dynamic decomposition, and test generation. Exercises 8&ndash;13 cover the partial credits. Exercise 14 is a
+      terminal lab that makes three of the zeros physical &mdash; if you only have an hour, do exercise 5 and then
+      the lab.
     </div>
 
     <div class="note rule">
@@ -90,7 +89,7 @@
 
 <footer class="footer"><div class="wrap">CCAR-F Study Hub · Independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
 <script src="assets/js/ex-helpers.js"></script>
-<script src="assets/js/exercises-a1.js"></script>
+<script src="assets/js/exercises-a2.js"></script>
 <script src="assets/js/ex-engine.js"></script>
 </body>
 </html>

@@ -4,8 +4,12 @@
 (function () {
 'use strict';
 
-var TOTAL_SECONDS = 120 * 60;
-var PASS_SCALED = 720;
+/* Per-track configuration. A page sets window.EXAM_CONFIG before loading this
+   engine; the storage key is what keeps an A1 attempt and an A2 attempt apart. */
+var CFG = window.EXAM_CONFIG || {};
+var TOTAL_SECONDS = (CFG.minutes || 120) * 60;
+var PASS_SCALED = CFG.pass || 720;
+var STORE_KEY = CFG.storeKey || 'exam';
 
 var S = {
   started: false,
@@ -38,14 +42,14 @@ function fmtTime(s) {
 
 /* ---------- persistence ---------- */
 function save() {
-  store.set('exam', {
+  store.set(STORE_KEY, {
     started: S.started, mode: S.mode, order: S.order, cur: S.cur,
     answers: S.answers, revealed: S.revealed, flags: S.flags,
     endsAt: S.endsAt, submitted: S.submitted
   });
 }
 function load() {
-  var d = store.get('exam', null);
+  var d = store.get(STORE_KEY, null);
   if (!d || !d.started || !Array.isArray(d.order) || d.order.length !== QUESTIONS.length) return false;
   S.started = true; S.mode = d.mode; S.order = d.order; S.cur = d.cur || 0;
   S.answers = d.answers || {}; S.revealed = d.revealed || {}; S.flags = d.flags || {};
@@ -68,7 +72,7 @@ function start(mode, shuffled) {
 
 function resetAll() {
   if (!confirm('Discard this attempt and all answers?')) return;
-  store.del('exam');
+  store.del(STORE_KEY);
   clearInterval(S.tick);
   S = { started: false, mode: 'study', order: [], cur: 0, answers: {}, revealed: {}, flags: {}, endsAt: null, submitted: false, tick: null };
   $('intro').classList.remove('hide');
@@ -395,7 +399,7 @@ function showResults() {
   rev.onclick = function () { S.cur = 0; showExam(); window.scrollTo(0, 0); };
   act.appendChild(rev);
   var again = el('button', 'btn ghost', 'Retake (shuffled)');
-  again.onclick = function () { store.del('exam'); start(S.mode, true); window.scrollTo(0, 0); };
+  again.onclick = function () { store.del(STORE_KEY); start(S.mode, true); window.scrollTo(0, 0); };
   act.appendChild(again);
   var rst = el('button', 'btn ghost', 'Start over');
   rst.onclick = resetAll;
