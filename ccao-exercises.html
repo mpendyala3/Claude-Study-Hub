@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAO Exercises — Claude Certified Associate Foundations</title>
+<meta name="description" content="Twenty-six graded exercises across all seven CCAO-F domains: prompt rewriting, validation-vs-triage classification, review plan design, workflow specification, Project instructions, data-handling judgement and diagnostic ordering. Graded in your browser.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub <small>· CCAO-F track</small></a>
+    <nav class="nav">
+      <span class="navgroup" data-track="a1">
+        <span class="navlabel">A1</span>
+        <a href="index.html">Overview</a>
+        <a href="docs.html">Docs</a>
+        <a href="exercises.html">Exercises</a>
+        <a href="exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="a2">
+        <span class="navlabel">A2</span>
+        <a href="a2-index.html">Overview</a>
+        <a href="a2-docs.html">Docs</a>
+        <a href="a2-exercises.html">Exercises</a>
+        <a href="a2-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccao">
+        <span class="navlabel">CCAO</span>
+        <a href="ccao-index.html">Overview</a>
+        <a href="ccao-docs.html">Docs</a>
+        <a href="ccao-exercises.html">Exercises</a>
+        <a href="ccao-exam.html">Exam</a>
+      </span>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+
+  <aside class="sidebar">
+    <h4>Exercises</h4>
+    <div id="exNav"></div>
+    <h4>Elsewhere</h4>
+    <a href="ccao-index.html">← CCAO Overview</a>
+    <a href="ccao-docs.html">← CCAO Documentation</a>
+    <a href="ccao-exam.html">CCAO mock exam →</a>
+  </aside>
+
+  <main class="content">
+    <div class="track-badge"><b>CCAO</b> Associate &mdash; Foundations</div>
+    <div class="eyebrow">CCAO Exercises · 26 graded drills</div>
+    <h1>Twenty-six exercises, weighted to the blueprint</h1>
+    <p class="lede">Written to the thirty CCAO-F objectives and distributed by the published domain weights, so
+    the six exercises on <a href="ccao-docs.html#d2">output evaluation</a> match the fact that it is 21% of the
+    exam. Ten are graded in your browser as you type; eleven are rapid classification drills; four are
+    prose-option decision sets; one is a lab you run in the Claude app. The checklists name the exact property
+    each objective is written around, so a partial score tells you which property you missed.</p>
+
+    <div class="note rule">
+      <b>Where the exercises sit against the blueprint</b>
+      Prompting <span class="tag">1&ndash;4</span> ·
+      Evaluation <span class="tag warn">5&ndash;10 · largest domain</span> ·
+      Product and model <span class="tag">11&ndash;13</span> ·
+      Workflow <span class="tag">14&ndash;17</span> ·
+      Configuration <span class="tag">18&ndash;20</span> ·
+      Governance <span class="tag">21&ndash;24</span> ·
+      Troubleshooting <span class="tag">25&ndash;26</span>
+      <div class="small muted" style="margin-top:8px">If you only have an hour: do 5, 7, 12, 21 and 25. Those five
+      cover the decisions that recur most often across the whole exam.</div>
+    </div>
+
+    <div class="note rule">
+      <b>Work them without the reference solution open</b>
+      Every exercise reveals a full worked answer, but the checklist is the teaching device: each check is a
+      requirement the exam grades on, phrased so a failure tells you what to change. Get to a partial score first,
+      read which checks failed, fix them, and re-check &mdash; that loop is what transfers to exam day. The
+      browser-graded editors save your text locally, so you can come back to a half-finished answer.
+    </div>
+
+    <div class="note trap">
+      <b>The checks reward substance, not vocabulary</b>
+      They accept the several ways a competent answer phrases a thing, and they are strict about whether the
+      property is present at all. A check for a missing-information rule passes on
+      &ldquo;write <em>not stated</em>&rdquo;, &ldquo;say so explicitly&rdquo; or &ldquo;leave it blank and flag
+      it&rdquo; &mdash; and fails on &ldquo;be accurate&rdquo;, because that is not a rule you could verify in an
+      output. That distinction is the exam's, not this hub's.
+    </div>
+
+    <div class="grid grid-3" style="margin:22px 0 8px">
+      <div class="card"><h4 class="mt0">Browser-graded writing</h4><p class="small muted mb0">Rewrite a prompt, write Project instructions, brief a sceptical stakeholder, answer a data incident. Hit <em>Check</em> and each requirement passes or fails by name.</p></div>
+      <div class="card"><h4 class="mt0">Classification drills</h4><p class="small muted mb0">Fast recall for the decisions the exam repeats: validation or triage, which surface, which tier, instructions or knowledge, what actually goes in, diagnose in order.</p></div>
+      <div class="card"><h4 class="mt0">App lab</h4><p class="small muted mb0">Build a Project in the Claude app and then break it deliberately &mdash; remove the missing-information rule, add a contradictory instruction, leave a superseded document in place, and watch each failure mode arrive.</p></div>
+    </div>
+
+    <div id="exRoot"></div>
+
+    <div class="card" style="margin-top:30px">
+      <div class="spread">
+        <div><strong>Done with the drills?</strong><div class="small muted">Sit the timed mock. It is deliberately
+        harder than the real exam &mdash; 60 items, 120 minutes, 720 to pass.</div></div>
+        <a class="btn" href="ccao-exam.html">Start the CCAO mock exam →</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    CCAR-F Study Hub · CCAO-F track — independent study material; not affiliated with or endorsed by Anthropic.
+  </div>
+</footer>
+<script src="assets/js/ex-helpers.js"></script>
+<script src="assets/js/exercises-ccao.js"></script>
+<script src="assets/js/ex-engine.js"></script>
+</body>
+</html>

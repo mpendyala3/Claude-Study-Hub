@@ -114,7 +114,8 @@ function renderChoice(ex, card) {
     fb.style.cssText = 'margin-top:9px;display:none';
 
     q.opts.forEach(function (t, oi) {
-      var b = el('button', 'chip', '<code>' + t + '</code>');
+      /* ex.prose: options are sentences, not code fragments — skip the monospace wrap */
+      var b = el('button', 'chip', ex.prose ? t : '<code>' + t + '</code>');
       b.onclick = function () {
         Array.prototype.forEach.call(opts.children, function (c, ci) {
           c.classList.remove('right', 'wrong');

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAO Mock Exam — Claude Certified Associate Foundations</title>
+<meta name="description" content="60-question, 120-minute mock exam written to the seven CCAO-F domains and thirty objectives at their published weights, with seven recurring business scenarios and a teaching explanation for every option.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub <small>· CCAO-F track</small></a>
+    <nav class="nav">
+      <span class="navgroup" data-track="a1">
+        <span class="navlabel">A1</span>
+        <a href="index.html">Overview</a>
+        <a href="docs.html">Docs</a>
+        <a href="exercises.html">Exercises</a>
+        <a href="exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="a2">
+        <span class="navlabel">A2</span>
+        <a href="a2-index.html">Overview</a>
+        <a href="a2-docs.html">Docs</a>
+        <a href="a2-exercises.html">Exercises</a>
+        <a href="a2-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccao">
+        <span class="navlabel">CCAO</span>
+        <a href="ccao-index.html">Overview</a>
+        <a href="ccao-docs.html">Docs</a>
+        <a href="ccao-exercises.html">Exercises</a>
+        <a href="ccao-exam.html">Exam</a>
+      </span>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<!-- sticky exam bar -->
+<div class="exam-bar hide" id="examBar">
+  <div class="narrow exam-bar-inner">
+    <span class="timer" id="timer">120:00</span>
+    <span class="tag accent" id="modeLabel">Study mode</span>
+    <div class="progress"><i id="progressBar"></i></div>
+    <span class="small muted" id="answeredCount">0 / 60 answered</span>
+    <button class="btn sm ghost" id="submitTop">Submit</button>
+    <button class="btn sm ghost" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<main class="narrow content">
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro">
+    <div class="track-badge"><b>CCAO</b> Associate &mdash; Foundations</div>
+    <div class="eyebrow">CCAO Mock exam</div>
+    <h1>60 questions · 120 minutes · pass at 720</h1>
+    <p class="lede">Written to the <strong>thirty CCAO-F objectives</strong> at the published domain weights, and
+    deliberately harder than the live exam. Seven organisations recur throughout &mdash; a UK insurer's claims
+    operation, a retailer rewriting 30,000 product descriptions, a consultancy under client disclosure rules, an
+    NHS-style trust writing to patients, a bank's regulated support desk, a SaaS company's research and product
+    work, and a council making decisions about residents. Every item has <strong>two plausible finalists</strong>,
+    and every option &mdash; right and wrong &mdash; carries an explanation of why.</p>
+
+    <div class="note rule">
+      <b>Read the objective tag on each item</b>
+      Every question is labelled with its domain and its objective (for example
+      <span class="tag info">Output Evaluation and Validation</span> <span class="tag">2.3 Fact-checking
+      techniques</span>). When you get one wrong, that tag is the exact section of the
+      <a href="ccao-docs.html">CCAO documentation</a> to go back to, and the matching drill in the
+      <a href="ccao-exercises.html">exercises</a>.
+    </div>
+
+    <div class="grid grid-2" style="margin:24px 0">
+      <div class="card">
+        <h3 class="mt0">Study mode <span class="tag ok">recommended first</span></h3>
+        <p class="small muted">Check each answer as you go and read the explanation immediately, while the question
+        is still in your head. No time pressure. This is the mode that teaches &mdash; the four explanations per
+        item are the material, not the score.</p>
+      </div>
+      <div class="card">
+        <h3 class="mt0">Exam mode <span class="tag warn">simulation</span></h3>
+        <p class="small muted">120-minute countdown, no feedback until you submit — the same length and clock as the
+        real thing. Use it once you have worked through study mode, to find out which distinctions survive time
+        pressure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="mt0">Before you start</h3>
+      <ul class="small">
+        <li><strong>Select-2 items.</strong> <span id="multiCount">10</span> questions ask for exactly two answers,
+        and they are marked. Both must be right to score. The two are usually <em>complementary layers</em> &mdash;
+        one catching accuracy, one catching completeness &mdash; not two phrasings of the same idea. If your picks
+        are near duplicates, one of them is wrong.</li>
+        <li><strong>Every item has a near-miss.</strong> The distractors are drawn from the eight patterns in the
+        <a href="ccao-docs.html#antipatterns">distractor catalogue</a>: re-prompting harder, cosmetic fixes,
+        instructions as controls, self-verification, tier changes without a reason, abandoning the task,
+        over-caution, and the appearance of a control. Learn to name the pattern and the elimination is instant.</li>
+        <li><strong>The right answer is often not the safest one.</strong> Roughly a fifth of the items score
+        <em>over</em>-caution as wrong: demanding clinical review of an opening-hours notice, or refusing a whole
+        use case that only needed one control added. Read what the consequence of being wrong actually is.</li>
+        <li><strong>No length tell.</strong> The correct option is never the longest and never the shortest in its
+        item, and the answer key is balanced across A/B/C/D. Guessing strategies score at chance here.</li>
+        <li><strong>Scenarios repeat.</strong> Seven organisations carry all 60 items. Read each one carefully the
+        first time it appears; after that you can skim it.</li>
+        <li><strong>Scoring.</strong> Scaled 100–1000 like the real exam. 720 passes, which is 42 of 60. Because
+        this mock is harder than the live paper, aim for <strong>850+</strong> here before you book &mdash; and read
+        the per-domain breakdown on the results page rather than the headline number.</li>
+        <li><strong>Your progress is saved</strong> in this browser, so you can close the tab mid-attempt and come
+        back. In exam mode the clock keeps running.</li>
+        <li><strong>Keyboard:</strong> <kbd>1</kbd>–<kbd>4</kbd> to select, <kbd>←</kbd><kbd>→</kbd> to move,
+        <kbd>F</kbd> to flag, <kbd>Enter</kbd> to check in study mode.</li>
+      </ul>
+
+      <h4>Item distribution</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Domain</th><th style="width:90px">Blueprint</th><th style="width:90px">Items</th></tr></thead>
+          <tbody id="blueprintBody"></tbody>
+        </table>
+      </div>
+      <p class="small muted">Item counts follow the published weights, so Output Evaluation and Validation carries
+      the most questions here for the same reason it carries 21% of the real exam.</p>
+
+      <label class="small" style="display:flex;gap:8px;align-items:center;margin:16px 0 4px;cursor:pointer">
+        <input type="checkbox" id="shuffleOpt" style="accent-color:var(--accent)">
+        Shuffle question order (use this on retakes, so you learn the principle rather than the position)
+      </label>
+
+      <div class="exam-actions">
+        <button class="btn" id="startStudy">Start in study mode</button>
+        <button class="btn ghost" id="startExam">Start timed exam (120 min)</button>
+      </div>
+    </div>
+
+    <div class="note trap" style="margin-top:24px">
+      <b>How to read a stem under time pressure</b>
+      Find the last sentence first &mdash; that is what is being asked. Then look for the two facts the stem
+      planted: a stated capacity limit, a policy, a consequence, a &ldquo;the prompt has not changed&rdquo;, a
+      volume, a named regulator. Those are never decoration. If two options both look right, ask which one the
+      planted fact was put there to rule out.
+    </div>
+
+    <div class="note warn" style="margin-top:18px">
+      <b>What these questions are and are not</b>
+      They are original items written to the domain and objective list published in the
+      <em>Claude Certified Associate &mdash; Foundations Exam Guide</em>, and to documented Claude product
+      behaviour. They are not recalled or leaked exam content, and no source claiming to hold verbatim exam items
+      was used. The scenarios are invented; any resemblance to a real organisation is coincidental. A strong score
+      here is evidence you understand the material &mdash; treat it as that, not as a preview of the live item pool.
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section id="examView" class="hide">
+    <div class="q-nav" id="qnav"></div>
+    <div id="qbody"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="resultView" class="hide"></section>
+
+</main>
+
+<footer class="footer"><div class="narrow">CCAR-F Study Hub · CCAO-F track — independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+
+<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'ccao-exam' };</script>
+<script src="assets/js/ccao-exam-data.js"></script>
+<script src="assets/js/exam.js"></script>
+</body>
+</html>
