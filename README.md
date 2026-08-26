@@ -14,22 +14,10 @@
 [Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exercises.html) ·
 [Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exam.html)
 
-**CCAR-F track, A1** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a1-index.html) ·
-[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a1-docs.html) ·
-[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a1-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a1-exam.html)
-
-**CCAR-F track, A2** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a2-index.html) ·
-[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a2-docs.html) ·
-[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a2-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a2-exam.html)
-
 ---
 
-A study site for three Anthropic certifications:
+A study site for two Anthropic certifications:
 
-- **Claude Certified Architect – Foundations** (CCA-F / CCAR-F) — built around two published objective lists from
-  two sittings of the exam, carried as the **CCAR-A1** and **CCAR-A2** tracks.
 - **Claude Certified Associate – Foundations** (CCAO-F) — built to the seven domains and thirty objectives in the
   published exam guide, carried as the **CCAO** track.
 - **Claude Certified Developer – Foundations** (CCDV-F) — built to the eight domains and twenty-five skills in
@@ -38,29 +26,28 @@ A study site for three Anthropic certifications:
 Static HTML, CSS and vanilla JavaScript. No build step, no dependencies, no network calls at runtime — it works
 offline and on GitHub Pages as-is.
 
+The Architect exam has its own site, built the same way:
+[Claude-Study-Hub-CCAR-F](https://github.com/mpendyala3/Claude-Study-Hub-CCAR-F).
+
 ---
 
-## Four tracks
+## Two tracks
 
-CCAR-A1 and CCAR-A2 are the same exam: its published objective list changed materially between the two attempts, so the hub
-carries both rather than merging them. CCAO and CCDV are **different certifications** — separate exams, each with
-its own blueprint, registration and passing score — so each lives in its own section rather than being folded
-into the architect material. CCDV is the one aimed at people who write the code: it is weighted towards building
-and integrating an application rather than towards choosing between Claude products.
+CCAO and CCDV are **different certifications** — separate exams, each with its own blueprint, registration and
+passing score — so each lives in its own section rather than being folded together. CCDV is the one aimed at
+people who write the code: it is weighted towards building and integrating an application rather than towards
+choosing between Claude products.
 
 | Track | Exam | Built from | Emphasis |
 |---|---|---|---|
-| **CCAR-A1** | CCAR-F (Architect) | Attempt-1 objective list (29 objectives) | Orchestration safeguards, hooks and permissions, Messages API mechanics, extraction pipelines, tool design |
-| **CCAR-A2** | CCAR-F (Architect) | Attempt-2 objective list (37 objectives) | Multi-agent orchestration and subagent context contracts, Claude Code driven non-interactively, automated review, `context: fork`, MCP |
 | **CCAO** | CCAO-F (Associate) | Published exam guide (7 domains, 30 objectives) | Prompting, output evaluation and validation, product and model selection, workflow design, Projects and connectors, governance and responsible use, troubleshooting |
 | **CCDV** | CCDV-F (Developer) | Published exam guide (8 domains, 25 skills) | Agent construction and loop termination, Messages API mechanics and `stop_reason`, structured outputs, retries and error handling, cost and prompt caching, context engineering, tool and MCP design, Claude Code, application security and guardrails |
 
 Each track has the same four pages: an **Overview** (blueprint and study plan), **Documentation**, browser-graded
 **Exercises**, and a 60-question / 120-minute **Mock Exam**.
 
-The header carries two rows. The first is the four main pages — **Home**, **CCAO-F**, **CCDV-F**, **CCAR-F** — and
-the second is the pages of whichever one you are in. CCAR-F is the only section with two groups on that second
-row, A1 and A2; choosing it from the first row lands you on the A1 Overview.
+The header carries two rows. The first is the three main pages — **Home**, **CCAO-F**, **CCDV-F** — and the
+second is the four pages of whichever track you are in.
 
 ### The CCAO exam at a glance
 
@@ -102,7 +89,7 @@ deliberate — it covers the two smallest domains properly and leaves you 2.00 m
 
 | Page | Contents |
 |---|---|
-| `index.html` — Home | A short overview of what the hub contains and one card per exam, each linking straight to that track’s Overview, Docs, Exercises and Mock Exam |
+| `index.html` — Home | A short overview of what the hub contains and one card per exam, each linking straight to that track&rsquo;s Overview, Docs, Exercises and Mock Exam |
 | `ccao-index.html` — CCAO Overview | The published blueprint with all 30 objectives linked to their documentation section, domain weightings against mock-item counts, the eight distractor patterns, a mapping from the Anthropic Academy prep path to each domain, an eight-day study plan, and the exam-day policies |
 | `ccao-docs.html` — CCAO Documentation | A four-part primer (what Claude is and how a turn works, the product surface, model tiers, context and memory), then **all 30 objectives end-to-end** across 44 searchable sections with **94 Q&A drills**, a **worked real scenario** opening every primer and every domain, a distractor catalogue with elimination cues, an exam-day playbook and a cheat sheet |
 | `ccao-exercises.html` — CCAO Exercises | 26 exercises distributed by the domain weights — 10 graded in the browser as you type, 11 rapid classification drills, 4 prose decision sets and one app lab (build a Project, then break it on purpose) |
@@ -111,30 +98,20 @@ deliberate — it covers the two smallest domains properly and leaves you 2.00 m
 | `ccdv-docs.html` — CCDV Documentation | Five primers (the agent loop and its termination contracts, the Messages API surface, model tiers and the cost levers, context management, the MCP model), then **all 25 skills end-to-end** across eight domains with per-skill anchors, a 20-row anti-pattern table with elimination cues, an exam-day playbook and a cheat sheet |
 | `ccdv-exercises.html` — CCDV Exercises | 28 exercises weighted to the blueprint — 9 graded as you type against reference solutions, 9 classification drills, 5 prose decision sets, 3 JSON builds and 2 labs. Every graded exercise's own model answer scores full marks against its checklist, so a failing check means the property really is missing |
 | `ccdv-exam.html` — CCDV Mock Exam | 60 items weighted to the published blueprint across eight recurring engineering organisations, **deliberately harder and tighter than the live exam**: 53 items become 60 in the same 120 minutes, two plausible finalists per item, and distractors drawn from the 20 anti-patterns |
-| `a1-index.html` — CCAR-A1 Overview | Exam blueprint, domain weightings, the seven anti-patterns used as distractors, a study plan, and primary sources |
-| `a1-docs.html` — CCAR-A1 Documentation | A four-part primer (agentic loop and stop reasons, Claude Code config surfaces, MCP, cost/latency levers), then all nine CCAR-A1 test topics end-to-end, each with a **worked real scenario** (what went wrong at a named organisation, and the fix), 54 Q&A drills, an exam-day playbook and a cheat sheet |
-| `a1-exercises.html` — CCAR-A1 Exercises | 24 exercises: 16 original drills (write real `settings.json`, hooks, schemas, tool definitions, error payloads) plus an 8-exercise **build track** — a PR-review multi-agent system, a support orchestrator's tool distribution, the orchestrator/subagent/synthesis context contract, and an orchestrator loop that cannot drop a session |
-| `a1-exam.html` — CCAR-A1 Mock Exam | 60 scenario items, **rewritten from scratch at a much higher difficulty**: near-miss distractors, 10 select-two items, code-tracing and measurement-reading questions |
-| `a2-index.html` — CCAR-A2 Overview | All 37 Attempt-2 objectives with per-objective scores, a gap analysis against Attempt 1, the repeat-failure list, and a derived domain weighting |
-| `a2-docs.html` — CCAR-A2 Documentation | 41 sections written from first principles across five domains, deepest on the seven objectives scored 0%: dynamic decomposition, review architecture, review configurations, `context: fork`, test generation, tool distribution, and `tool_choice` sequencing. Every primer and topic carries a **worked real scenario** — 39 in all |
-| `a2-exercises.html` — CCAR-A2 Exercises | 14 exercises weighted to the failed objectives — seven target the 0% list — with 9 graded in the browser and one terminal lab |
-| `a2-exam.html` — CCAR-A2 Mock Exam | 60 items in the real exam's shape: long scenarios, **each item spanning two or three objectives**, weighted to the derived CCAR-A2 blueprint |
 
 ### Mock exam construction
 
-All four banks are built to the same rules:
+Both banks are built to the same rules:
 
 - **Weighted to the blueprint**, so a weak per-domain score is a real signal.
 - **The answer key is balanced** across A/B/C/D, and select-two items use all six distinct letter pairs.
 - **No length tell.** Within every question the options are written to a similar length, and the correct option is
-  deliberately never the longest and never the shortest. Measured across the banks, the key is the longest option
-  on 2% (CCAR-A1), 7% (CCAR-A2), 0% (CCAO) and 0% (CCDV) of items, against 25% by chance.
+  deliberately never the longest and never the shortest. Measured across both banks, the key is the longest option
+  on 0% of items, against 25% by chance.
 - **Every option is explained** — the rule behind the right answer and why each distractor fails.
 
 | Bank | Items | Select-two | Key letters (A/B/C/D) |
 |---|---|---|---|
-| CCAR-A1 | 60 | 10 | 19 / 18 / 17 / 16 |
-| CCAR-A2 | 60 | 9 | 19 / 17 / 17 / 16 |
 | CCAO | 60 | 10 | 16 / 18 / 19 / 17 |
 | CCDV | 60 | 10 | 18 / 17 / 18 / 17 |
 
@@ -200,6 +177,11 @@ Your exam answers, flags, timer state and half-finished exercise editors are sav
 external request of any kind. Clearing site data resets everything; the exam's **Reset** button
 clears just the exam attempt.
 
+Keys are prefixed `csh-`. They were prefixed `ccarf-` until the Architect track moved to its own site; both
+sites sit on `mpendyala3.github.io` and therefore share one `localStorage`, so the prefixes have to differ.
+Your saved theme and any in-progress CCAO or CCDV attempt are copied over the first time you open the site
+after the change.
+
 ---
 
 ## Sources and caveat
@@ -213,7 +195,6 @@ The documentation is written from Anthropic's product documentation plus public 
 - [Claude API — Define tools & `tool_choice`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools)
 - [Claude API — Handle tool calls, `stop_reason`, `is_error`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)
 - [Claude API — Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-- [Anthropic Academy — Architect Foundations certification page and exam guide](https://anthropic-partners.skilljar.com/claude-certified-architect-foundations-certification)
 - [Anthropic Academy — Associate Foundations prep path](https://anthropic-partners.skilljar.com/path/claude-certified-associate-foundations)
 - [Anthropic Academy — Developer Foundations prep path](https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations)
 - *Claude Certified Associate — Foundations Exam Guide* — the source for the CCAO domains, objectives,
@@ -224,14 +205,11 @@ The documentation is written from Anthropic's product documentation plus public 
 Both exam guides are deliberately **not** committed here: download them from the prep paths above. They are
 Anthropic’s documents to distribute rather than this repository’s.
 
-**All 240 mock questions are original.** They were written to the four published objective lists, to
-documented product behaviour, and to the traps reported by candidates who have sat the exams. The CCAO and
-CCDV scenarios are invented; any resemblance to a real organisation is coincidental. They are
-not recalled or leaked exam items, and no source claiming to hold verbatim exam content was used.
-Treat a strong score as evidence you understand the material, not as a preview of the live item pool.
-
-The per-objective percentages on the CCAR-A2 Overview page are transcribed from the candidate's own score
-reports. Everything else on the site is original material written to those objectives.
+**All 120 mock questions are original.** They were written to the two published exam guides, to documented
+product behaviour, and to the traps reported by candidates who have sat the exams. The scenarios are invented;
+any resemblance to a real organisation is coincidental. They are not recalled or leaked exam items, and no
+source claiming to hold verbatim exam content was used. Treat a strong score as evidence you understand the
+material, not as a preview of the live item pool.
 
 Some details are version-sensitive — CLI flag names, hook event names, supported JSON Schema
 keywords. Verify those against the live documentation close to your exam date.

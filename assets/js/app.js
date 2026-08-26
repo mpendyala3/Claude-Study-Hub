@@ -2,8 +2,38 @@
 (function () {
   'use strict';
 
+  /* ---- storage ----
+     Everything is saved under one prefix. It used to be ccarf-, from when the
+     Architect track lived here too; that track is its own site now, on the
+     same github.io origin, and a shared origin is a shared localStorage. The
+     two sites' exercise ids overlap, so the prefixes have to differ or one
+     site's half-typed answer lands in the other's box. Carry across the keys
+     this site still owns, once, and leave the originals where they are -- the
+     Architect site is still reading its own. */
+  var PFX = 'csh-';
+
+  try {
+    ['theme', 'ccao-exam', 'ccdv-exam'].forEach(function (k) {
+      var was = localStorage.getItem('ccarf-' + k);
+      if (was !== null && localStorage.getItem(PFX + k) === null) {
+        localStorage.setItem(PFX + k, was);
+      }
+    });
+  } catch (e) {}
+
+  window.store = {
+    get: function (k, d) {
+      try { var v = localStorage.getItem(PFX + k); return v === null ? d : JSON.parse(v); }
+      catch (e) { return d; }
+    },
+    set: function (k, v) {
+      try { localStorage.setItem(PFX + k, JSON.stringify(v)); } catch (e) {}
+    },
+    del: function (k) { try { localStorage.removeItem(PFX + k); } catch (e) {} }
+  };
+
   /* ---- theme ---- */
-  var KEY = 'ccarf-theme';
+  var KEY = PFX + 'theme';
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   if (saved) document.documentElement.setAttribute('data-theme', saved);
@@ -23,19 +53,7 @@
     if (b) b.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀' : '☾';
   }
 
-  /* ---- storage helper ---- */
-  window.store = {
-    get: function (k, d) {
-      try { var v = localStorage.getItem('ccarf-' + k); return v === null ? d : JSON.parse(v); }
-      catch (e) { return d; }
-    },
-    set: function (k, v) {
-      try { localStorage.setItem('ccarf-' + k, JSON.stringify(v)); } catch (e) {}
-    },
-    del: function (k) { try { localStorage.removeItem('ccarf-' + k); } catch (e) {} }
-  };
-
-  /* The header is two rows -- the four main pages, then the current section's
+  /* The header is two rows -- the three main pages, then the current section's
      own pages -- and its height changes as either row wraps, or drops entirely
      on Home, which has no second row. --hdr carries that height: the sticky
      exam bar and the anchor scroll offset both read it. The CSS value is a
@@ -66,16 +84,16 @@
     window.addEventListener('load', syncHeaderHeight);
 
     /* Active nav, two rows with two different rules. The main row cannot match
-       on filename -- CCAR-F points at a1-index.html, yet it has to stay lit on
-       every a1- and a2- page -- so it matches on the section derived from the
-       filename prefix. The sub row is a page list, so exact filename is right. */
+       on filename -- CCAO-F points at ccao-index.html, yet it has to stay lit
+       on ccao-docs and the rest -- so it matches on the section derived from
+       the filename prefix. The sub row is a page list, so exact filename is
+       right there. */
     var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     if (page === '') page = 'index.html';
 
     var sect = 'home';
     if (page.indexOf('ccao-') === 0) sect = 'ccao';
     else if (page.indexOf('ccdv-') === 0) sect = 'ccdv';
-    else if (page.indexOf('a1-') === 0 || page.indexOf('a2-') === 0) sect = 'ccar';
 
     var top = document.querySelector('.nav-main a[data-sect="' + sect + '"]');
     if (top) top.classList.add('active');

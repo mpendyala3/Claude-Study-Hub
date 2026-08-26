@@ -5,7 +5,7 @@
 'use strict';
 
 /* Per-track configuration. A page sets window.EXAM_CONFIG before loading this
-   engine; the storage key is what keeps an CCAR-A1 attempt and an CCAR-A2 attempt apart. */
+   engine; the storage key is what keeps a CCAO-F attempt and a CCDV-F attempt apart. */
 var CFG = window.EXAM_CONFIG || {};
 var TOTAL_SECONDS = (CFG.minutes || 120) * 60;
 var PASS_SCALED = CFG.pass || 720;
