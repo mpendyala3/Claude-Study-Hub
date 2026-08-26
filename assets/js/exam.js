@@ -335,7 +335,7 @@ function showResults() {
   hero.style.paddingTop = '26px';
   hero.querySelector('h2').style.cssText = 'border:0;margin:0 0 6px;padding:0;color:' + (passed ? 'var(--ok)' : 'var(--bad)');
   hero.appendChild(el('p', 'muted', 'The real exam passes at <strong>' + PASS_SCALED + '/1000</strong>' +
-    ' (about ' + Math.ceil(PASS_SCALED_ITEMS()) + ' of 60 items). Aim for 850+ here before you book, because a ' +
+    ' (about ' + Math.ceil(PASS_SCALED_ITEMS()) + ' of ' + QUESTIONS.length + ' items). Aim for 850+ here before you book, because a ' +
     'proctored closed-book room costs points a practice run does not.'));
   v.appendChild(hero);
 

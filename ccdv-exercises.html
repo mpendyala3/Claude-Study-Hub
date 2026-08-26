@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV Exercises — Claude Certified Developer Foundations</title>
+<meta name="description" content="Twenty-eight graded exercises across all eight CCDV-F domains: agent loop contracts, error and retry policy, schema design, cost arithmetic, caching layout, prompt surgery, injection defence, tool definitions and MCP design. Graded in your browser.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub <small>· CCDV-F track</small></a>
+    <nav class="nav">
+      <span class="navgroup" data-track="a1">
+        <span class="navlabel">A1</span>
+        <a href="index.html">Overview</a>
+        <a href="docs.html">Docs</a>
+        <a href="exercises.html">Exercises</a>
+        <a href="exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="a2">
+        <span class="navlabel">A2</span>
+        <a href="a2-index.html">Overview</a>
+        <a href="a2-docs.html">Docs</a>
+        <a href="a2-exercises.html">Exercises</a>
+        <a href="a2-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccao">
+        <span class="navlabel">CCAO</span>
+        <a href="ccao-index.html">Overview</a>
+        <a href="ccao-docs.html">Docs</a>
+        <a href="ccao-exercises.html">Exercises</a>
+        <a href="ccao-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccdv">
+        <span class="navlabel">CCDV</span>
+        <a href="ccdv-index.html">Overview</a>
+        <a href="ccdv-docs.html">Docs</a>
+        <a href="ccdv-exercises.html">Exercises</a>
+        <a href="ccdv-exam.html">Exam</a>
+      </span>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+
+  <aside class="sidebar">
+    <h4>Exercises</h4>
+    <div id="exNav"></div>
+    <h4>Elsewhere</h4>
+    <a href="ccdv-index.html">← CCDV Overview</a>
+    <a href="ccdv-docs.html">← CCDV Documentation</a>
+    <a href="ccdv-exam.html">CCDV mock exam →</a>
+  </aside>
+
+  <main class="content">
+    <div class="track-badge"><b>CCDV</b> Developer &mdash; Foundations</div>
+    <div class="eyebrow">CCDV Exercises · 28 graded drills</div>
+    <h1>Twenty-eight exercises, weighted to the blueprint</h1>
+    <p class="lede">Written to the twenty-five CCDV-F skills and distributed by the published domain weights, so the
+    nine exercises on <a href="ccdv-docs.html#d2">building with the Claude API</a> match the fact that it is 33.1%
+    of the exam &mdash; a third of everything. Twelve are graded in your browser as you type, nine are rapid
+    classification drills, five are prose-option decision sets, two are labs you run yourself. The checklists name
+    the exact property each skill is written around, so a partial score tells you which property you missed rather
+    than just that you scored badly.</p>
+
+    <div class="note rule">
+      <b>Where the exercises sit against the blueprint</b>
+      Agentic concepts <span class="tag">1&ndash;4</span> ·
+      Building with the API <span class="tag warn">5&ndash;13 · a third of the exam</span> ·
+      Agentic coding <span class="tag">14</span> ·
+      Modernisation <span class="tag">15</span> ·
+      Model selection <span class="tag">16&ndash;19</span> ·
+      Prompt &amp; context <span class="tag">20&ndash;22</span> ·
+      Security <span class="tag">23&ndash;25</span> ·
+      Tools &amp; MCP <span class="tag">26&ndash;28</span>
+      <div class="small muted" style="margin-top:8px">If you only have ninety minutes: do 2, 7, 16, 19, 23 and 26.
+      Those six cover the decisions the exam returns to most &mdash; loop termination, retry classification, which
+      lever fits which complaint, cache ordering, capability-level defence, and what belongs in a tool
+      definition.</div>
+    </div>
+
+    <div class="note rule">
+      <b>Work them without the reference solution open</b>
+      Every exercise reveals a full worked answer, but the checklist is the teaching device: each check is a
+      requirement the exam grades on, phrased so a failure tells you what to change. Get to a partial score first,
+      read which checks failed, fix them, and re-check &mdash; that loop is what transfers to exam day. The
+      browser-graded editors save your text locally, so you can come back to a half-finished answer.
+    </div>
+
+    <div class="note trap">
+      <b>The checks reward substance, not vocabulary</b>
+      They accept the several ways a competent answer phrases a thing, and they are strict about whether the
+      property is present at all. A check for a termination contract passes on &ldquo;cap the iterations&rdquo;,
+      &ldquo;bound the loop&rdquo; or &ldquo;stop after N turns&rdquo; &mdash; and fails on &ldquo;handle errors
+      gracefully&rdquo;, because that is not a thing you could implement. Every reference answer here scores full
+      marks against its own checklist, so if a check will not pass for you, the property really is missing.
+    </div>
+
+    <div class="grid grid-3" style="margin:22px 0 8px">
+      <div class="card"><h4 class="mt0">Browser-graded writing</h4><p class="small muted mb0">Write a loop termination contract, an error and retry policy, a validation design, a cost plan, an injection defence, an MCP server design. Hit <em>Check</em> and each requirement passes or fails by name.</p></div>
+      <div class="card"><h4 class="mt0">Schema and request drills</h4><p class="small muted mb0">Three exercises where you write actual JSON and it is parsed and inspected: an extraction schema that permits absence, a request laid out so the cache hits, and a tool definition the model can use without guessing.</p></div>
+      <div class="card"><h4 class="mt0">Classification and decision sets</h4><p class="small muted mb0">Fast recall for the choices the exam repeats: workflow or agent, retryable or fatal, which lever, which context home, which control, and which of the four ways to build an agent.</p></div>
+    </div>
+
+    <div id="exRoot"></div>
+
+    <div class="card" style="margin-top:30px">
+      <div class="spread">
+        <div><strong>Done with the drills?</strong><div class="small muted">Sit the timed mock. It is deliberately
+        harder than the real exam &mdash; 60 items in 120 minutes against the live 53, so the clock is tighter
+        too. 720 to pass.</div></div>
+        <a class="btn" href="ccdv-exam.html">Start the CCDV mock exam →</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    CCAR-F Study Hub · CCDV-F track — independent study material; not affiliated with or endorsed by Anthropic.
+  </div>
+</footer>
+<script src="assets/js/ex-helpers.js"></script>
+<script src="assets/js/exercises-ccdv.js"></script>
+<script src="assets/js/ex-engine.js"></script>
+</body>
+</html>

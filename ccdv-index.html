@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV Overview — Claude Certified Developer Foundations</title>
+<meta name="description" content="Single-place study hub for the Anthropic Claude Certified Developer – Foundations exam (CCDV-F): the full blueprint, all eight domains and twenty-five skills documented, browser-graded exercises, and a deliberately hard 60-question timed mock exam.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub <small>· CCDV-F track</small></a>
+    <nav class="nav">
+      <span class="navgroup" data-track="a1">
+        <span class="navlabel">A1</span>
+        <a href="index.html">Overview</a>
+        <a href="docs.html">Docs</a>
+        <a href="exercises.html">Exercises</a>
+        <a href="exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="a2">
+        <span class="navlabel">A2</span>
+        <a href="a2-index.html">Overview</a>
+        <a href="a2-docs.html">Docs</a>
+        <a href="a2-exercises.html">Exercises</a>
+        <a href="a2-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccao">
+        <span class="navlabel">CCAO</span>
+        <a href="ccao-index.html">Overview</a>
+        <a href="ccao-docs.html">Docs</a>
+        <a href="ccao-exercises.html">Exercises</a>
+        <a href="ccao-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccdv">
+        <span class="navlabel">CCDV</span>
+        <a href="ccdv-index.html">Overview</a>
+        <a href="ccdv-docs.html">Docs</a>
+        <a href="ccdv-exercises.html">Exercises</a>
+        <a href="ccdv-exam.html">Exam</a>
+      </span>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<main class="narrow content">
+
+  <div class="track-badge"><b>CCDV</b> Claude Certified Developer – Foundations</div>
+  <div class="eyebrow">Anthropic Certification · Developer level · Exam code CCDV-F</div>
+  <h1>Everything you need for the Claude Certified Developer&nbsp;— Foundations exam</h1>
+  <p class="lede">
+    Eight content domains, twenty-five published skills, documented end to end from the official exam guide and
+    Anthropic's developer documentation — with the mechanism, the decision rule the exam grades on, the distractor
+    it plants, and a drill at the end of every section. Twenty-eight graded exercises you work in the browser.
+    Sixty scenario-based mock questions, deliberately harder than the real thing, with an explanation for every
+    option — right and wrong.
+  </p>
+
+  <div class="grid grid-4" style="margin:26px 0 34px">
+    <a class="stat" href="ccdv-docs.html" style="color:inherit">
+      <div class="k">25</div><div class="l">Skills documented</div>
+    </a>
+    <a class="stat" href="ccdv-exercises.html" style="color:inherit">
+      <div class="k">28</div><div class="l">Hands-on exercises</div>
+    </a>
+    <a class="stat" href="ccdv-exam.html" style="color:inherit">
+      <div class="k">60</div><div class="l">Mock exam questions</div>
+    </a>
+    <div class="stat">
+      <div class="k">720</div><div class="l">Score needed to pass</div>
+    </div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card">
+      <h3 class="mt0">1 · Read the documentation</h3>
+      <p class="small muted">Five platform primers — the request, the loop, the four ways to build an agent,
+      tokens and thinking, and the delivery mechanics — then all eight domains and all twenty-five skills, each with
+      runnable code, a decision table, the traps, and a Q&amp;A drill.</p>
+      <a class="btn sm" href="ccdv-docs.html">Open documentation →</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">2 · Do the exercises</h3>
+      <p class="small muted">Write the real extraction schema, the real retry policy, the real tool description,
+      the real permission rule — checked against the rules the exam applies. Plus classification drills for the
+      judgement calls it repeats and code-reading labs for the mechanics.</p>
+      <a class="btn sm" href="ccdv-exercises.html">Open exercises →</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">3 · Sit the mock exam</h3>
+      <p class="small muted">60 questions in the real exam's 120 minutes, weighted to the published blueprint.
+      Near-miss distractors, ten select-two items, and no length tell to fall back on.</p>
+      <a class="btn sm" href="ccdv-exam.html">Start mock exam →</a>
+    </div>
+  </div>
+
+  <h2>The exam at a glance</h2>
+  <p class="small muted">Transcribed from <em>Claude Certified Developer – Foundations Exam Guide</em>, version 1.0,
+  effective July 2026.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:34%">Attribute</th><th>Detail</th></tr>
+    <tr><td>Credential</td><td>Claude Certified Developer – Foundations</td></tr>
+    <tr><td>Exam code</td><td><code>CCDV-F</code></td></tr>
+    <tr><td>Number of items</td><td><strong>53</strong></td></tr>
+    <tr><td>Item format</td><td>Multiple-choice and multiple-response. <strong>Each item states how many responses to select</strong></td></tr>
+    <tr><td>Time limit</td><td>120 minutes (~2 minutes 15 seconds per item)</td></tr>
+    <tr><td>Delivery</td><td>Proctored — online proctored and/or Pearson VUE test center, per program policy</td></tr>
+    <tr><td>Passing score</td><td>Scaled <strong>720</strong> on a 100–1,000 scale</td></tr>
+    <tr><td>Exam fee</td><td>$125 USD, per attempt</td></tr>
+    <tr><td>Validity</td><td>12 months from the date the credential is awarded</td></tr>
+    <tr><td>Result reporting</td><td>Pass/fail with scaled score, plus <strong>percent-correct by domain</strong></td></tr>
+  </table>
+  </div>
+
+  <div class="note rule">
+    <b>What this exam is actually about</b>
+    It is not an SDK trivia quiz. Nearly every item is the same question in a different costume:
+    <strong>where does the guarantee live?</strong> Not in a sentence in a prompt — in a schema that cannot express
+    the wrong value, a tool that was never granted, a credential scoped to an authenticated identity, a permission
+    rule the client enforces, a hook that always runs, a validation step that rejects, or a human who is
+    accountable. Learn to find the option that moves the guarantee into one of those layers and a large fraction of
+    the bank answers itself.
+  </div>
+
+  <div class="note trap">
+    <b>The two shapes almost every distractor takes</b>
+    It <strong>advises where it should enforce</strong> — a paragraph of prose standing in for a permission rule, a
+    hook, a schema or a scoped credential. Or it <strong>applies the wrong lever to the stated problem</strong> —
+    caching for a rate-limit complaint, streaming for a cost complaint, a bigger model for an ambiguous tool
+    surface, a higher iteration cap for a loop with no terminal contract. When two options both sound professional,
+    pick the one that changes a <em>structure</em> rather than the one that changes <em>wording</em>.
+  </div>
+
+  <h2>Content outline and domain weightings</h2>
+  <p>These are the published weights, alongside the item counts in this hub's mock exam, which is built to them —
+  so your per-domain score is a meaningful signal about where to go back to the documentation.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:36px">#</th><th>Content domain</th><th style="width:82px">Weight</th><th style="width:70px">Real ≈</th><th style="width:70px">Mock Qs</th><th>What it actually tests</th></tr>
+    <tr>
+      <td>1</td><td><strong>Agents and Workflows</strong></td><td>14.7%</td><td>8</td><td>9</td>
+      <td>Workflow versus agent; the agentic loop and its termination contract; the four ways to build an agent; orchestration patterns; context editing, compaction and memory; when a framework earns its cost</td>
+    </tr>
+    <tr>
+      <td>2</td><td><strong>Applications and Integration</strong></td><td><strong>33.1%</strong></td><td>18</td><td>20</td>
+      <td>Turning requirements into design; the SDLC around a non-deterministic dependency; Messages API mechanics and data-access patterns; engineering discipline — idempotency, retries, concurrency, testing; instruction surfaces, content boundaries, schema design; configuration and versioning</td>
+    </tr>
+    <tr>
+      <td>3</td><td><strong>Claude Code</strong></td><td>3.1%</td><td>2</td><td>2</td>
+      <td>Plan mode, subagents, skills, commands, hooks, permissions, headless use — and the legacy-modernisation sequence</td>
+    </tr>
+    <tr>
+      <td>4</td><td><strong>Eval, Testing, and Debugging</strong></td><td>2.6%</td><td>1–2</td><td>2</td>
+      <td>Diagnosing failure by symptom; unit tests versus evals; datasets, graders and thresholds in CI</td>
+    </tr>
+    <tr>
+      <td>5</td><td><strong>Model Selection and Optimization</strong></td><td><strong>16.8%</strong></td><td>9</td><td>10</td>
+      <td>LLM fundamentals a developer must hold; caching, batching, streaming, effort, tiering; matching the lever to the complaint; token arithmetic and cost control</td>
+    </tr>
+    <tr>
+      <td>6</td><td><strong>Prompt and Context Engineering</strong></td><td>11.0%</td><td>6</td><td>6</td>
+      <td>What goes in the window and where; cacheable ordering; few-shot design; dated prompting patterns that now hurt; output validation as untrusted input</td>
+    </tr>
+    <tr>
+      <td>7</td><td><strong>Security and Safety</strong></td><td>8.1%</td><td>4</td><td>5</td>
+      <td>Prompt injection, excessive agency, exfiltration, confused deputy; guardrails and staged deployment; hooks as deterministic enforcement; secrets and identity</td>
+    </tr>
+    <tr>
+      <td>8</td><td><strong>Tools and MCPs</strong></td><td>10.6%</td><td>6</td><td>6</td>
+      <td>Tool anatomy — names, descriptions, schemas, returns, errors, idempotency; server tools and tool search; when to build an MCP server; picking the right customisation surface</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Read the weights as a study budget</b>
+    <strong>Domain 2 is a third of the exam</strong> — about eighteen items, more than Domains 1, 3, 4 and 7
+    combined. Inside it, two skills alone (<a href="ccdv-docs.html#d2-4">Software Engineering Foundations, 7.4%</a>
+    and <a href="ccdv-docs.html#d2-5">Claude Application Design, 8.6%</a>) are <strong>16% of the whole exam</strong>,
+    which is more than any other <em>domain</em> except D5. Add Domain 5 and you are at <strong>half the
+    exam</strong> in two domains. Domains 3 and 4 together are 5.7% — roughly three items — so budget accordingly:
+    they are worth an hour, not an evening.
+  </div>
+
+  <h2>All twenty-five skills, mapped</h2>
+  <p>Exam items are written against these skills, and the guide publishes a weight for each one — which is unusually
+  generous, because it tells you exactly where the marks are. Every skill is covered end-to-end in the
+  documentation, drilled in the exercises, and sampled in the mock exam.</p>
+
+  <div class="table-wrap">
+  <table class="objtable">
+    <tr><th style="width:56px">ID</th><th>Skill</th><th style="width:70px">Weight</th><th style="width:78px">Study</th></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 1 · Agents and Workflows</strong> <span class="tag">14.7%</span></td></tr>
+    <tr><td class="oid">1.1</td><td>Agent architecture — workflows versus agents, orchestration shapes, when agency is warranted</td><td>4.5%</td><td><a href="ccdv-docs.html#d1-1">Read →</a></td></tr>
+    <tr><td class="oid">1.2</td><td>Agent construction with Claude — turning a requirement into a loop, tools, bounds and terminal states</td><td>5.3%</td><td><a href="ccdv-docs.html#d1-2">Read →</a></td></tr>
+    <tr><td class="oid">1.3</td><td>Agent patterns and frameworks — named patterns, long-session context strategy, framework tradeoffs</td><td>4.9%</td><td><a href="ccdv-docs.html#d1-3">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 2 · Applications and Integration</strong> <span class="tag warn">33.1% — a third of the exam</span></td></tr>
+    <tr><td class="oid">2.1</td><td>Understanding requirements — extracting the constraints that change the design</td><td>3.4%</td><td><a href="ccdv-docs.html#d2-1">Read →</a></td></tr>
+    <tr><td class="oid">2.2</td><td>Systems life cycle — design, build, test, release and change with a non-deterministic dependency</td><td>2.8%</td><td><a href="ccdv-docs.html#d2-2">Read →</a></td></tr>
+    <tr><td class="oid">2.3</td><td>Claude API mechanics — the Messages API, data-access patterns, structured outputs, platform differences</td><td>6.8%</td><td><a href="ccdv-docs.html#d2-3">Read →</a></td></tr>
+    <tr><td class="oid">2.4</td><td>Software engineering foundations — idempotency, retries, concurrency, timeouts, review, refactoring at scale</td><td><strong>7.4%</strong></td><td><a href="ccdv-docs.html#d2-4">Read →</a></td></tr>
+    <tr><td class="oid">2.5</td><td>Claude application design — instruction surfaces, content trust boundaries, schema design, session hygiene, plugins</td><td><strong>8.6%</strong></td><td><a href="ccdv-docs.html#d2-5">Read →</a></td></tr>
+    <tr><td class="oid">2.6</td><td>Configuration management — <code>CLAUDE.md</code>, settings precedence, model pinning, prompt versioning, dependencies</td><td>4.1%</td><td><a href="ccdv-docs.html#d2-6">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 3 · Claude Code</strong> <span class="tag">3.1%</span></td></tr>
+    <tr><td class="oid">3.1</td><td>Claude Code operation — plan mode, subagents, skills, commands, hooks, permissions, headless and CI use</td><td>3.1%</td><td><a href="ccdv-docs.html#d3-1">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 4 · Eval, Testing, and Debugging</strong> <span class="tag">2.6%</span></td></tr>
+    <tr><td class="oid">4.1</td><td>Debugging and error handling — symptom-to-cause diagnosis, and eval design that gates change</td><td>2.6%</td><td><a href="ccdv-docs.html#d4-1">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 5 · Model Selection and Optimization</strong> <span class="tag warn">16.8%</span></td></tr>
+    <tr><td class="oid">5.1</td><td>LLM fundamentals — tokens, context, autoregression, thinking, hallucination, prompt sensitivity</td><td>5.2%</td><td><a href="ccdv-docs.html#d5-1">Read →</a></td></tr>
+    <tr><td class="oid">5.2</td><td>Technical fundamentals — caching, batching, streaming, effort, context editing, tool search</td><td>6.1%</td><td><a href="ccdv-docs.html#d5-2">Read →</a></td></tr>
+    <tr><td class="oid">5.3</td><td>Model selection and tradeoffs — tiering each step by difficulty, volume, latency and cost of error</td><td>2.7%</td><td><a href="ccdv-docs.html#d5-3">Read →</a></td></tr>
+    <tr><td class="oid">5.4</td><td>Cost and token management — estimating before choosing, the n² agent cost curve, budgets and measurement</td><td>2.8%</td><td><a href="ccdv-docs.html#d5-4">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 6 · Prompt and Context Engineering</strong> <span class="tag">11.0%</span></td></tr>
+    <tr><td class="oid">6.1</td><td>Context engineering — what is in the window and where; the three long-session mechanisms</td><td>3.8%</td><td><a href="ccdv-docs.html#d6-1">Read →</a></td></tr>
+    <tr><td class="oid">6.2</td><td>Prompt engineering — few-shot design, structure, native reasoning, and the dated patterns that now hurt</td><td>4.6%</td><td><a href="ccdv-docs.html#d6-2">Read →</a></td></tr>
+    <tr><td class="oid">6.3</td><td>Output handling — model output as untrusted input; the six validation layers and failure routing</td><td>2.6%</td><td><a href="ccdv-docs.html#d6-3">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 7 · Security and Safety</strong> <span class="tag">8.1%</span></td></tr>
+    <tr><td class="oid">7.1</td><td>AI application security — injection, excessive agency, exfiltration, confused deputy, supply chain</td><td>3.2%</td><td><a href="ccdv-docs.html#d7-1">Read →</a></td></tr>
+    <tr><td class="oid">7.2</td><td>Guardrails and safe deployment — the guardrail stack, shadow mode, staged rollout, kill switches</td><td>2.3%</td><td><a href="ccdv-docs.html#d7-2">Read →</a></td></tr>
+    <tr><td class="oid">7.3</td><td>Claude hooks — the lifecycle events, which can block, and hook-versus-prose</td><td>1.0%</td><td><a href="ccdv-docs.html#d7-3">Read →</a></td></tr>
+    <tr><td class="oid">7.4</td><td>Identity, secrets and key management — where keys must never be, and scoping to the acting identity</td><td>1.6%</td><td><a href="ccdv-docs.html#d7-4">Read →</a></td></tr>
+
+    <tr class="domrow"><td colspan="4"><strong>Domain 8 · Tools and MCPs</strong> <span class="tag">10.6%</span></td></tr>
+    <tr><td class="oid">8.1</td><td>Tool implementation — names, descriptions, schemas, compact returns, actionable errors, idempotency</td><td>4.4%</td><td><a href="ccdv-docs.html#d8-1">Read →</a></td></tr>
+    <tr><td class="oid">8.2</td><td>MCP server development — the three primitives, tool-versus-server, transports, and server-side security</td><td>2.1%</td><td><a href="ccdv-docs.html#d8-2">Read →</a></td></tr>
+    <tr><td class="oid">8.3</td><td>Agentic customisation — skills, commands, subagents, hooks, permissions, plugins, managed configs</td><td>4.1%</td><td><a href="ccdv-docs.html#d8-3">Read →</a></td></tr>
+  </table>
+  </div>
+
+  <div class="note good">
+    <b>The five heaviest skills</b>
+    <a href="ccdv-docs.html#d2-5">2.5 Claude application design (8.6%)</a> ·
+    <a href="ccdv-docs.html#d2-4">2.4 Software engineering foundations (7.4%)</a> ·
+    <a href="ccdv-docs.html#d2-3">2.3 Claude API mechanics (6.8%)</a> ·
+    <a href="ccdv-docs.html#d5-2">5.2 Technical fundamentals (6.1%)</a> ·
+    <a href="ccdv-docs.html#d1-2">1.2 Agent construction (5.3%)</a>.
+    That is <strong>34.2% of the exam in five sections</strong> — roughly eighteen items. If you read nothing else
+    twice, read these.
+  </div>
+
+  <h2>The twelve distractor patterns</h2>
+  <p>Nearly every wrong answer on this exam is one of these dressed in professional language. Learn them as a
+  checklist and you can usually eliminate two options before you finish reading the stem. The full set of twelve,
+  with the credited answer for each, is in
+  <a href="ccdv-docs.html#antipatterns">the documentation's anti-pattern table</a>.</p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:23%">Pattern</th><th style="width:38%">The tempting wrong answer</th><th>What the exam wants</th></tr>
+    <tr><td><strong>Prose as enforcement</strong></td><td>&ldquo;Add a rule to the system prompt / <code>CLAUDE.md</code> forbidding it&rdquo;</td><td>A permission <code>deny</code>, a hook, a schema constraint, or a tool that was never granted. Prose shapes; it does not enforce</td></tr>
+    <tr><td><strong>Ask nicely, don't restrict</strong></td><td>&ldquo;Instruct the model to ignore instructions found in documents&rdquo;</td><td>Least privilege on tools <em>plus</em> isolation of untrusted content <em>plus</em> a gate on consequential actions. Layered, with an enforcing layer</td></tr>
+    <tr><td><strong>Bigger model as a design fix</strong></td><td>&ldquo;Upgrade to the top tier so it stops picking the wrong tool&rdquo;</td><td>Fix the tool descriptions and schemas. Capability does not repair an ambiguous interface</td></tr>
+    <tr><td><strong>Raise the cap</strong></td><td>&ldquo;Increase the iteration limit so the agent can finish&rdquo;</td><td>A terminal-state contract: actionable tool errors, a no-progress detector, and escalation carrying what was tried</td></tr>
+    <tr><td><strong>Wrong lever</strong></td><td>Caching for a rate-limit problem · streaming for a cost problem · concurrency for a latency problem</td><td>Match the lever to the complaint — the table in <a href="ccdv-docs.html#d5-2">5.2</a></td></tr>
+    <tr><td><strong>Temperature as truth</strong></td><td>&ldquo;Set temperature to 0 so it stops hallucinating&rdquo;</td><td>Ground it, constrain the schema, validate the output, permit abstention. (Sampling parameters are rejected on current tiers anyway)</td></tr>
+    <tr><td><strong>Batch the interactive</strong></td><td>&ldquo;Use the Batches API&rdquo; when the stem says the customer is waiting</td><td>Realtime plus streaming. Batch only when nobody is waiting — then it is ~50% cheaper</td></tr>
+    <tr><td><strong>Uniform tiering</strong></td><td>&ldquo;Run the whole pipeline on one model to keep it simple&rdquo;</td><td>Tier each step; validate each move down with evals. Most steps are easier than the hardest one</td></tr>
+    <tr><td><strong>Everything required</strong></td><td>&ldquo;Mark all fields required so no record is incomplete&rdquo;</td><td>Make absence representable — nullable fields, a <code>not_stated</code> enum member. A required field the source omits is an instruction to fabricate</td></tr>
+    <tr><td><strong>Model-supplied authority</strong></td><td>&ldquo;Pass the customer ID as a tool parameter&rdquo;</td><td>Scope the credential to the authenticated session. Authorisation lives in code, keyed to identity</td></tr>
+    <tr><td><strong>Model enumerates the work</strong></td><td>&ldquo;Ask Claude to find every call site, then fix them all in one session&rdquo;</td><td>Enumerate deterministically with grep/AST/compiler, transform per site, verify per site, report what was skipped</td></tr>
+    <tr><td><strong>Self-verification as the check</strong></td><td>&ldquo;Ask the model whether it is confident, and accept if it says yes&rdquo;</td><td>Independent verification: a schema, an arithmetic check, a cross-reference against a system of record, or a human</td></tr>
+  </table>
+  </div>
+
+  <div class="note trap">
+    <b>Two tie-breakers for the last two options</b>
+    First: the <strong>structural</strong> answer beats the <strong>prose</strong> answer, every time. Second: the
+    answer that <strong>respects the stated constraint</strong> beats the one that is better engineering in the
+    abstract — if the stem says review capacity is 60 a day, an option requiring 600 reviews is wrong however sound
+    it sounds. And on select-two items, both choices must be independently correct: never pick a weak second answer
+    to keep a strong first one company.
+  </div>
+
+  <h2>The official prep path, mapped to this hub</h2>
+  <p>Anthropic's <a href="https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations" target="_blank" rel="noopener">Claude Certified Developer – Foundations path</a>
+  is five courses, roughly <strong>13 hours</strong>. It does <em>not</em> map one-to-one onto the blueprint — the
+  courses are organised by build phase, the exam by domain — so the table shows where each course lands here.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:42%">Prep path course</th><th style="width:64px">Length</th><th>Covered here</th></tr>
+    <tr><td>1 · Model &amp; Systems Optimization Foundations</td><td>57 min</td><td><a href="ccdv-docs.html#p4">Primer 4</a>, <a href="ccdv-docs.html#d5-1">5.1</a>, <a href="ccdv-docs.html#d5-3">5.3</a> — tokens, context, thinking, tiering</td></tr>
+    <tr><td>2 · Production-Grade Prompting, Agents &amp; Tool Use</td><td>209 min</td><td><a href="ccdv-docs.html#d6">Domain 6</a>, <a href="ccdv-docs.html#d1">Domain 1</a>, <a href="ccdv-docs.html#d8-1">8.1</a> — the largest course, and it spans three domains</td></tr>
+    <tr><td>3 · Claude Code, MCP &amp; Integration</td><td>142 min</td><td><a href="ccdv-docs.html#d3">Domain 3</a>, <a href="ccdv-docs.html#d8-2">8.2</a>, <a href="ccdv-docs.html#d8-3">8.3</a>, <a href="ccdv-docs.html#d2-6">2.6</a></td></tr>
+    <tr><td>4 · Production Engineering, Evals &amp; Security</td><td>211 min</td><td><a href="ccdv-docs.html#d2-2">2.2</a>, <a href="ccdv-docs.html#d2-4">2.4</a>, <a href="ccdv-docs.html#d4">Domain 4</a>, <a href="ccdv-docs.html#d7">Domain 7</a></td></tr>
+    <tr><td>5 · Accelerators &amp; IP Contribution</td><td>155 min</td><td>Partner-delivery material. The exam-relevant parts are <a href="ccdv-docs.html#d2-1">2.1</a> and <a href="ccdv-docs.html#d2-5">2.5</a></td></tr>
+  </table>
+  </div>
+  <div class="note warn">
+    <b>The gap the prep path leaves</b>
+    <strong>Domain 2 is 33.1% of the exam and no single course owns it.</strong> Claude API mechanics (6.8%),
+    software engineering foundations (7.4%) and Claude application design (8.6%) are spread across courses 2, 4 and 5
+    and assumed as background in all of them — so it is entirely possible to finish all thirteen hours and still be
+    under-prepared for a third of the paper. That is the main reason this hub documents Domain 2 at greater length
+    than everything else combined, and why the study plan below starts there rather than at Domain 1.
+  </div>
+
+  <h2>A nine-day plan</h2>
+  <ol class="spaced">
+    <li><strong>Day 1 — The platform, hands on.</strong> Read all five <a href="ccdv-docs.html#p1">primers</a>, then
+    write code: one Messages API call that branches on every <code>stop_reason</code>; one manual tool-use loop; one
+    schema-constrained extraction. An hour of typing fixes more than an evening of reading, because the exam tests
+    mechanics you have felt rather than skimmed.</li>
+    <li><strong>Day 2 — Domain 2, first half.</strong> <a href="ccdv-docs.html#d2-1">2.1</a> through
+    <a href="ccdv-docs.html#d2-3">2.3</a>. Requirements, life cycle, API mechanics. Do the Q&amp;A drills twice.</li>
+    <li><strong>Day 3 — Domain 2, second half.</strong> <a href="ccdv-docs.html#d2-4">2.4</a>,
+    <a href="ccdv-docs.html#d2-5">2.5</a>, <a href="ccdv-docs.html#d2-6">2.6</a> — the two heaviest skills on the
+    exam plus configuration. Read this day while you are freshest, whatever the calendar says.</li>
+    <li><strong>Day 4 — Domain 5.</strong> All four skills. Then do the cost arithmetic in
+    <a href="ccdv-docs.html#d5-4">5.4</a> on paper for a workload of your own; this domain rewards a calculator
+    habit more than recall.</li>
+    <li><strong>Day 5 — Domain 1.</strong> Agents and workflows. The two things to be able to state without
+    hesitating: when a workflow beats an agent, and the difference between context editing, compaction and
+    memory.</li>
+    <li><strong>Day 6 — Domains 8 and 6.</strong> Tools, MCP and customisation surfaces in the morning; prompt and
+    context engineering in the afternoon. Both are table-heavy and cheap to bank.</li>
+    <li><strong>Day 7 — Domains 7, 3 and 4.</strong> Security, Claude Code, debugging — 13.8% between them, and
+    largely one pattern each: layered defence, the config-surface table, symptom-to-cause.</li>
+    <li><strong>Day 8 — Build.</strong> Work every <a href="ccdv-exercises.html">exercise</a> with the documentation
+    closed. Get a partial score, read which checks failed, fix them, re-grade. That loop is what transfers to the
+    exam room.</li>
+    <li><strong>Day 9 — Sit it timed, then review.</strong> Take the <a href="ccdv-exam.html">mock exam</a> in
+    <em>Exam mode</em>: 120 minutes, no feedback until you submit. This bank is harder than the real exam and gives
+    you 60 items in the real exam's 120 minutes, so treat <strong>780+</strong> as a green light and anything under
+    700 as a signal to go back rather than book. Then read every explanation, including on items you got right —
+    the &ldquo;why the others are ruled out&rdquo; text is where the marginal points live.</li>
+  </ol>
+
+  <div class="note good">
+    <b>If you have three days, not nine</b>
+    Day 1: <a href="ccdv-docs.html#p1">the primers</a> and all of <a href="ccdv-docs.html#d2">Domain 2</a>. Day 2:
+    <a href="ccdv-docs.html#d5">Domain 5</a>, <a href="ccdv-docs.html#d1">Domain 1</a>,
+    <a href="ccdv-docs.html#d8">Domain 8</a>. Day 3: <a href="ccdv-docs.html#antipatterns">the anti-patterns</a>,
+    <a href="ccdv-docs.html#cheat">the cheat sheet</a>, and the mock exam timed. That is 75% of the weighting and the
+    whole distractor vocabulary.
+  </div>
+
+  <h2>Policies worth knowing before you book</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:30%">Policy</th><th>Detail</th></tr>
+    <tr><td>Registration</td><td>Anthropic Partner Academy for checkout (partner-tier discounts apply), then a Pearson VUE account to schedule. Delivery is by Pearson VUE</td></tr>
+    <tr><td>Fee</td><td><strong>$125 USD</strong> per attempt</td></tr>
+    <tr><td>Reschedule / cancel</td><td>Free up to <strong>24 hours</strong> before the appointment. Inside 24 hours you forfeit the fee</td></tr>
+    <tr><td>Identification</td><td>A valid, unexpired, government-issued photo ID whose name <strong>matches your registration exactly</strong>. Name corrections go to certification support <em>before</em> you schedule</td></tr>
+    <tr><td>Accommodations</td><td>Requested and approved through Pearson VUE <strong>before</strong> you schedule. Do not book until approval lands</td></tr>
+    <tr><td>Retakes</td><td>14 days after a first fail, 30 after a second, 90 after a third. Maximum <strong>four attempts per rolling 12 months</strong>. Full fee each time</td></tr>
+    <tr><td>No-show</td><td>Fee forfeited, re-registration required</td></tr>
+    <tr><td>Exam room</td><td>Workspace clear of notes, books, phones and secondary monitors; stay in view of the webcam if online; no communication with anyone. No IDE, no documentation, no reference material</td></tr>
+    <tr><td>NDA</td><td>You accept a confidentiality agreement before the exam starts. Declining ends the session with no refund</td></tr>
+    <tr><td>Renewal</td><td>Valid <strong>12 months</strong>. Renew on time and the reassessment is lighter than a first sitting; let it lapse and you retake the full exam at full fee</td></tr>
+    <tr><td>Appeals</td><td>Within 14 days, via Pearson VUE support. The standard-setting outcome and individual item content are <strong>not</strong> appealable</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Two scoring details that change how you pace</b>
+    Your pass/fail is decided by the <strong>total scaled score only</strong> — the per-domain percentages on your
+    report are diagnostic, and there is no per-domain minimum to clear. So never over-invest in a domain you find
+    hard at the cost of losing easy marks elsewhere. And there is <strong>no partial credit on multiple-response
+    items</strong>: two right and one wrong scores the same as three wrong, so on a select-two item, be as sure of
+    your second choice as your first.
+  </div>
+
+  <h2>Primary sources</h2>
+  <p class="small">This hub is written from the official exam guide plus Anthropic's developer documentation. Where a
+  detail is version-sensitive — model IDs and prices, parameter names, beta availability, cache limits, per-platform
+  feature parity — verify against the live documentation close to your exam date. Everything marked
+  <span class="tag warn">version-sensitive</span> in the docs is a place to check.</p>
+  <ul class="small">
+    <li><a href="https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations" target="_blank" rel="noopener">Anthropic Partner Academy — CCDV-F certification path and prep courses</a></li>
+    <li><code>CCDV/Claude_Certified_Developer-Foundations_Exam_Guide.pdf</code> — the official exam guide, v1.0, July 2026 (kept locally; not published in this repository)</li>
+    <li><a href="https://docs.claude.com/en/api/messages" target="_blank" rel="noopener">Claude API — Messages API reference</a></li>
+    <li><a href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview" target="_blank" rel="noopener">Claude Docs — Tool use overview</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Claude Docs — Prompt caching</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/batch-processing" target="_blank" rel="noopener">Claude Docs — Message Batches API</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/extended-thinking" target="_blank" rel="noopener">Claude Docs — Extended and adaptive thinking</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/structured-outputs" target="_blank" rel="noopener">Claude Docs — Structured outputs</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/context-editing" target="_blank" rel="noopener">Claude Docs — Context editing and the memory tool</a></li>
+    <li><a href="https://docs.claude.com/en/docs/agents-and-tools/mcp" target="_blank" rel="noopener">Claude Docs — Model Context Protocol</a></li>
+    <li><a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">Claude Code Docs — Hooks reference</a></li>
+    <li><a href="https://code.claude.com/docs/en/settings" target="_blank" rel="noopener">Claude Code Docs — Settings and permissions</a></li>
+    <li><a href="https://code.claude.com/docs/en/agent-sdk" target="_blank" rel="noopener">Claude Agent SDK documentation</a></li>
+    <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic Engineering — Building effective agents</a></li>
+  </ul>
+
+  <div class="note warn" style="margin-top:26px">
+    <b>One honest caveat</b>
+    Anthropic does not publish its item bank. The 60 mock questions here are original, written to the published
+    blueprint, the twenty-five skills and their weights, the three official sample items' style, and documented product
+    behaviour. They are not recalled or leaked exam content, and no source claiming to hold verbatim exam items was
+    used. The mock also runs <strong>60 items in 120 minutes</strong> rather than the live exam's 53 — deliberately
+    tighter, at 2 minutes per item against the real 2:15, and with broader coverage of the small domains than
+    53 items allow. Treat a strong score here as evidence you understand the material, not as a preview of the live
+    item pool.
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="narrow">
+    CCAR-F Study Hub · CCDV-F track — documentation, exercises and mock exam for the Claude Certified Developer –
+    Foundations certification. Independent study material; not affiliated with or endorsed by Anthropic.
+  </div>
+</footer>
+
+</body>
+</html>

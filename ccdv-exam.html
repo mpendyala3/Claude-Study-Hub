@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCDV Mock Exam — Claude Certified Developer Foundations</title>
+<meta name="description" content="60-question, 120-minute mock exam written to the eight CCDV-F domains and twenty-five skills at their published weights, with eight recurring engineering scenarios and a teaching explanation for every option.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub <small>· CCDV-F track</small></a>
+    <nav class="nav">
+      <span class="navgroup" data-track="a1">
+        <span class="navlabel">A1</span>
+        <a href="index.html">Overview</a>
+        <a href="docs.html">Docs</a>
+        <a href="exercises.html">Exercises</a>
+        <a href="exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="a2">
+        <span class="navlabel">A2</span>
+        <a href="a2-index.html">Overview</a>
+        <a href="a2-docs.html">Docs</a>
+        <a href="a2-exercises.html">Exercises</a>
+        <a href="a2-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccao">
+        <span class="navlabel">CCAO</span>
+        <a href="ccao-index.html">Overview</a>
+        <a href="ccao-docs.html">Docs</a>
+        <a href="ccao-exercises.html">Exercises</a>
+        <a href="ccao-exam.html">Exam</a>
+      </span>
+      <span class="navgroup" data-track="ccdv">
+        <span class="navlabel">CCDV</span>
+        <a href="ccdv-index.html">Overview</a>
+        <a href="ccdv-docs.html">Docs</a>
+        <a href="ccdv-exercises.html">Exercises</a>
+        <a href="ccdv-exam.html">Exam</a>
+      </span>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
+    </nav>
+  </div>
+</header>
+
+<!-- sticky exam bar -->
+<div class="exam-bar hide" id="examBar">
+  <div class="narrow exam-bar-inner">
+    <span class="timer" id="timer">120:00</span>
+    <span class="tag accent" id="modeLabel">Study mode</span>
+    <div class="progress"><i id="progressBar"></i></div>
+    <span class="small muted" id="answeredCount">0 / 60 answered</span>
+    <button class="btn sm ghost" id="submitTop">Submit</button>
+    <button class="btn sm ghost" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<main class="narrow content">
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro">
+    <div class="track-badge"><b>CCDV</b> Developer &mdash; Foundations</div>
+    <div class="eyebrow">CCDV Mock exam</div>
+    <h1>60 questions · 120 minutes · pass at 720</h1>
+    <p class="lede">Written to the <strong>twenty-five CCDV-F skills</strong> at the published domain weights, and
+    deliberately harder than the live exam. Eight engineering organisations recur throughout &mdash; a bank&rsquo;s
+    support agent under an iteration cap, a clinical extraction pipeline that must represent absence, a retailer
+    doing cost arithmetic over 30,000 items, a logistics modernisation programme using Claude Code across nine
+    engineers, an analytics team turning <code>execute_sql</code> into an MCP server, a media desk with a 340-line
+    prompt, a multi-tenant SaaS facing injection and exfiltration, and a legal team running sixty-turn review
+    sessions. Every item has <strong>two plausible finalists</strong>, and every option &mdash; right and wrong
+    &mdash; carries an explanation of why.</p>
+
+    <div class="note rule">
+      <b>Read the skill tag on each item</b>
+      Every question is labelled with its domain and its skill (for example
+      <span class="tag info">Applications and Integration</span> <span class="tag">2.3 Claude API mechanics</span>).
+      When you get one wrong, that tag is the exact section of the
+      <a href="ccdv-docs.html">CCDV documentation</a> to go back to, and the matching drill in the
+      <a href="ccdv-exercises.html">exercises</a>.
+    </div>
+
+    <div class="grid grid-2" style="margin:24px 0">
+      <div class="card">
+        <h3 class="mt0">Study mode <span class="tag ok">recommended first</span></h3>
+        <p class="small muted">Check each answer as you go and read the explanation immediately, while the question
+        is still in your head. No time pressure. This is the mode that teaches &mdash; the four explanations per
+        item are the material, not the score.</p>
+      </div>
+      <div class="card">
+        <h3 class="mt0">Exam mode <span class="tag warn">simulation</span></h3>
+        <p class="small muted">120-minute countdown, no feedback until you submit. Deliberately tighter than the
+        real thing: the live paper gives you 120 minutes for 53 items, this one gives you 120 for 60. Use it once
+        you have worked through study mode, to find out which distinctions survive time pressure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="mt0">Before you start</h3>
+      <ul class="small">
+        <li><strong>Select-2 items.</strong> <span id="multiCount">10</span> questions ask for exactly two answers,
+        and they are marked. Both must be right to score. The two are usually <em>complementary layers</em> &mdash;
+        one structural, one operational &mdash; not two phrasings of the same idea. If your picks are near
+        duplicates, one of them is wrong.</li>
+        <li><strong>Every item has a near-miss.</strong> The distractors are drawn from the twenty patterns in the
+        <a href="ccdv-docs.html#antipatterns">anti-pattern catalogue</a>: prose as enforcement, the cap as the
+        control, self-reported confidence, buying capacity instead of managing it, a bigger model instead of a
+        better prompt, retrying a non-retryable error, and so on. Learn to name the pattern and the elimination is
+        instant.</li>
+        <li><strong>The right answer is usually the structural one.</strong> A large share of items turn on the same
+        distinction: an <em>enforcement</em> requirement belongs in code, a permission rule or a hook, while a
+        <em>preference</em> can live in a prompt. When an option asks the model to police itself, it is almost
+        always the distractor.</li>
+        <li><strong>No length tell.</strong> The correct option is never the longest and never the shortest in its
+        item, and the answer key is balanced across A/B/C/D (18/17/18/17 over the 70 correct slots). Guessing
+        strategies score at chance here.</li>
+        <li><strong>Scenarios repeat.</strong> Eight organisations carry all 60 items, and they are the same eight
+        used in the <a href="ccdv-exercises.html">exercises</a> &mdash; so the context you built there transfers.
+        Read each one carefully the first time it appears; after that you can skim it.</li>
+        <li><strong>Scoring.</strong> Scaled 100&ndash;1000 like the real exam. 720 passes, which is 42 of 60.
+        Because this mock is harder and tighter than the live paper, aim for <strong>850+</strong> here before you
+        book &mdash; and read the per-domain breakdown on the results page rather than the headline number.</li>
+        <li><strong>Watch the two-item domains.</strong> Claude Code (3.1%) and Eval, Testing and Debugging (2.6%)
+        carry two items each. On the live 53-item paper they may carry only one or two, which means a single
+        careless answer can cost you a whole domain. Do not skim them because they are small.</li>
+        <li><strong>Your progress is saved</strong> in this browser, so you can close the tab mid-attempt and come
+        back. In exam mode the clock keeps running.</li>
+        <li><strong>Keyboard:</strong> <kbd>1</kbd>&ndash;<kbd>4</kbd> to select, <kbd>&larr;</kbd><kbd>&rarr;</kbd>
+        to move, <kbd>F</kbd> to flag, <kbd>Enter</kbd> to check in study mode.</li>
+      </ul>
+
+      <h4>Item distribution</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Domain</th><th style="width:90px">Blueprint</th><th style="width:90px">Items</th></tr></thead>
+          <tbody id="blueprintBody"></tbody>
+        </table>
+      </div>
+      <p class="small muted">Item counts follow the published weights, so Applications and Integration carries the
+      most questions here for the same reason it carries 33.1% of the real exam &mdash; a third of the paper is
+      about designing and integrating an application, not about models.</p>
+
+      <label class="small" style="display:flex;gap:8px;align-items:center;margin:16px 0 4px;cursor:pointer">
+        <input type="checkbox" id="shuffleOpt" style="accent-color:var(--accent)">
+        Shuffle question order (use this on retakes, so you learn the principle rather than the position)
+      </label>
+
+      <div class="exam-actions">
+        <button class="btn" id="startStudy">Start in study mode</button>
+        <button class="btn ghost" id="startExam">Start timed exam (120 min)</button>
+      </div>
+    </div>
+
+    <div class="note trap" style="margin-top:24px">
+      <b>How to read a stem under time pressure</b>
+      Find the last sentence first &mdash; that is what is being asked. Then look for the facts the stem planted: a
+      stated iteration cap, a request volume, a token count, a price per million, a <em>&ldquo;the prompt has not
+      changed&rdquo;</em>, a named <code>stop_reason</code>, a regulator, a number of engineers. Those are never
+      decoration. If two options both look right, ask which one the planted fact was put there to rule out.
+    </div>
+
+    <div class="note warn" style="margin-top:18px">
+      <b>What these questions are and are not</b>
+      They are original items written to the domain and skill list published in the <em>Claude Certified Developer
+      &mdash; Foundations Exam Guide</em>, and to documented Claude product behaviour. They are not recalled or
+      leaked exam content, and no source claiming to hold verbatim exam items was used. The live exam is 53 items in
+      120 minutes; this mock is 60 in the same 120 minutes, which is a deliberate choice &mdash; more coverage of
+      the small domains and more time pressure than you will actually face. The scenarios are invented; any
+      resemblance to a real organisation is coincidental. A strong score here is evidence you understand the
+      material &mdash; treat it as that, not as a preview of the live item pool.
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section id="examView" class="hide">
+    <div class="q-nav" id="qnav"></div>
+    <div id="qbody"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="resultView" class="hide"></section>
+
+</main>
+
+<footer class="footer"><div class="narrow">CCAR-F Study Hub · CCDV-F track — independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+
+<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'ccdv-exam' };</script>
+<script src="assets/js/ccdv-exam-data.js"></script>
+<script src="assets/js/exam.js"></script>
+</body>
+</html>

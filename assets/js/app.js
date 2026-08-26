@@ -35,8 +35,24 @@
     del: function (k) { try { localStorage.removeItem('ccarf-' + k); } catch (e) {} }
   };
 
+  /* Four nav groups no longer fit beside the brand, so the header is two rows
+     and its height changes as the nav wraps. --hdr carries that height: the
+     sticky exam bar and the anchor scroll offset both read it. The CSS value is
+     a fallback for no-JS; this keeps it exact at every width. */
+  function syncHeaderHeight() {
+    var bar = document.querySelector('.topbar');
+    if (!bar) return;
+    var h = Math.round(bar.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty('--hdr', h + 'px');
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     syncThemeBtn();
+
+    syncHeaderHeight();
+    var bar = document.querySelector('.topbar');
+    if (bar && window.ResizeObserver) new ResizeObserver(syncHeaderHeight).observe(bar);
+    window.addEventListener('resize', syncHeaderHeight);
 
     /* active top nav */
     var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
