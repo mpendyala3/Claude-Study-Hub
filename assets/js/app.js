@@ -35,10 +35,13 @@
     del: function (k) { try { localStorage.removeItem('ccarf-' + k); } catch (e) {} }
   };
 
-  /* Four nav groups no longer fit beside the brand, so the header is two rows
-     and its height changes as the nav wraps. --hdr carries that height: the
-     sticky exam bar and the anchor scroll offset both read it. The CSS value is
-     a fallback for no-JS; this keeps it exact at every width. */
+  /* The header is two rows -- the four main pages, then the current section's
+     own pages -- and its height changes as either row wraps, or drops entirely
+     on Home, which has no second row. --hdr carries that height: the sticky
+     exam bar and the anchor scroll offset both read it. The CSS value is a
+     fallback for no-JS; this keeps it exact at every width. */
+  var hdrObserver = null;
+
   function syncHeaderHeight() {
     var bar = document.querySelector('.topbar');
     if (!bar) return;
@@ -51,13 +54,33 @@
 
     syncHeaderHeight();
     var bar = document.querySelector('.topbar');
-    if (bar && window.ResizeObserver) new ResizeObserver(syncHeaderHeight).observe(bar);
+    if (bar && window.ResizeObserver) {
+      /* Hold the observer: an unreferenced one can be collected. */
+      hdrObserver = new ResizeObserver(syncHeaderHeight);
+      hdrObserver.observe(bar);
+    }
     window.addEventListener('resize', syncHeaderHeight);
+    /* Layout can still shift after DOMContentLoaded -- a scrollbar appearing can
+       cross a breakpoint and re-wrap the nav -- so measure once more when the
+       page is fully loaded. Cheap, and it does not depend on ResizeObserver. */
+    window.addEventListener('load', syncHeaderHeight);
 
-    /* active top nav */
+    /* Active nav, two rows with two different rules. The main row cannot match
+       on filename -- CCAR-F points at a1-index.html, yet it has to stay lit on
+       every a1- and a2- page -- so it matches on the section derived from the
+       filename prefix. The sub row is a page list, so exact filename is right. */
     var page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
     if (page === '') page = 'index.html';
-    document.querySelectorAll('.nav a').forEach(function (a) {
+
+    var sect = 'home';
+    if (page.indexOf('ccao-') === 0) sect = 'ccao';
+    else if (page.indexOf('ccdv-') === 0) sect = 'ccdv';
+    else if (page.indexOf('a1-') === 0 || page.indexOf('a2-') === 0) sect = 'ccar';
+
+    var top = document.querySelector('.nav-main a[data-sect="' + sect + '"]');
+    if (top) top.classList.add('active');
+
+    document.querySelectorAll('.nav-sub a').forEach(function (a) {
       var href = (a.getAttribute('href') || '').split('#')[0].toLowerCase();
       if (href === page) {
         a.classList.add('active');

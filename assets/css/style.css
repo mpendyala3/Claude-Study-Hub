@@ -30,7 +30,7 @@
   --code-bg:       #2a2823;
   --code-text:     #ecebe6;
   --radius:        10px;
-  --hdr:           100px;
+  --hdr:           98px;
   --radius-sm:     6px;
   --shadow:        0 1px 2px rgba(0,0,0,.05), 0 4px 14px rgba(0,0,0,.04);
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
@@ -166,6 +166,19 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 28px 0; }
 .brand small { color: var(--text-faint); font-weight: 500; font-size: 12px; }
 
 .nav { display: flex; gap: 2px; width: 100%; align-items: center; flex-wrap: wrap; }
+
+/* Row 1: the four main pages. Short enough to sit beside the brand. */
+.nav-main { width: auto; margin-left: auto; gap: 4px; }
+.nav-main a { font-size: 14.5px; font-weight: 650; padding: 7px 14px; }
+
+/* Row 2: the current section's own pages. Absent on Home. */
+.subbar { border-top: 1px solid var(--border); background: var(--bg-sunk); }
+.nav-sub {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 6px 20px;
+  gap: 8px;
+}
 .nav a {
   color: var(--text-dim);
   font-size: 14px;
@@ -683,10 +696,10 @@ kbd {
 }
 
 @media print {
-  .topbar, .sidebar, .footer, .exam-bar, .q-nav, .exam-actions { display: none !important; }
+  .topbar, .subbar, .sidebar, .footer, .exam-bar, .q-nav, .exam-actions { display: none !important; }
 }
 
-/* ---------- four-track nav (CCAR-A1 / CCAR-A2 / CCAO / CCDV) ---------- */
+/* ---------- section groups in the second header row ---------- */
 .navgroup {
   display: inline-flex;
   align-items: center;
@@ -718,11 +731,44 @@ kbd {
 }
 .track-badge b { color: var(--accent); }
 
-/* Four groups of four do not fit beside the brand at any width, so the nav
-   always takes its own row and the header is two rows tall. Its height lives in
-   --hdr, which app.js measures and keeps current; the sticky exam bar and the
-   anchor scroll offset both read it, so nothing sticks at the wrong height.
-   Below 1320px the group metrics tighten so four groups still fit one row. */
+/* ---------- Home: one card per exam, with its four pages on it ---------- */
+.homecard { display: flex; flex-direction: column; }
+.homecard h3 { margin: 12px 0 8px; font-size: 16px; }
+.homecard > p { flex: 1 1 auto; }
+.pagelinks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pagelinks a {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.pagelinks a:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--accent);
+  text-decoration: none;
+}
+/* The CCAR-F card carries two rows, so each needs an A1 / A2 tag. */
+.pagelinks > b {
+  align-self: center;
+  font-size: 10.5px;
+  font-weight: 750;
+  letter-spacing: .06em;
+  color: var(--text-faint);
+  padding: 4px 7px;
+  border-radius: 4px;
+  background: var(--bg-sunk);
+}
+
+/* The header is two rows: the four main pages, then the current section's own
+   pages. Its height lives in --hdr, which app.js measures and keeps current;
+   the sticky exam bar and the anchor scroll offset both read it, so nothing
+   sticks at the wrong height. Below 1320px the group metrics tighten so
+   CCAR-F's two groups still fit the second row on one line. */
 @media (max-width: 1320px) {
   .nav { gap: 1px; }
   .navgroup a { padding: 5px 7px; font-size: 12px; }
@@ -731,8 +777,10 @@ kbd {
 }
 
 @media (max-width: 900px) {
-  :root { --hdr: 150px; }
+  :root { --hdr: 140px; }
   .nav { gap: 6px; }
+  .nav-main { width: 100%; margin-left: 0; }
+  .nav-sub { padding: 6px 16px; }
   .navgroup + .navgroup { margin-left: 0; }
 }
 

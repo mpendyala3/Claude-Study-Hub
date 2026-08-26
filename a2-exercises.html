@@ -13,14 +13,23 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub</a>
-        <nav class="nav">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-F track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="a1-index.html" data-sect="ccar">CCAR-F</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
       <span class="navgroup" data-track="a1">
         <span class="navlabel">CCAR-A1</span>
-        <a href="index.html">Overview</a>
-        <a href="docs.html">Docs</a>
-        <a href="exercises.html">Exercises</a>
-        <a href="exam.html">Exam</a>
+        <a href="a1-index.html">Overview</a>
+        <a href="a1-docs.html">Docs</a>
+        <a href="a1-exercises.html">Exercises</a>
+        <a href="a1-exam.html">Exam</a>
       </span>
       <span class="navgroup" data-track="a2">
         <span class="navlabel">CCAR-A2</span>
@@ -29,21 +38,6 @@
         <a href="a2-exercises.html">Exercises</a>
         <a href="a2-exam.html">Exam</a>
       </span>
-      <span class="navgroup" data-track="ccao">
-        <span class="navlabel">CCAO</span>
-        <a href="ccao-index.html">Overview</a>
-        <a href="ccao-docs.html">Docs</a>
-        <a href="ccao-exercises.html">Exercises</a>
-        <a href="ccao-exam.html">Exam</a>
-      </span>
-      <span class="navgroup" data-track="ccdv">
-        <span class="navlabel">CCDV</span>
-        <a href="ccdv-index.html">Overview</a>
-        <a href="ccdv-docs.html">Docs</a>
-        <a href="ccdv-exercises.html">Exercises</a>
-        <a href="ccdv-exam.html">Exam</a>
-      </span>
-      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☾</button>
     </nav>
   </div>
 </header>
@@ -95,7 +89,7 @@
     <div class="card" style="margin-top:30px">
       <div class="spread">
         <div><strong>Done with the drills?</strong><div class="small muted">Sit the timed mock and find out what actually stuck.</div></div>
-        <a class="btn" href="exam.html">Start the mock exam →</a>
+        <a class="btn" href="a1-exam.html">Start the mock exam →</a>
       </div>
     </div>
   </main>

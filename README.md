@@ -2,25 +2,27 @@
 
 ### 🔗 Live site: **https://mpendyala3.github.io/Claude-Study-Hub/**
 
-**CCAR-A1 track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/) ·
-[Docs](https://mpendyala3.github.io/Claude-Study-Hub/docs.html) ·
-[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/exam.html)
+**[Home](https://mpendyala3.github.io/Claude-Study-Hub/)** — what the hub contains, and a way in to each exam.
 
-**CCAR-A2 track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a2-index.html) ·
-[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a2-docs.html) ·
-[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a2-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a2-exam.html)
-
-**CCAO track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccao-index.html) ·
+**CCAO-F track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccao-index.html) ·
 [Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccao-docs.html) ·
 [Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccao-exercises.html) ·
 [Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccao-exam.html)
 
-**CCDV track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-index.html) ·
+**CCDV-F track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-index.html) ·
 [Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-docs.html) ·
 [Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exercises.html) ·
 [Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exam.html)
+
+**CCAR-F track, A1** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a1-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a1-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a1-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a1-exam.html)
+
+**CCAR-F track, A2** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a2-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a2-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a2-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a2-exam.html)
 
 ---
 
@@ -55,6 +57,10 @@ and integrating an application rather than towards choosing between Claude produ
 
 Each track has the same four pages: an **Overview** (blueprint and study plan), **Documentation**, browser-graded
 **Exercises**, and a 60-question / 120-minute **Mock Exam**.
+
+The header carries two rows. The first is the four main pages — **Home**, **CCAO-F**, **CCDV-F**, **CCAR-F** — and
+the second is the pages of whichever one you are in. CCAR-F is the only section with two groups on that second
+row, A1 and A2; choosing it from the first row lands you on the A1 Overview.
 
 ### The CCAO exam at a glance
 
@@ -96,22 +102,23 @@ deliberate — it covers the two smallest domains properly and leaves you 2.00 m
 
 | Page | Contents |
 |---|---|
-| `index.html` — CCAR-A1 Overview | Exam blueprint, domain weightings, the seven anti-patterns used as distractors, a study plan, and primary sources |
-| `docs.html` — CCAR-A1 Documentation | A four-part primer (agentic loop and stop reasons, Claude Code config surfaces, MCP, cost/latency levers), then all nine CCAR-A1 test topics end-to-end, each with a **worked real scenario** (what went wrong at a named organisation, and the fix), 54 Q&A drills, an exam-day playbook and a cheat sheet |
-| `exercises.html` — CCAR-A1 Exercises | 24 exercises: 16 original drills (write real `settings.json`, hooks, schemas, tool definitions, error payloads) plus an 8-exercise **build track** — a PR-review multi-agent system, a support orchestrator's tool distribution, the orchestrator/subagent/synthesis context contract, and an orchestrator loop that cannot drop a session |
-| `exam.html` — CCAR-A1 Mock Exam | 60 scenario items, **rewritten from scratch at a much higher difficulty**: near-miss distractors, 10 select-two items, code-tracing and measurement-reading questions |
-| `a2-index.html` — CCAR-A2 Overview | All 37 Attempt-2 objectives with per-objective scores, a gap analysis against Attempt 1, the repeat-failure list, and a derived domain weighting |
-| `a2-docs.html` — CCAR-A2 Documentation | 41 sections written from first principles across five domains, deepest on the seven objectives scored 0%: dynamic decomposition, review architecture, review configurations, `context: fork`, test generation, tool distribution, and `tool_choice` sequencing. Every primer and topic carries a **worked real scenario** — 39 in all |
-| `a2-exercises.html` — CCAR-A2 Exercises | 14 exercises weighted to the failed objectives — seven target the 0% list — with 9 graded in the browser and one terminal lab |
-| `a2-exam.html` — CCAR-A2 Mock Exam | 60 items in the real exam's shape: long scenarios, **each item spanning two or three objectives**, weighted to the derived CCAR-A2 blueprint |
+| `index.html` — Home | A short overview of what the hub contains and one card per exam, each linking straight to that track’s Overview, Docs, Exercises and Mock Exam |
 | `ccao-index.html` — CCAO Overview | The published blueprint with all 30 objectives linked to their documentation section, domain weightings against mock-item counts, the eight distractor patterns, a mapping from the Anthropic Academy prep path to each domain, an eight-day study plan, and the exam-day policies |
 | `ccao-docs.html` — CCAO Documentation | A four-part primer (what Claude is and how a turn works, the product surface, model tiers, context and memory), then **all 30 objectives end-to-end** across 44 searchable sections with **94 Q&A drills**, a **worked real scenario** opening every primer and every domain, a distractor catalogue with elimination cues, an exam-day playbook and a cheat sheet |
 | `ccao-exercises.html` — CCAO Exercises | 26 exercises distributed by the domain weights — 10 graded in the browser as you type, 11 rapid classification drills, 4 prose decision sets and one app lab (build a Project, then break it on purpose) |
+| `ccao-exam.html` — CCAO Mock Exam | 60 items weighted to the published blueprint across seven recurring organisations, **deliberately harder than the live exam**: two plausible finalists per item, distractors drawn from the eight patterns, and a fifth of the items scoring over-caution as wrong |
 | `ccdv-index.html` — CCDV Overview | The published blueprint with all 25 skills and their exact weights, the mock-exam item counts beside them, the four ways to build an agent, the 20-pattern anti-pattern list, a mapping from the Developer Foundations prep path to each domain, a study plan and the exam-day policies |
 | `ccdv-docs.html` — CCDV Documentation | Five primers (the agent loop and its termination contracts, the Messages API surface, model tiers and the cost levers, context management, the MCP model), then **all 25 skills end-to-end** across eight domains with per-skill anchors, a 20-row anti-pattern table with elimination cues, an exam-day playbook and a cheat sheet |
 | `ccdv-exercises.html` — CCDV Exercises | 28 exercises weighted to the blueprint — 9 graded as you type against reference solutions, 9 classification drills, 5 prose decision sets, 3 JSON builds and 2 labs. Every graded exercise's own model answer scores full marks against its checklist, so a failing check means the property really is missing |
 | `ccdv-exam.html` — CCDV Mock Exam | 60 items weighted to the published blueprint across eight recurring engineering organisations, **deliberately harder and tighter than the live exam**: 53 items become 60 in the same 120 minutes, two plausible finalists per item, and distractors drawn from the 20 anti-patterns |
-| `ccao-exam.html` — CCAO Mock Exam | 60 items weighted to the published blueprint across seven recurring organisations, **deliberately harder than the live exam**: two plausible finalists per item, distractors drawn from the eight patterns, and a fifth of the items scoring over-caution as wrong |
+| `a1-index.html` — CCAR-A1 Overview | Exam blueprint, domain weightings, the seven anti-patterns used as distractors, a study plan, and primary sources |
+| `a1-docs.html` — CCAR-A1 Documentation | A four-part primer (agentic loop and stop reasons, Claude Code config surfaces, MCP, cost/latency levers), then all nine CCAR-A1 test topics end-to-end, each with a **worked real scenario** (what went wrong at a named organisation, and the fix), 54 Q&A drills, an exam-day playbook and a cheat sheet |
+| `a1-exercises.html` — CCAR-A1 Exercises | 24 exercises: 16 original drills (write real `settings.json`, hooks, schemas, tool definitions, error payloads) plus an 8-exercise **build track** — a PR-review multi-agent system, a support orchestrator's tool distribution, the orchestrator/subagent/synthesis context contract, and an orchestrator loop that cannot drop a session |
+| `a1-exam.html` — CCAR-A1 Mock Exam | 60 scenario items, **rewritten from scratch at a much higher difficulty**: near-miss distractors, 10 select-two items, code-tracing and measurement-reading questions |
+| `a2-index.html` — CCAR-A2 Overview | All 37 Attempt-2 objectives with per-objective scores, a gap analysis against Attempt 1, the repeat-failure list, and a derived domain weighting |
+| `a2-docs.html` — CCAR-A2 Documentation | 41 sections written from first principles across five domains, deepest on the seven objectives scored 0%: dynamic decomposition, review architecture, review configurations, `context: fork`, test generation, tool distribution, and `tool_choice` sequencing. Every primer and topic carries a **worked real scenario** — 39 in all |
+| `a2-exercises.html` — CCAR-A2 Exercises | 14 exercises weighted to the failed objectives — seven target the 0% list — with 9 graded in the browser and one terminal lab |
+| `a2-exam.html` — CCAR-A2 Mock Exam | 60 items in the real exam's shape: long scenarios, **each item spanning two or three objectives**, weighted to the derived CCAR-A2 blueprint |
 
 ### Mock exam construction
 
