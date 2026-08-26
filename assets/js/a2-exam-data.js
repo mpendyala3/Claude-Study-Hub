@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — A2 mock exam item bank
+   Claude Study Hub — CCAR-A2 mock exam item bank
    60 scenario-based questions written to the 37 Attempt-2 test
    objectives. Original items; not recalled or leaked exam content.
 

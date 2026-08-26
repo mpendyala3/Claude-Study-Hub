@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — A2 exercise bank
+   Claude Study Hub — CCAR-A2 exercise bank
    Written to the Attempt-2 test objectives, weighted heavily towards
    the seven scored at 0% and the tail scored at 50-67%.
    Types: classify | json | text | choice | lab

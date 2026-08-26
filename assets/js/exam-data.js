@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — mock exam item bank
+   Claude Study Hub — mock exam item bank
    60 scenario-based questions, weighted to the published blueprint.
    Original items written to the exam blueprint and documented product
    behaviour. Not recalled or leaked exam content.

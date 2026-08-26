@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A2 Overview — CCAR-F Study Hub</title>
+<title>CCAR-A2 Overview — Claude Study Hub</title>
 <meta name="description" content="The Attempt-2 CCAR-F blueprint: 37 published test objectives, a per-objective gap analysis against Attempt 1, and a study plan built to close a 59-point gap.">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
@@ -13,17 +13,17 @@
 
 <header class="topbar">
   <div class="topbar-inner">
-    <a class="brand" href="index.html"><span class="brand-mark">C</span> CCAR-F Study Hub</a>
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub</a>
     <nav class="nav">
       <span class="navgroup" data-track="a1">
-        <span class="navlabel">A1</span>
+        <span class="navlabel">CCAR-A1</span>
         <a href="index.html">Overview</a>
         <a href="docs.html">Docs</a>
         <a href="exercises.html">Exercises</a>
         <a href="exam.html">Exam</a>
       </span>
       <span class="navgroup" data-track="a2">
-        <span class="navlabel">A2</span>
+        <span class="navlabel">CCAR-A2</span>
         <a href="a2-index.html">Overview</a>
         <a href="a2-docs.html">Docs</a>
         <a href="a2-exercises.html">Exercises</a>
@@ -50,8 +50,8 @@
 
 <main class="narrow content">
 
-  <div class="track-badge"><b>A2</b> Attempt-2 blueprint</div>
-  <div class="eyebrow">A2 Overview</div>
+  <div class="track-badge"><b>CCAR-A2</b> Attempt-2 blueprint</div>
+  <div class="eyebrow">CCAR-A2 Overview</div>
   <h1>The blueprint that actually came up &mdash; and the 59 points still missing</h1>
   <p class="lede">
     Attempt&nbsp;2 published <strong>37 test objectives</strong>, and they are not the Attempt&nbsp;1 list with new
@@ -78,7 +78,7 @@
   <h2>Priority 1 &mdash; the seven zeros</h2>
   <p>Every one of these is a design-judgement objective: pick the right architecture, the right isolation boundary,
   the right tool set, the right call order. None of them is recall. They are documented in depth on the
-  <a href="a2-docs.html">A2 Documentation</a> page and drilled on <a href="a2-exercises.html">A2 Exercises</a>.</p>
+  <a href="a2-docs.html">CCAR-A2 Documentation</a> page and drilled on <a href="a2-exercises.html">CCAR-A2 Exercises</a>.</p>
   <ol class="spaced"><li><b>O7 — Dynamic task decomposition.</b> <span class="small muted">Decompose complex tasks into dynamically generated subtasks that adapt as new information is discovered, rather than executing a fixed sequence regardless of intermediate findings.</span></li><li><b>O8 — Review architecture selection.</b> <span class="small muted">Select the appropriate agentic review architecture—plan mode, direct execution, or multi-phase workflow—based on task scope, risk level, and human approval requirements.</span></li><li><b>O13 — Review configurations.</b> <span class="small muted">Design Claude Code review configurations that load the correct project standards, restrict unnecessary tool access, and produce structured output suitable for automated downstream processing.</span></li><li><b>O14 — context: fork.</b> <span class="small muted">Apply the context: fork frontmatter option to Skill and slash command configurations that should execute in an isolated subagent context, preventing cross-contamination of session state.</span></li><li><b>O15 — Test generation quality.</b> <span class="small muted">Improve automated test generation quality by providing existing test files as context, defining fixture conventions, and specifying criteria that distinguish meaningful behavioral tests from trivial assertions.</span></li><li><b>O33 — Tool distribution across agents.</b> <span class="small muted">Configure tool distribution in multi-agent systems by assigning each subagent only the tools required for its designated role, reducing decision complexity and preventing out-of-role tool invocations.</span></li><li><b>O37 — tool_choice and sequencing.</b> <span class="small muted">Configure the tool_choice parameter to guarantee tool invocation when structured output is required, and sequence multi-tool workflows so prerequisite data is obtained before dependent tools are called.</span></li></ol>
 
   <h2>Priority 2 &mdash; the partial credits</h2>
@@ -88,7 +88,7 @@
     <b>The repeat offenders</b>
     These objectives appeared on <em>both</em> score reports and did not improve. They are the ones to treat as
     genuinely not understood rather than unlucky:
-    <ul class="tight"><li><b>O7</b> — Dynamic task decomposition <span class="small muted">(A1 100% → A2 0%)</span></li><li><b>O20</b> — Context management strategies <span class="small muted">(A1 50% → A2 50%)</span></li><li><b>O22</b> — Human review routing <span class="small muted">(A1 67% → A2 67%)</span></li><li><b>O23</b> — Messages vs Batches API <span class="small muted">(A1 100% → A2 75%)</span></li><li><b>O35</b> — MCP server integration <span class="small muted">(A1 75% → A2 50%)</span></li><li><b>O37</b> — tool_choice and sequencing <span class="small muted">(A1 0% → A2 0%)</span></li></ul>
+    <ul class="tight"><li><b>O7</b> — Dynamic task decomposition <span class="small muted">(CCAR-A1 100% → CCAR-A2 0%)</span></li><li><b>O20</b> — Context management strategies <span class="small muted">(CCAR-A1 50% → CCAR-A2 50%)</span></li><li><b>O22</b> — Human review routing <span class="small muted">(CCAR-A1 67% → CCAR-A2 67%)</span></li><li><b>O23</b> — Messages vs Batches API <span class="small muted">(CCAR-A1 100% → CCAR-A2 75%)</span></li><li><b>O35</b> — MCP server integration <span class="small muted">(CCAR-A1 75% → CCAR-A2 50%)</span></li><li><b>O37</b> — tool_choice and sequencing <span class="small muted">(CCAR-A1 0% → CCAR-A2 0%)</span></li></ul>
   </div>
 
   <h2>Almost there</h2>
@@ -118,21 +118,21 @@
     <tr><td class="oid">O13</td><td>Review configurations</td><td class="small muted">Design Claude Code review configurations that load the correct project standards, restrict unnecessary tool access, and produce structured output suitable for automated downstream processing.</td><td style="white-space:nowrap"><span class="tag bad">0%</span> </td></tr>
     <tr><td class="oid">O14</td><td>context: fork</td><td class="small muted">Apply the context: fork frontmatter option to Skill and slash command configurations that should execute in an isolated subagent context, preventing cross-contamination of session state.</td><td style="white-space:nowrap"><span class="tag bad">0%</span> </td></tr>
     <tr><td class="oid">O15</td><td>Test generation quality</td><td class="small muted">Improve automated test generation quality by providing existing test files as context, defining fixture conventions, and specifying criteria that distinguish meaningful behavioral tests from trivial assertions.</td><td style="white-space:nowrap"><span class="tag bad">0%</span> </td></tr>
-    <tr><td class="oid">O16</td><td>Config mechanism selection</td><td class="small muted">Select the correct Claude Code configuration mechanism—CLAUDE.md, .claude/rules/ with glob patterns, Skills, hooks, or settings permissions—based on guidance type and when it should apply.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in A1</span></td></tr>
+    <tr><td class="oid">O16</td><td>Config mechanism selection</td><td class="small muted">Select the correct Claude Code configuration mechanism—CLAUDE.md, .claude/rules/ with glob patterns, Skills, hooks, or settings permissions—based on guidance type and when it should apply.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in CCAR-A1</span></td></tr>
     <tr><td class="oid">O17</td><td>Codebase exploration strategy</td><td class="small muted">Apply systematic codebase exploration strategies using Grep, Glob, and Read tools that build incremental understanding while managing context window constraints.</td><td style="white-space:nowrap"><span class="tag warn">80%</span> <span class="tag ok">▲ from 50%</span></td></tr>
     <tr><td class="oid">O24</td><td>Specialized review passes</td><td class="small muted">Design specialized review passes that separate concerns—security, business logic, API design—into focused prompts with dedicated few-shot examples, preventing recall trade-offs from competing concerns in a single prompt.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
     <tr><td class="oid">O30</td><td>False positive reduction</td><td class="small muted">Reduce automated review false positive rates by supplying project-specific conventions, accepted patterns, and exclusion criteria as persistent context applied on every review.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> </td></tr>
     <tr><td class="oid">O32</td><td>Built-in tool selection</td><td class="small muted">Select the appropriate Claude Code built-in tool—Grep, Glob, Read, or Bash—based on the nature of the search or file operation required for a given codebase task.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> </td></tr>
     <tr class="domrow"><td colspan="4"><strong>Context management &amp; reliability</strong> <span class="small muted">· 5 objectives · you averaged 78%</span><br><span class="small muted">Keeping a long-running agent coherent: what is kept, what is summarised, what is offloaded, what is resumed, and what is routed to a human.</span></td></tr>
     <tr><td class="oid">O2</td><td>Session resumption</td><td class="small muted">Apply session resumption techniques—including targeted re-analysis of changed files and context injection—to restore agent state accurately without repeating prior work.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag ok">▲ from 83%</span></td></tr>
-    <tr><td class="oid">O20</td><td>Context management strategies</td><td class="small muted">Apply context management strategies—subagent isolation, scratchpad files, and targeted file reading—to sustain coherent codebase exploration across sessions exceeding context limits.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> <span class="tag">= 50% in A1</span></td></tr>
+    <tr><td class="oid">O20</td><td>Context management strategies</td><td class="small muted">Apply context management strategies—subagent isolation, scratchpad files, and targeted file reading—to sustain coherent codebase exploration across sessions exceeding context limits.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> <span class="tag">= 50% in CCAR-A1</span></td></tr>
     <tr><td class="oid">O21</td><td>Context window optimization</td><td class="small muted">Apply context window optimization techniques—summarization, sliding windows, structured state objects, and selective retention—to maintain response quality as conversations exceed practical token limits.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
-    <tr><td class="oid">O22</td><td>Human review routing</td><td class="small muted">Design human review routing strategies that direct extractions to reviewers based on confidence scores, document characteristics, and field-level ambiguity rather than random sampling.</td><td style="white-space:nowrap"><span class="tag warn">67%</span> <span class="tag">= 67% in A1</span></td></tr>
+    <tr><td class="oid">O22</td><td>Human review routing</td><td class="small muted">Design human review routing strategies that direct extractions to reviewers based on confidence scores, document characteristics, and field-level ambiguity rather than random sampling.</td><td style="white-space:nowrap"><span class="tag warn">67%</span> <span class="tag">= 67% in CCAR-A1</span></td></tr>
     <tr><td class="oid">O23</td><td>Messages vs Batches API</td><td class="small muted">Select the appropriate API processing mode—synchronous Messages API or asynchronous Message Batches API—based on latency requirements, workflow blocking behavior, and acceptable processing windows.</td><td style="white-space:nowrap"><span class="tag warn">75%</span> <span class="tag bad">▼ from 100%</span></td></tr>
     <tr class="domrow"><td colspan="4"><strong>Prompt engineering &amp; structured output</strong> <span class="small muted">· 6 objectives · you averaged 86%</span><br><span class="small muted">Getting machine-consumable output that is honest about what it does not know.</span></td></tr>
-    <tr><td class="oid">O25</td><td>Structured output method</td><td class="small muted">Select and implement the most reliable structured output method—tool use with JSON schema, prompt-based formatting, or prefilled responses—based on required schema compliance strictness.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in A1</span></td></tr>
+    <tr><td class="oid">O25</td><td>Structured output method</td><td class="small muted">Select and implement the most reliable structured output method—tool use with JSON schema, prompt-based formatting, or prefilled responses—based on required schema compliance strictness.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in CCAR-A1</span></td></tr>
     <tr><td class="oid">O26</td><td>Extraction schema design</td><td class="small muted">Design extraction schemas with optional fields, nullable values, and appropriate enum definitions that allow the model to accurately represent missing or ambiguous information without fabricating values.</td><td style="white-space:nowrap"><span class="tag warn">67%</span> <span class="tag ok">▲ from 0%</span></td></tr>
-    <tr><td class="oid">O27</td><td>Schema-enforced tool use</td><td class="small muted">Implement tool use with defined JSON schemas to enforce structured output compliance, and configure tool_choice to guarantee tool invocation when conversational responses would cause downstream failures.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in A1</span></td></tr>
+    <tr><td class="oid">O27</td><td>Schema-enforced tool use</td><td class="small muted">Implement tool use with defined JSON schemas to enforce structured output compliance, and configure tool_choice to guarantee tool invocation when conversational responses would cause downstream failures.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> <span class="tag">= 100% in CCAR-A1</span></td></tr>
     <tr><td class="oid">O28</td><td>Truncation by splitting</td><td class="small muted">Resolve structured output truncation failures by splitting large review tasks into smaller scoped API calls and merging resulting data structures, rather than increasing max_tokens beyond practical limits.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
     <tr><td class="oid">O29</td><td>Extraction accuracy patterns</td><td class="small muted">Apply extraction accuracy patterns—structured schemas with optional fields, format normalization instructions, and few-shot examples—to reduce hallucination and improve consistency across varied document formats.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> <span class="tag ok">▲ from 25%</span></td></tr>
     <tr><td class="oid">O31</td><td>Inclusion/exclusion boundaries</td><td class="small muted">Design prompt criteria that define explicit inclusion and exclusion boundaries, preventing the model from generating findings or extractions in categories where performance is unreliable.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
@@ -141,17 +141,17 @@
     <tr><td class="oid">O34</td><td>MCP resources vs tools</td><td class="small muted">Distinguish between MCP resources and tools, and expose server content as resources to reduce exploratory tool calls and improve agent efficiency in cross-system queries.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
     <tr><td class="oid">O35</td><td>MCP server integration</td><td class="small muted">Integrate MCP servers into Claude Code and agent applications by selecting the correct server scope, configuring authentication via environment variable expansion, and verifying tool discovery.</td><td style="white-space:nowrap"><span class="tag warn">50%</span> <span class="tag bad">▼ from 75%</span></td></tr>
     <tr><td class="oid">O36</td><td>MCP tool descriptions</td><td class="small muted">Write MCP tool descriptions that clearly distinguish each tool's purpose, input formats, use-case boundaries, and relationships to semantically similar tools, reducing misrouting and incorrect tool selection.</td><td style="white-space:nowrap"><span class="tag ok">100%</span> </td></tr>
-    <tr><td class="oid">O37</td><td>tool_choice and sequencing</td><td class="small muted">Configure the tool_choice parameter to guarantee tool invocation when structured output is required, and sequence multi-tool workflows so prerequisite data is obtained before dependent tools are called.</td><td style="white-space:nowrap"><span class="tag bad">0%</span> <span class="tag">= 0% in A1</span></td></tr>
+    <tr><td class="oid">O37</td><td>tool_choice and sequencing</td><td class="small muted">Configure the tool_choice parameter to guarantee tool invocation when structured output is required, and sequence multi-tool workflows so prerequisite data is obtained before dependent tools are called.</td><td style="white-space:nowrap"><span class="tag bad">0%</span> <span class="tag">= 0% in CCAR-A1</span></td></tr>
   </table>
   </div>
 
   <h2>Derived domain weighting</h2>
   <p>The score report does not publish weightings, so these are derived from how many objectives fall in each
-  domain. The <a href="a2-exam.html">A2 mock exam</a> is built to this distribution, which is why its per-domain
+  domain. The <a href="a2-exam.html">CCAR-A2 mock exam</a> is built to this distribution, which is why its per-domain
   breakdown is a usable signal.</p>
   <div class="table-wrap">
   <table>
-    <tr><th>Domain</th><th style="width:110px">Derived weight</th><th style="width:110px">A2 mock Qs</th><th style="width:110px">Objectives</th></tr>
+    <tr><th>Domain</th><th style="width:110px">Derived weight</th><th style="width:110px">CCAR-A2 mock Qs</th><th style="width:110px">Objectives</th></tr>
     <tr><td>Multi-agent orchestration &amp; subagent design</td><td>27%</td><td>16</td><td>10</td></tr><tr><td>Claude Code configuration &amp; automated review</td><td>30%</td><td>18</td><td>11</td></tr><tr><td>Context management &amp; reliability</td><td>14%</td><td>8</td><td>5</td></tr><tr><td>Prompt engineering &amp; structured output</td><td>16%</td><td>10</td><td>6</td></tr><tr><td>Tool design &amp; MCP integration</td><td>14%</td><td>8</td><td>5</td></tr>
   </table>
   </div>
@@ -176,30 +176,30 @@
   <h2>How to use this hub now</h2>
   <div class="grid grid-3">
     <div class="card">
-      <h3 class="mt0">1 &middot; A2 Documentation</h3>
+      <h3 class="mt0">1 &middot; CCAR-A2 Documentation</h3>
       <p class="small muted">Built from scratch against these 37 objectives, deepest on the seven zeros. Read the
       priority-1 sections first &mdash; they are written to be understood, not memorised.</p>
-      <a class="btn sm" href="a2-docs.html">Open A2 documentation &rarr;</a>
+      <a class="btn sm" href="a2-docs.html">Open CCAR-A2 documentation &rarr;</a>
     </div>
     <div class="card">
-      <h3 class="mt0">2 &middot; A2 Exercises</h3>
+      <h3 class="mt0">2 &middot; CCAR-A2 Exercises</h3>
       <p class="small muted">Build the systems the objectives describe: a PR-review multi-agent pipeline, a support
       orchestrator, a forked skill, a CI invocation that cannot run away.</p>
-      <a class="btn sm" href="a2-exercises.html">Open A2 exercises &rarr;</a>
+      <a class="btn sm" href="a2-exercises.html">Open CCAR-A2 exercises &rarr;</a>
     </div>
     <div class="card">
-      <h3 class="mt0">3 &middot; A2 Mock Exam</h3>
+      <h3 class="mt0">3 &middot; CCAR-A2 Mock Exam</h3>
       <p class="small muted">Long multi-objective scenarios in the real exam's shape &mdash; each item spans two or
       three objectives, so you cannot answer from one fact.</p>
-      <a class="btn sm" href="a2-exam.html">Start A2 mock exam &rarr;</a>
+      <a class="btn sm" href="a2-exam.html">Start CCAR-A2 mock exam &rarr;</a>
     </div>
   </div>
 
   <div class="note rule">
-    <b>Also: the A1 track got harder</b>
-    The <a href="exam.html">A1 Mock Exam</a> has been rewritten from scratch at a much higher difficulty, and the
-    <a href="exercises.html">A1 Exercises</a> page now carries a set of multi-agent system builds on top of the
-    original sixteen drills. Nothing on the A1 track was thrown away &mdash; it is the same blueprint, set harder.
+    <b>Also: the CCAR-A1 track got harder</b>
+    The <a href="exam.html">CCAR-A1 Mock Exam</a> has been rewritten from scratch at a much higher difficulty, and the
+    <a href="exercises.html">CCAR-A1 Exercises</a> page now carries a set of multi-agent system builds on top of the
+    original sixteen drills. Nothing on the CCAR-A1 track was thrown away &mdash; it is the same blueprint, set harder.
   </div>
 
   <div class="note">
@@ -212,6 +212,6 @@
 
 </main>
 
-<footer class="footer"><div class="narrow">CCAR-F Study Hub &middot; Independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+<footer class="footer"><div class="narrow">Claude Study Hub &middot; Independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
 </body>
 </html>

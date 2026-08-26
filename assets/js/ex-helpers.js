@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — shared helpers used by exercise check functions.
+   Claude Study Hub — shared helpers used by exercise check functions.
    Global on purpose: exercise data files reference these inside their
    check callbacks, and those run long after load order stops mattering.
    ============================================================= */

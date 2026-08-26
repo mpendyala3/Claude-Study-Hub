@@ -1,5 +1,5 @@
 /* ============================================================
-   CCAR-F Study Hub — global stylesheet
+   Claude Study Hub — global stylesheet
    Zero external dependencies (GitHub Pages / offline safe)
    ============================================================ */
 
@@ -686,7 +686,7 @@ kbd {
   .topbar, .sidebar, .footer, .exam-bar, .q-nav, .exam-actions { display: none !important; }
 }
 
-/* ---------- four-track nav (A1 / A2 / CCAO / CCDV) ---------- */
+/* ---------- four-track nav (CCAR-A1 / CCAR-A2 / CCAO / CCDV) ---------- */
 .navgroup {
   display: inline-flex;
   align-items: center;
@@ -736,7 +736,7 @@ kbd {
   .navgroup + .navgroup { margin-left: 0; }
 }
 
-/* ---------- objective tables and lists (A2 overview) ---------- */
+/* ---------- objective tables and lists (CCAR-A2 overview) ---------- */
 ol.spaced, ul.spaced { padding-left: 20px; }
 ol.spaced > li, ul.spaced > li { margin: 0 0 12px; line-height: 1.55; }
 ul.tight { margin: 6px 0 0; padding-left: 20px; }
@@ -745,7 +745,7 @@ ul.tight > li { margin: 0 0 4px; }
 .objtable tr.domrow td { background: var(--bg-sunk); padding-top: 14px; padding-bottom: 12px; }
 .objtable tr.domrow strong { font-size: 15px; }
 
-/* ---------- A2 docs additions ---------- */
+/* ---------- CCAR-A2 docs additions ---------- */
 .sidebar a.prio { border-left: 2px solid var(--bad); padding-left: 8px; }
 pre.mini { margin: 6px 0 10px; }
 pre.mini code { font-size: 12px; line-height: 1.5; }

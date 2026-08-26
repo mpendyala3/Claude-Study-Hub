@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — A1 exercise bank
+   Claude Study Hub — CCAR-A1 exercise bank
    Types: classify | json | text | choice | lab
    ============================================================= */
 

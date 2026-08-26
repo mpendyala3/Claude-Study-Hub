@@ -1,5 +1,5 @@
 /* =============================================================
-   CCAR-F Study Hub — exercise engine.
+   Claude Study Hub — exercise engine.
    Renders whatever global EXERCISES array the page loaded before it.
    ============================================================= */
 (function () {
