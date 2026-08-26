@@ -4,8 +4,7 @@
    30 graded drills, ids arp-1 … arp-30, namespaced so localStorage drafts
    never collide with the CCAO / CCDV / CCAR-F tracks.
 
-   Distribution follows the exam blueprint and the ten-day plan on the
-   Overview page:
+   Distribution follows the exam blueprint:
 
      Domain 1 · Solution Design & Architecture            17%   arp-1  … arp-5
      Domain 2 · Models, Prompting & Context Engineering   13%   arp-6  … arp-9

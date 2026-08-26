@@ -20,13 +20,12 @@
       <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
       <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
       <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
-      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
     </nav>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
   </div>
   <div class="subbar">
     <nav class="nav nav-sub">
       <span class="navgroup" data-track="ccarf">
-        <span class="navlabel">CCAR-F</span>
         <a href="ccarf-index.html">Overview</a>
         <a href="ccarf-docs.html">Docs</a>
         <a href="ccarf-exercises.html">Exercises</a>
@@ -321,49 +320,7 @@
     Agent SDK hooks and <code>fork_session</code> are spread thinly across the API and Claude Code courses and
     assumed as background in both. Domain 5 fares no better. It is entirely possible to finish every listed course
     and still be under-prepared for close to half the paper &mdash; which is why the documentation here treats
-    Domains 1 and 5 at length and why the study plan below starts with Domain 1 rather than the API.
-  </div>
-
-  <h2>An eight-day plan</h2>
-  <ol class="spaced">
-    <li><strong>Day 1 &mdash; The loop, hands on.</strong> Read the four <a href="ccarf-docs.html#p1">primers</a>,
-    then write code: a manual agentic loop that branches on <code>stop_reason</code> and appends every tool result to
-    <code>messages</code>; one tool call forced with <code>tool_choice</code>. An hour of typing fixes more than an
-    evening of reading, because Domain 1 items assume you have felt the loop rather than skimmed it.</li>
-    <li><strong>Day 2 &mdash; Domain 1, first half.</strong> <a href="ccarf-docs.html#d1-1">1.1</a> through
-    <a href="ccarf-docs.html#d1-4">1.4</a>. The agentic loop, hub-and-spoke coordination, the subagent context
-    contract, and programmatic prerequisites. This is the densest reading in the hub; do it while you are
-    fresh.</li>
-    <li><strong>Day 3 &mdash; Domain 1, second half, plus Domain 5.</strong> <a href="ccarf-docs.html#d1-5">1.5</a>&ndash;<a href="ccarf-docs.html#d1-7">1.7</a>
-    then all of <a href="ccarf-docs.html#d5">Domain 5</a>. Pairing them is deliberate: hooks, decomposition and
-    session state are what error propagation and context management are <em>for</em>.</li>
-    <li><strong>Day 4 &mdash; Domain 3.</strong> Claude Code configuration end to end. Then do it for real on a
-    repository you own: a <code>CLAUDE.md</code> with an <code>@import</code>, a <code>.claude/rules/</code> file
-    with a <code>paths:</code> glob, a skill with <code>context: fork</code> and <code>allowed-tools</code>, and one
-    <code>claude -p ... --output-format json</code> invocation. Four configuration surfaces you have touched beat
-    twenty you have read about.</li>
-    <li><strong>Day 5 &mdash; Domain 4.</strong> Prompt engineering and structured output. Build the extraction tool
-    with a nullable field and an <code>other</code>+detail enum, then deliberately feed it a document that omits a
-    field and watch what a required field does to it.</li>
-    <li><strong>Day 6 &mdash; Domain 2.</strong> Tool design and MCP. Write two deliberately confusable tool
-    descriptions, watch the model misroute, then fix them &mdash; that experiment teaches 2.1 permanently.</li>
-    <li><strong>Day 7 &mdash; Build.</strong> Work every <a href="ccarf-exercises.html">exercise</a> with the
-    documentation closed. Get a partial score, read which checks failed, fix them, re-grade. That loop is what
-    transfers to the exam room.</li>
-    <li><strong>Day 8 &mdash; Sit it timed, then review.</strong> Take the <a href="ccarf-exam.html">mock exam</a> in
-    <em>Exam mode</em>: 120 minutes, no feedback until you submit. This bank is harder than the real exam and gives
-    you 65 items in the real exam's 120 minutes, so treat <strong>800+</strong> as a green light and anything under
-    700 as a signal to go back rather than book. Then read every explanation, including on items you got right
-    &mdash; the &ldquo;why the others are ruled out&rdquo; text is where the marginal points live.</li>
-  </ol>
-
-  <div class="note good">
-    <b>If you have three days, not eight</b>
-    Day 1: <a href="ccarf-docs.html#p1">the primers</a> and all of <a href="ccarf-docs.html#d1">Domain 1</a>. Day 2:
-    <a href="ccarf-docs.html#d3">Domain 3</a> and <a href="ccarf-docs.html#d4">Domain 4</a>. Day 3:
-    <a href="ccarf-docs.html#d2">Domain 2</a>, <a href="ccarf-docs.html#d5">Domain 5</a>,
-    <a href="ccarf-docs.html#antipatterns">the anti-patterns</a>, <a href="ccarf-docs.html#cheat">the cheat
-    sheet</a>, and the mock exam timed. That is the whole weighting and the whole distractor vocabulary.
+    Domains 1 and 5 at length, and why they are the place to start rather than the API.
   </div>
 
   <h2>Policies worth knowing before you book</h2>

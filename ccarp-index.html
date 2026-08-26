@@ -20,13 +20,12 @@
       <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
       <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
       <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
-      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
     </nav>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
   </div>
   <div class="subbar">
     <nav class="nav nav-sub">
       <span class="navgroup" data-track="ccarp">
-        <span class="navlabel">CCAR-P</span>
         <a href="ccarp-index.html">Overview</a>
         <a href="ccarp-docs.html">Docs</a>
         <a href="ccarp-exercises.html">Exercises</a>
@@ -372,57 +371,6 @@
     tell you which of the thirty-eight objectives you would fail on right now. That is what the
     <a href="ccarp-exercises.html">exercises</a> and the <a href="ccarp-exam.html">70-question mock</a> are for
     &mdash; and it is why the per-domain breakdown on the results page matters more than the score.
-  </div>
-
-  <h2>A ten-day study plan</h2>
-  <p>Assumes about two focused hours a day. If you have already passed CCAR-F, you can compress days 1&ndash;3,
-  because Domains 1&ndash;3 overlap materially with what you have already learned &mdash; but do not skip them, the
-  cognitive level is different.</p>
-  <ol class="spaced">
-    <li><strong>Day 1 &mdash; Orient and baseline.</strong> Read this page end to end, including the thirty-eight
-    objectives, and mark the ones you could not explain unaided. Then read the five architect primers in the
-    <a href="ccarp-docs.html#p1">documentation</a>. Do not touch the mock exam yet.</li>
-    <li><strong>Day 2 &mdash; Solution design (17%).</strong> Documentation <a href="ccarp-docs.html#d1">Domain 1</a>
-    in full, then exercises 1&ndash;5. Objectives 1.3 and 1.4 &mdash; pattern selection and multi-agent
-    orchestration &mdash; carry the most items; make sure you can state the failure mode of each pattern, not just
-    its shape.</li>
-    <li><strong>Day 3 &mdash; Models, prompting, context (13%).</strong>
-    <a href="ccarp-docs.html#d2">Domain 2</a> plus exercises 6&ndash;9. Do the token-budget arithmetic by hand at
-    least once; the exam plants numbers and expects you to divide.</li>
-    <li><strong>Day 4 &mdash; Integration, first half (19%).</strong>
-    <a href="ccarp-docs.html#d3-1">3.1</a> through <a href="ccarp-docs.html#d3-4">3.4</a> &mdash; capability bloat,
-    auth, accuracy&ndash;latency, observability &mdash; plus exercises 10&ndash;12. Sample item 1 lives here.</li>
-    <li><strong>Day 5 &mdash; Integration, second half.</strong> <a href="ccarp-docs.html#d3-5">3.5</a> through
-    <a href="ccarp-docs.html#d3-8">3.8</a> &mdash; RAG, retrieval strategy, protocol choice, progressive discovery
-    &mdash; plus exercises 13&ndash;15. Sample item 3 lives here.</li>
-    <li><strong>Day 6 &mdash; Evaluation and optimisation (16%).</strong>
-    <a href="ccarp-docs.html#d4">Domain 4</a> plus exercises 16&ndash;20. Write one full evaluation plan from
-    scratch; it is the single highest-yield hour on this list.</li>
-    <li><strong>Day 7 &mdash; Governance and risk (14%).</strong> <a href="ccarp-docs.html#d5">Domain 5</a> plus
-    exercises 21&ndash;24. Learn what GDPR, HIPAA and FedRAMP each <em>forbid you from designing</em>, in one
-    sentence apiece.</li>
-    <li><strong>Day 8 &mdash; Stakeholders and lifecycle (14%).</strong>
-    <a href="ccarp-docs.html#d6">Domain 6</a> plus exercises 25&ndash;28. Write the architecture decision record and
-    the discovery question set for real. This is the domain where reading is least sufficient.</li>
-    <li><strong>Day 9 &mdash; Developer enablement (7%), then study mode.</strong>
-    <a href="ccarp-docs.html#d7">Domain 7</a> plus exercises 29&ndash;30, then work the
-    <a href="ccarp-exam.html">mock exam in study mode</a>, reading every explanation including the ones for options
-    you did not pick. Expect this to take longer than the exam itself.</li>
-    <li><strong>Day 10 &mdash; Timed run and repair.</strong> Sit the mock in exam mode, cold, 120 minutes. Then
-    take the per-domain breakdown and re-read only the objectives you missed, plus the
-    <a href="ccarp-docs.html#antipatterns">anti-pattern catalogue</a> and the
-    <a href="ccarp-docs.html#cheat">one-page summary</a>. Retake shuffled if any domain is below 75%.</li>
-  </ol>
-
-  <div class="note good">
-    <b>The three-day version</b>
-    If you are already architecting production Claude systems and you are here for calibration rather than
-    learning: <strong>Day 1</strong> &mdash; the mock exam in study mode, cold, all 70 items, reading every
-    explanation. <strong>Day 2</strong> &mdash; the documentation for the domains where you scored below 80%, plus
-    the whole of Domain 6 regardless of your score, plus the anti-pattern catalogue.
-    <strong>Day 3</strong> &mdash; the exercises for those domains, then a shuffled timed retake. The reason Domain
-    6 is unconditional is that practitioners consistently over-rate their stakeholder-communication answers, and
-    it is 14% of the paper.
   </div>
 
   <h2>Registration, policy and what happens on the day</h2>

@@ -133,16 +133,21 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 28px 0; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
 }
+/* Three tracks: brand, nav, theme toggle. The outer two are equal, so the nav
+   sits on the page's centre line rather than on the centre of what is left
+   over after the brand. */
 .topbar-inner {
   max-width: 1400px;
   margin: 0 auto;
   padding: 8px 20px;
   min-height: 58px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  flex-wrap: wrap;
   gap: 10px;
 }
+.topbar-inner > .brand { justify-self: start; }
+.topbar-inner > .icon-btn { justify-self: end; }
 .brand {
   font-weight: 700;
   font-size: 15px;
@@ -167,12 +172,9 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 28px 0; }
 
 .nav { display: flex; gap: 2px; width: 100%; align-items: center; flex-wrap: wrap; }
 
-/* Row 1: the five main pages, packed left beside the brand. The row takes the
-   rest of the width so the theme toggle -- the one control that is not a page
-   -- can stay pinned to the far right. */
-.nav-main { flex: 1 1 auto; width: auto; gap: 4px; }
+/* Row 1: the five main pages, centred in the header. */
+.nav-main { width: auto; gap: 4px; justify-content: center; }
 .nav-main a { font-size: 14.5px; font-weight: 650; padding: 7px 14px; }
-.nav-main .icon-btn { margin-left: auto; }
 
 /* Row 2: the current section's own pages, centred. Absent on Home. */
 .subbar { border-top: 1px solid var(--border); background: var(--bg-sunk); }
@@ -694,8 +696,13 @@ kbd {
   }
   .sidebar-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; }
   h1 { font-size: 25px; }
-  .topbar-inner { height: auto; padding: 8px 16px; flex-wrap: wrap; }
-  .nav { margin-left: 0; width: 100%; }
+  /* Too narrow for three tracks: brand and toggle share row 1, the nav takes
+     the whole of row 2. */
+  .topbar-inner { height: auto; padding: 8px 16px; grid-template-columns: 1fr auto; }
+  .topbar-inner > .brand { grid-area: 1 / 1; }
+  .topbar-inner > .icon-btn { grid-area: 1 / 2; }
+  .topbar-inner > .nav-main { grid-area: 2 / 1 / 3 / -1; }
+  .nav { width: 100%; }
   .exam-bar { top: 0; position: relative; }
 }
 
@@ -708,21 +715,11 @@ kbd {
   display: inline-flex;
   align-items: center;
   gap: 1px;
-  padding: 2px 3px 2px 2px;
+  padding: 2px 3px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-elev);
 }
-.navgroup .navlabel {
-  font-size: 11px;
-  font-weight: 750;
-  letter-spacing: .06em;
-  color: var(--text-faint);
-  padding: 3px 7px;
-  border-radius: 4px;
-  background: var(--bg-sunk);
-}
-.navgroup.is-current .navlabel { background: var(--accent-soft); color: var(--accent); }
 .navgroup a { padding: 5px 9px; font-size: 13px; }
 
 /* track badge used on page headers */
@@ -764,13 +761,11 @@ kbd {
 @media (max-width: 1320px) {
   .nav { gap: 1px; }
   .navgroup a { padding: 5px 7px; font-size: 12px; }
-  .navgroup .navlabel { padding: 3px 6px; font-size: 10px; }
 }
 
 @media (max-width: 900px) {
   :root { --hdr: 140px; }
   .nav { gap: 6px; }
-  .nav-main { width: 100%; }
   .nav-sub { padding: 6px 16px; }
 }
 
