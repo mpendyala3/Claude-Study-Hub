@@ -117,7 +117,8 @@
 
     <p class="lede">Read top to bottom on a first pass. The primer establishes the platform facts that all seven
     domains assume; each objective then gets the mechanism, the decision rule the exam grades on, the distractors it
-    plants, and a Q&amp;A drill. If you are short of time, read the primer and then <a href="#d2">Domain 2</a> —
+    plants, and a Q&amp;A drill. Every primer and every domain opens with a <strong>worked real scenario</strong> &mdash;
+    one organisation, one thing that went wrong, and what the correct answer actually was. If you are short of time, read the primer and then <a href="#d2">Domain 2</a> —
     that is 21% of the exam on its own.</p>
 
     <div class="note rule">
@@ -213,6 +214,22 @@
         adding a file to Project knowledge, rewriting a weak prompt, deciding an output needs a second reader. Both
         directions are scored. Ask: <em>does this require writing code or changing a system?</em> If no, it is
         yours.
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Meridian Mutual: &ldquo;it knew the date of birth yesterday&rdquo;</h5>
+        <p>A claims handler pastes a 40-page medical report into a conversation and gets a good summary. Twenty minutes
+        later, in a <strong>new</strong> conversation, they ask &ldquo;what was the claimant&rsquo;s date of birth?&rdquo;
+        and get a confident, completely invented date. They raise it as a bug: the system has forgotten something it knew.</p>
+        <p>Nothing was forgotten, because nothing was ever stored. A turn consists of everything sent in that request
+        &mdash; the instructions, the conversation so far, and any attached material &mdash; and the model produces a
+        continuation of it. The new conversation contained a question about a report that was not in it, and a fluent answer
+        is what the model produces when the material is absent. A colleague who asked the same question <em>in the original
+        conversation</em> got the right answer, because there the report was still part of the input.</p>
+        <p>The exam leans on this constantly. &ldquo;It forgot&rdquo;, &ldquo;it made up a figure&rdquo; and &ldquo;it gave
+        a different answer to my colleague&rdquo; usually all reduce to the same cause: what was in the request differed.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> A turn is everything you send, every time. The model keeps nothing of its own between conversations, so anything that must be available every time has to be put there deliberately &mdash; by attaching it, or by configuring it.</p>
       </div>
 
       <details class="qa"><summary>Claude produces a summary of an internal policy with a heading and a clause number that do not exist in the document you attached. What is the most precise description of what happened?</summary>
@@ -343,6 +360,37 @@
         wrong answer reasons from size; the right answer reasons from what happens to the output next.
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Beckford &amp; Hale: four requests in one week, four different features</h5>
+        <p>A consultancy&rsquo;s partners asked for four things. The whole of Domain 3 is the ability to hear which feature
+        each one is asking for:</p>
+        <div class="table-wrap">
+        <table>
+          <tr><th style="width:46%">What they asked for</th><th>The feature</th></tr>
+          <tr><td>&ldquo;Every draft should come out in the firm&rsquo;s house style, with our citation rule, without
+              anyone having to remember to ask.&rdquo;</td>
+              <td><strong>Project instructions</strong> &mdash; standing rules that apply to every conversation in the
+              Project.</td></tr>
+          <tr><td>&ldquo;Last quarter&rsquo;s benchmarking pack should be available to everyone on the engagement.&rdquo;</td>
+              <td><strong>Project knowledge</strong> &mdash; uploaded files the conversations can draw on, with a named
+              owner who keeps them current.</td></tr>
+          <tr><td>&ldquo;I want to pull the ticket data straight from the client&rsquo;s tracker instead of exporting a
+              CSV every Monday.&rdquo;</td>
+              <td>A <strong>connector</strong> to that system &mdash; live data, no copy-paste, and access governed by the
+              client contract.</td></tr>
+          <tr><td>&ldquo;Turning interview notes into our standard finding template is the same six steps every
+              time.&rdquo;</td>
+              <td>A <strong>Skill</strong> &mdash; a packaged, repeatable procedure invoked when it is needed rather than
+              applied to everything.</td></tr>
+        </table>
+        </div>
+        <p>Choosing the wrong one is usually the whole question: house style in a Skill applies only when someone remembers
+        to invoke it, and a rate card in the instructions instead of in knowledge means editing configuration every time a
+        price changes.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Instructions are for what must be true every time; knowledge is for the material to draw on; connectors are for live data in another system; Skills are for a repeatable procedure. The exam gives you the sentence and wants the feature.</p>
+      </div>
+
       <details class="qa"><summary>Your team asks Claude the same twelve questions about a product every week, pasting the spec sheet in each time. What is the fix, and what is the wrong version of the fix?</summary>
       <div class="qa-body">Create a <strong>Project</strong>, put the spec sheet in Project knowledge and the
       standing rules in Project instructions, and have the team work in it. The wrong version of the fix is to
@@ -444,6 +492,20 @@
         five minutes checking the current line-up before exam day.
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Northwind Retail: 30,000 descriptions and one budget</h5>
+        <p>The task: rewrite 30,000 product descriptions, of which 500 are flagship items that carry the brand. The first
+        plan was the strongest tier for all 30,000, which came back at several times the available budget. The second was
+        the fastest tier for all 30,000, which produced acceptable copy for the long tail and flat, forgettable copy for
+        the flagship items &mdash; the ones the money was for.</p>
+        <p>The plan that worked splits the decision <strong>per step</strong>: the fast tier for the 29,500 routine
+        descriptions, where a small quality difference is genuinely invisible on a category page; the strongest tier for the
+        500 flagship items, and for the prompt-development work itself, where a better draft saves days of iteration; and a
+        mid tier for the QA pass that scores a sample of the output.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Tier is chosen per step, by consequence and volume &mdash; not once per project. High volume plus low consequence is the fast tier&rsquo;s case; low volume plus high consequence is what you pay for.</p>
+      </div>
+
       <details class="qa"><summary>Fifteen thousand support emails a month need routing into eight categories, and roughly 4% need a nuanced apology drafted. Design the model choice.</summary>
       <div class="qa-body">Two tiers, split by difficulty. Classification into eight known categories is exactly
       the fast, cheap tier's job — high volume, well specified, shallow. The 4% needing a written apology with
@@ -531,6 +593,26 @@
         latest" is not.</li>
       </ul>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Tessellate Software: ninety turns in, the conversation starts arguing with itself</h5>
+        <p>A researcher&rsquo;s competitor analysis has run to about ninety turns. The pricing table from turn 4 is now
+        being blended with a hypothetical scenario from turn 60, and the answers are getting less reliable, not more.
+        Objective 3.4 asks exactly this: restart, summarise, or persist?</p>
+        <ul>
+          <li><strong>Restart</strong> &mdash; the next competitor is a new task with new material. Nothing from this
+          conversation helps, and carrying it forward is what caused the problem. Start clean.</li>
+          <li><strong>Summarise</strong> &mdash; the analysis in progress is still one task. Write the conclusions and open
+          questions into a compact summary and carry <em>that</em> into a fresh conversation, not the ninety turns.</li>
+          <li><strong>Persist</strong> &mdash; the pricing table is needed every week by four people. It does not belong in
+          a conversation at all; it belongs in the Project as a file with an owner.</li>
+        </ul>
+        <p>They did all three, for the three different pieces. The mistake to recognise on the exam is treating a long
+        conversation as a filing system: material that is needed repeatedly should be configuration, and a conversation
+        that has changed topic should be a new conversation.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Restart when the task changed, summarise when the task continues but the history is baggage, persist when the material is needed again next week. Long conversations degrade; that is a lifecycle decision, not a model problem.</p>
+      </div>
+
       <details class="qa"><summary>Forty turns into a campaign-planning chat, Claude keeps reintroducing a channel you ruled out at turn nine. What do you do?</summary>
       <div class="qa-body">Ask for a structured summary — decisions, constraints, the ruled-out list with reasons,
       open questions, current draft — then start a fresh chat with that summary as the opening context. The
@@ -559,6 +641,30 @@
       <p class="lede">Four objectives. The exam does not ask you to recite prompt-engineering vocabulary; it gives
       you a weak prompt and a bad output and asks what to change. Every answer here is a specific structural
       change, never "be clearer".</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Larkfield Council: &ldquo;draft a letter refusing this blue-badge application&rdquo;</h5>
+        <p><strong>The output.</strong> The decision was right. Everything else was wrong: no explanation of the appeal
+        route, a tone the ombudsman would have had something to say about, and a citation to
+        &ldquo;paragraph 4.2 of the mobility policy&rdquo; that does not exist. The officer&rsquo;s conclusion was that the
+        tool was not up to the job.</p>
+        <p><strong>The prompt, rebuilt around the five components.</strong></p>
+        <ul>
+          <li><strong>Role and audience</strong> &mdash; a council officer writing to a resident who has just been refused
+          something they applied for.</li>
+          <li><strong>Context</strong> &mdash; the application, the decision and the reason, and the relevant policy extract
+          attached. The fabricated paragraph number existed because no policy was ever supplied.</li>
+          <li><strong>Task</strong> &mdash; one verb: draft the refusal letter.</li>
+          <li><strong>Constraints</strong> &mdash; plain English, under 400 words, cite only the attached policy, set out
+          the appeal route, and <em>write &ldquo;not stated&rdquo; rather than inferring anything that is not in the
+          papers</em>.</li>
+          <li><strong>Output shape</strong> &mdash; the council&rsquo;s four-part letter template.</li>
+        </ul>
+        <p>Same model, same document, same officer. Every item in this domain works like this: you are shown a weak prompt
+        and a bad output, and the answer is a specific structural change.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Each missing component produces a characteristic failure &mdash; missing context produces fabrication, missing audience produces the wrong register, missing output shape produces something you reformat by hand. Name the missing part; never answer &ldquo;be clearer&rdquo;.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d1-1">
@@ -859,6 +965,29 @@
           this, not your confidence.</li>
         </ol>
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Aldgate Bank: the complaint response that passed QA</h5>
+        <p><strong>What went out.</strong> A response to a customer complaining about a &pound;340 fee. Accurate on the fee
+        itself. Silent on the customer&rsquo;s second question, about the effect on their credit file. And it cited an FCA
+        rule number that does not exist. It was not in the 5% QA sample, so nobody read it before it was sent.</p>
+        <p><strong>The four-question gate, applied.</strong></p>
+        <ol>
+          <li><strong>Correct?</strong> No. And note <em>where</em> the fabrication was: the rule number &mdash; the most
+          precise-looking, most authoritative-sounding element on the page. That is where invention concentrates, and it is
+          the first thing to check, not the last.</li>
+          <li><strong>Complete?</strong> No &mdash; and this is the failure that cost the most. The customer asked two
+          questions and got one answer, fluently. Incompleteness does not look like an error; it looks like a finished
+          document.</li>
+          <li><strong>Right for this reader?</strong> A distressed customer, so tone and clarity matter as much as
+          accuracy.</li>
+          <li><strong>Who else must see it?</strong> A complaint that can be escalated to the Financial Ombudsman is not a
+          5%-sample document. The sampling rate had been set by review capacity, which is not a control &mdash; it is a
+          budget.</li>
+        </ol>
+        <p class="cb-take"><b>Takeaway &middot;</b> You are the control. The model produces a candidate; deciding whether it is fit to leave your hands is the job this credential certifies &mdash; and completeness failures are quieter, and therefore more expensive, than accuracy failures.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d2-1">
@@ -1294,6 +1423,28 @@
       lesson 1, which is why candidates arrive under-prepared. The mechanics are in
       <a href="#p2">Primer 2</a>, <a href="#p3">Primer 3</a> and <a href="#p4">Primer 4</a>; the sections below
       are the decisions the exam actually poses.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Civic Health Trust: three asks, three answers, and one trap</h5>
+        <div class="table-wrap">
+        <table>
+          <tr><th style="width:40%">The ask</th><th>The right answer</th></tr>
+          <tr><td>&ldquo;Summarise this one consultation document for me before my 3pm.&rdquo;</td>
+              <td>An ordinary conversation on a <strong>fast tier</strong>. One-off, low consequence, latency matters.</td></tr>
+          <tr><td>&ldquo;Every clinician drafting patient letters should produce them to the same standard.&rdquo;</td>
+              <td>A <strong>Project</strong>: the approved letter set as knowledge, the tone and reading-age rules as
+              instructions. This is a configuration problem, not a model problem.</td></tr>
+          <tr><td>&ldquo;Stop people copying appointment data out of the patient administration system by hand.&rdquo;</td>
+              <td>A <strong>connector</strong> to that system, with access scoped and logged.</td></tr>
+        </table>
+        </div>
+        <p><strong>The trap</strong> is the middle row. The clinicians&rsquo; letters were inconsistent, and the instinct
+        was to move to the strongest available model. The strongest model would have produced excellent letters in eleven
+        different house styles, because the gap was never capability &mdash; it was that the standard existed only in
+        people&rsquo;s heads.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Match the feature to the shape of the need first, and only then choose the tier. When output is inconsistent rather than poor, the answer is almost always configuration, not a bigger model.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d3-1">
@@ -1474,6 +1625,26 @@
       <p class="lede">Five objectives and the second-heaviest domain. This is the consulting half of the credential:
       given a business process, decide what Claude should do inside it, where the checkpoints go, and how to explain
       the result to people who will either fund it or resist it.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Meridian Mutual: 600 documents a day and capacity to review 60</h5>
+        <p><strong>The situation.</strong> 600 claim documents arrive daily. Handlers can properly review about 60. Personal
+        injury claims are a regulated determination about a person.</p>
+        <p><strong>Two designs the exam will offer you, and why both are wrong.</strong> Automate the lot &mdash; fails,
+        because a regulated decision needs a named human decision-maker and this removes them. Keep everything manual
+        &mdash; fails, because the backlog is the harm: claimants wait, and the 540 documents nobody reads today are not
+        being handled carefully, they are being ignored.</p>
+        <p><strong>The design that works.</strong> Claude processes all 600: extracts to a fixed structure, summarises,
+        <em>flags missing or contradictory information</em>, and ranks by value and by its own confidence. A handler then
+        reviews &mdash; always for personal injury, and by exception elsewhere, with the low-confidence and high-value
+        items at the top of the queue. The checkpoint sits where being wrong is expensive, not spread evenly across
+        everything.</p>
+        <p><strong>The part candidates skip.</strong> The success measure was agreed <em>before</em> the pilot: documents
+        per handler per day, and the error rate found in the review sample. Without the second number, a throughput
+        improvement is indistinguishable from a quality collapse.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Decide what Claude does, where the human checkpoint goes, and how you will know it worked &mdash; before you start. Checkpoints belong where the consequence of being wrong is highest, not uniformly everywhere.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d4-1">
@@ -1857,6 +2028,28 @@
       <p class="lede">Four objectives about turning a working prompt into a working system. The single organising
       idea: <strong>anything that must be true every time belongs in configuration, not in a prompt</strong> — and
       configuration that is not maintained becomes a liability.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Beckford &amp; Hale: three versions of the house style in circulation</h5>
+        <p><strong>The symptom.</strong> Consultants were pasting the firm&rsquo;s style guide into the top of every
+        conversation. Three variants were circulating, one of them eighteen months old, and the disclosure line the client
+        contract required was in only two of them.</p>
+        <p><strong>The reorganisation.</strong> The organising rule is that <em>anything that must be true every time
+        belongs in configuration, not in a prompt</em>:</p>
+        <ul>
+          <li><strong>Project instructions:</strong> the citation rule, the tone, the required AI-disclosure line, the
+          output template. Short, stable, and applies to every conversation whether or not anyone remembers it.</li>
+          <li><strong>Project knowledge:</strong> the approved report examples and the current rate card, as files &mdash;
+          because they change on a schedule and need to be replaced, not edited into a prompt.</li>
+          <li><strong>Connector:</strong> the client&rsquo;s ticket system, instead of weekly CSV exports that were stale
+          by Tuesday.</li>
+        </ul>
+        <p><strong>The failure they then had to design against</strong> is the one this domain really tests: a Project
+        whose knowledge has gone stale is more dangerous than no Project at all, because everyone now trusts it. So each
+        file has a named owner and a refresh date, and the rate card is checked at the start of every week.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Configuration is for what must hold every time; knowledge files are for material that changes on a schedule and needs an owner. Stale knowledge that everyone trusts is the characteristic failure of this domain.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d5-1">
@@ -2133,6 +2326,25 @@
       <p class="lede">Four objectives, third-heaviest domain. Expect scenarios where the technically capable answer
       is the wrong answer. The recurring test: can you find the control that lets legitimate work proceed safely,
       rather than either ignoring the risk or abandoning the work?</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Larkfield Council: an officer, a personal account, and no policy yet</h5>
+        <p><strong>The situation.</strong> An officer wants to use a personal Claude account to speed up benefit
+        entitlement decisions. The council has no AI policy. The work is legitimate, the backlog is real, and entitlement
+        decisions have to be explainable on appeal.</p>
+        <p><strong>The two answers the exam offers, and rejects.</strong> &ldquo;Yes, get on with it&rdquo; &mdash; a
+        personal account puts residents&rsquo; personal data outside the council&rsquo;s control, and no policy is not the
+        same as permission. &ldquo;No, refuse the use case entirely&rdquo; &mdash; over-caution is scored as wrong here
+        just as often, and this domain is full of options that sound responsible and are simply obstruction.</p>
+        <p><strong>The shape of the right answer:</strong> the work proceeds, with the controls that make it defensible. An
+        approved organisational account rather than a personal one. No residents&rsquo; personal data until that route is
+        cleared &mdash; the officer can start on the policy-interpretation and drafting parts that need none. A named human
+        decision-maker on every determination. The reasoning recorded, so the decision can be explained on appeal. And a
+        disclosure line wherever policy requires one &mdash; noting that disclosure is transparency, not a control: saying
+        &ldquo;AI helped write this&rdquo; does not make a wrong decision acceptable.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Find the control that lets legitimate work proceed safely. Refusing the whole use case is a wrong answer here as often as approving it unchanged, and disclosure is never a substitute for a human decision-maker.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d6-1">
@@ -2423,6 +2635,27 @@
       <h2>Domain 7 · Troubleshooting and Optimization <span class="tag">10% · ~6 items</span></h2>
       <p class="lede">Three objectives, the smallest domain, and the one that most rewards a disciplined habit:
       diagnose before you change anything.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Northwind Retail: the descriptions have gone bland</h5>
+        <p><strong>The complaint.</strong> The first 200 product descriptions read well. The last 2,000 are
+        interchangeable. Three changes were proposed in the first ten minutes: a stronger model, a longer prompt, more
+        examples.</p>
+        <p><strong>Diagnosis first.</strong> A sample of 30 bland outputs against 30 good ones showed <em>two</em>
+        unrelated causes:</p>
+        <ul>
+          <li>The brand-voice guide contains three sentences marked &ldquo;always include&rdquo;. In a 90-word description
+          they consume most of the space, so there is nowhere for anything product-specific to go. The guide was doing the
+          damage.</li>
+          <li>The bland items&rsquo; input contained only a title and a price. The good ones had a spec sheet attached. The
+          model was not being lazy; it had nothing to work with.</li>
+        </ul>
+        <p>Two causes, two fixes: loosen the mandatory phrasing to one sentence, and supply the spec sheet for items that
+        have one. Neither was on the original list of three, and any one of those three would have been shipped, measured
+        as &ldquo;a bit better&rdquo;, and left the real causes in place.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Diagnose before you change anything, and change one thing at a time. A quality complaint usually has more than one cause, and the most popular fixes &mdash; bigger model, longer prompt, more examples &mdash; are the exam&rsquo;s favourite distractors precisely because they sound like progress.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="d7-1">

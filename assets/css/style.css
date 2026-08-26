@@ -295,6 +295,40 @@ li > ul, li > ol { margin-top: 5px; }
 .note > :last-child { margin-bottom: 0; }
 .note b:first-child { display: block; margin-bottom: 3px; }
 
+/* ---------------- Worked real-world cases ----------------
+   One concrete, named scenario under every topic, so the rule above it has
+   somewhere to land. Distinct from .note (a short aside) and from .scenario,
+   which the exam engine owns. */
+
+.casebox {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--info);
+  background: var(--bg-elev);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 15px 19px 16px;
+  margin: 20px 0;
+  font-size: 15px;
+  box-shadow: var(--shadow);
+}
+.cb-label {
+  display: block;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+  font-weight: 750; color: var(--info); margin-bottom: 5px;
+}
+.casebox h5 { margin: 0 0 9px; font-size: 15.5px; font-weight: 700; color: var(--text); }
+.casebox p  { margin: 0 0 10px; }
+.casebox ul, .casebox ol { margin: 0 0 10px; padding-left: 21px; }
+.casebox li { margin: 4px 0; }
+.casebox pre { margin: 11px 0; }
+.casebox table { font-size: 13.5px; }
+.casebox > :last-child { margin-bottom: 0; }
+.casebox .cb-take {
+  margin: 12px 0 0; padding-top: 10px;
+  border-top: 1px dashed var(--border-strong);
+  font-size: 14.5px; color: var(--text-dim);
+}
+.casebox .cb-take b { color: var(--info); }
+
 .tag {
   display: inline-block;
   font-size: 11px;

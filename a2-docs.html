@@ -109,7 +109,7 @@
     <p class="lede">This is written to be understood, not memorised. Each section gives you the
     <strong>mechanism</strong> (what is actually happening), the <strong>surface</strong> (the exact file, flag,
     field or parameter), the <strong>decision rule</strong> the exam grades on, the <strong>anti-patterns</strong>
-    it plants as distractors, and drills. Sections marked <span class="tag bad">priority</span> map to objectives
+    it plants as distractors, a <strong>worked real scenario</strong> showing the failure and the fix, and drills. Sections marked <span class="tag bad">priority</span> map to objectives
     you scored 0% on.</p>
 
     <div class="note rule">
@@ -195,6 +195,22 @@ loop:
         <li>Tool results are untrusted external content. They stay inside <code>tool_result</code> blocks and are never promoted into the system prompt.</li>
       </ul>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Kestrel Logistics: the CI job that went green on a half-finished refactor</h5>
+        <p>An agent was asked to migrate 34 call sites to a new <code>ShipmentRef</code> signature. It was run
+        non-interactively with <code>--max-turns 30</code>. At call site 22 the turn budget ran out, the CLI exited
+        <strong>0</strong>, the pipeline went green, and the PR merged &mdash; because the old function was still exported,
+        so the build compiled with twelve call sites unconverted.</p>
+        <p>Three separate budgets can end that loop, and they leave different evidence: the <strong>turn budget</strong>
+        (the loop counter, visible only to your wrapper), the <strong>token budget</strong>
+        (<code>stop_reason: max_tokens</code>, mid-sentence output), and the <strong>wall clock</strong> (nothing at all,
+        because a timeout produces no stop reason). Kestrel&rsquo;s wrapper now reads the turn count and the stop reason
+        before it reads the diff, and exits non-zero on anything that is not a clean <code>end_turn</code> with all 34
+        sites accounted for.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> &ldquo;The loop ended&rdquo; and &ldquo;the task is done&rdquo; are different facts. Find out which budget ended the loop before you look at the output &mdash; and never let the CLI&rsquo;s exit code be the only thing your pipeline checks.</p>
+      </div>
+
       <details class="qa"><summary>An agent hit <code>--max-turns</code> in CI and the job went green. What is the defect?</summary>
       <div class="qa-body"><p>The turn budget was treated as a stop condition rather than a decision point. Turn
       exhaustion means the agent did <em>not</em> finish; the exit code must reflect that. The fix is a branch on
@@ -235,6 +251,21 @@ loop:
         in the topology described. The correct answer is nearly always: <em>the delegation prompt should have
         contained it</em>.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ravenscroft Analytics: the &ldquo;memory&rdquo; that never existed</h5>
+        <p>An engineer filed a bug: &ldquo;the agent forgot yesterday&rsquo;s decision to use the
+        <code>events_v2</code> table.&rdquo; There was nothing to forget. Yesterday&rsquo;s session was a different
+        message array; today&rsquo;s request re-sent a system prompt, a fresh message list and whatever tool results this
+        session had produced. The model holds nothing between requests &mdash; every turn is the complete input,
+        reassembled and re-sent.</p>
+        <p>What made it look like memory was that within one long session it <em>did</em> remember, because the earlier
+        turns were still in the array. The fix was to stop relying on that: the table decision went into a project rules
+        file that is re-read at the start of every session, and the ADR was cited by path in the prompt so the agent could
+        read it on demand.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Context is an input you assemble, not a store the model keeps. &ldquo;It forgot&rdquo; nearly always means &ldquo;that was not in the request&rdquo;, and the fix is a durable file plus a re-read, not a stronger instruction.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="f3">
@@ -259,6 +290,27 @@ loop:
         prompt to context, from context to schema, from schema to code. Distractors move it up: they add a
         probabilistic layer on top of a structural hole. Ask yourself: <em>if the model ignored this entirely, what
         would happen?</em> If the answer is "the bad thing happens", it is in the wrong surface.
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Hallam Health: one requirement, four candidate homes</h5>
+        <p>The requirement: <em>patient identifiers must never leave the repository.</em> All four surfaces were on the
+        table, and they are not interchangeable:</p>
+        <ul>
+          <li><strong>Rules file.</strong> Advisory. Useful for the <em>reason</em> &mdash; but if the model ignores it,
+          the bad thing happens.</li>
+          <li><strong>Permission deny.</strong> <code>Read(./fixtures/patients/**)</code>. Decidable from the tool call
+          before anything runs, and it cannot be talked out of.</li>
+          <li><strong>PreToolUse hook.</strong> Inspects <code>Bash</code> commands for <code>curl</code>,
+          <code>scp</code> or <code>gh api</code> against external hosts &mdash; a judgement that needs code to run,
+          not a pattern match on a path.</li>
+          <li><strong>Outside Claude Code entirely.</strong> Network egress policy on the runner. The only one that still
+          holds if the agent itself is compromised.</li>
+        </ul>
+        <p>They implemented the last three, and kept a two-line rules-file entry explaining <em>why</em> the deny exists
+        &mdash; without it the agent kept trying to read the fixtures and reporting the failure as a broken environment.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Pick the surface by two things: what can actually decide the question, and what one miss costs. The rules file is for the explanation; the guarantee lives somewhere the model cannot reach.</p>
       </div>
 
       <details class="qa"><summary>Security says a directory must never be read. Where does that live?</summary>
@@ -310,6 +362,20 @@ loop:
         <strong>costs more tokens</strong>, not fewer. If a question frames multi-agent as the cheap option, that
         framing is the trap.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Sable &amp; Roe: six agents that were slower and worse than one</h5>
+        <p>A consultancy built an agent &ldquo;department&rdquo; modelled on its own org chart &mdash; a frontend agent, a
+        backend agent, a QA agent, a docs agent, a tech-lead agent and a coordinator &mdash; and pointed it at a four-file
+        bug fix. It used roughly four times the tokens and three times the wall clock of a single agent, and the QA agent
+        reviewed a file the backend agent had already rewritten. They collapsed it back to one agent.</p>
+        <p>The same team&rsquo;s <em>other</em> job genuinely wanted eight agents: auditing 240 API handlers for a missing
+        authorisation check. Each handler&rsquo;s surrounding 3,000 lines never had to share a window with the other 239,
+        and eight audits ran at the same time. Same team, same week, opposite answers &mdash; because the reasons are
+        structural, not organisational.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Context isolation and parallelism are reasons to go multi-agent. &ldquo;Specialisation makes it smarter&rdquo; and &ldquo;it mirrors how our team is organised&rdquo; are not, and both cost you tokens and latency to learn that.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="o10b">
@@ -376,6 +442,23 @@ SEQUENTIAL PIPELINE
         (<a href="#o3">O3</a>).
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Fenwick Grid: one Sev-1, three topologies tried in ninety minutes</h5>
+        <p>A latency spike across a payments platform. The on-call team ran the investigation three ways in the same
+        incident:</p>
+        <ol>
+          <li><strong>Parallel fan-out</strong> over five subsystems (logs, database, cache, queue, recent deploys). Five
+          reports in 90 seconds &mdash; and two of them contradicted each other, with nobody joining them up.</li>
+          <li><strong>Sequential chain.</strong> The database investigator finally had the deploy findings in hand, but it
+          took six minutes and one bad step poisoned everything downstream.</li>
+          <li><strong>Hybrid, which is what they kept.</strong> Fan-out for the five genuinely independent reads &rarr; a
+          synthesis pass that named the contradiction &rarr; a sequential deep-dive into the one subsystem synthesis
+          flagged.</li>
+        </ol>
+        <p class="cb-take"><b>Takeaway &middot;</b> The dependency graph picks the shape and latency tunes it. Fan-out where the work is independent, chain where step N needs step N&minus;1, and expect the honest answer to be a hybrid with a synthesis step in the middle.</p>
+      </div>
+
       <details class="qa"><summary>Four investigations, three of which need the first one's output. Topology?</summary>
       <div class="qa-body"><p>Hybrid: run investigation one alone, then fan out the remaining three in parallel with
       its result packed into each delegation prompt, then synthesise. Answering "all four in parallel" parallelises
@@ -421,6 +504,19 @@ SEQUENTIAL PIPELINE
         <code>process_return(order_id)</code> cannot, because the second consumes the first's output. Forcing
         parallelism across a dependency makes the model invent the missing input — which is exactly the failure in
         <a href="#m37">M37</a>.
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ashgrove Bank: the &ldquo;batching&rdquo; that never batched</h5>
+        <p>A support agent needed three independent facts before it could answer: the customer&rsquo;s contract tier,
+        their last three payments, and any open disputes. It fetched them one per turn &mdash; three round trips, 4.2
+        seconds of dead air on a live chat. The prompt already said &ldquo;gather what you need efficiently&rdquo;.</p>
+        <p>The cause was in the tool signatures: <code>get_payments</code> took an optional <code>tier</code> argument it
+        never actually used, so the model could not know that payments did not depend on the tier lookup. Deleting one
+        unused parameter let all three <code>tool_use</code> blocks go out in a single turn: 1.6 seconds. Nothing about the
+        prompt changed.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> You do not ask for parallelism; you make it possible. Independence is expressed in tool signatures, and a parameter one tool does not need is a false dependency that serialises your whole turn.</p>
       </div>
 
       <details class="qa"><summary>Latency did not improve after the model started batching. Why?</summary>
@@ -483,6 +579,26 @@ Determine whether order SO-88213 can still be rerouted, and to where.
         </ul>
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Merrit Legal: the subagent that summarised the wrong forty pages</h5>
+        <p>The coordinator delegated with one sentence: &ldquo;review the indemnity position.&rdquo; Five things went
+        wrong, and each one maps to a missing part of the delegation package:</p>
+        <div class="table-wrap">
+        <table>
+          <tr><th style="width:34%">What happened</th><th>Missing part</th></tr>
+          <tr><td>Read the entire 400-page bundle and blew its window</td><td><strong>Scoped context</strong> &mdash; it was never told <em>which</em> documents</td></tr>
+          <tr><td>Assumed the client was the buyer; they were the seller</td><td><strong>Objective</strong> stated without the situation it sits in</td></tr>
+          <tr><td>Invented a defined term to make a clause parse</td><td><strong>Constraints</strong> &mdash; no rule for what to do when something is missing</td></tr>
+          <tr><td>Returned three paragraphs of prose the coordinator could not merge</td><td><strong>Output contract</strong></td></tr>
+          <tr><td>Stopped when it ran out of tokens, mid-list</td><td><strong>Termination criteria</strong></td></tr>
+        </table>
+        </div>
+        <p>Re-delegated with all five parts: one pass, about 900 output tokens, and a result the coordinator merged without
+        reading it first.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Five parts &mdash; objective, scoped context, constraints and authority, output contract, termination criteria. Each omission has a signature failure, which means you can read a subagent&rsquo;s failure backwards to find what the package was missing.</p>
+      </div>
+
       <details class="qa"><summary>A subagent returned a confident answer built on an invented order ID. Root cause?</summary>
       <div class="qa-body"><p>Part 3 of the package was missing. The task referred to "the customer's order" without
       supplying the identifier, and the model produced a well-formed value because the schema demanded one. Two
@@ -534,6 +650,20 @@ to read and in what order.</code></pre>
         <em>how</em>, while the coordinator retains certainty about <em>what comes back</em> and <em>what could be
         touched</em>. Answers that achieve control by enumerating steps are trading away the reason you delegated.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Pemberley Retail: &ldquo;find out why checkout conversion fell&rdquo; vs &ldquo;run these six queries&rdquo;</h5>
+        <p>The same investigation, delegated two ways. The <strong>procedural</strong> version returned six correct query
+        results and missed the cause entirely &mdash; a third-party address-lookup script timing out on mobile &mdash;
+        because that was not on the list. The <strong>goal-oriented</strong> version found it in eleven minutes; on a
+        second run it also wandered off into an unrelated pricing anomaly and spent half its budget there.</p>
+        <p>The rule they wrote down afterwards: goal-oriented when the path is unknown and the search space is already
+        bounded by what tools the agent has; procedural when the steps <em>are</em> the requirement &mdash; their quarterly
+        PCI check must run all six queries, in that order, and produce evidence that it did, whether or not the first one
+        already found the answer.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Goal-oriented delegation buys discovery and costs predictability. Procedural buys auditability and costs you the finding that was not on the list. Choose by whether the process or the outcome is the deliverable.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="o5">
@@ -573,6 +703,24 @@ demonstrate an exploit path, report it as an observation, not a finding.</code><
         <code>tools:</code> problem; one describing an agent that lacks a fact is a delegation-prompt problem; one
         describing an agent with the wrong <em>judgement</em> is a system-prompt problem.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Dunmore Insurance: a release-notes agent with production credentials</h5>
+        <p>A subagent whose entire job was drafting release notes inherited the parent&rsquo;s full tool set. It ran
+        <code>git push</code> (&ldquo;to make sure the changelog was saved&rdquo;), then a <code>psql</code> query
+        &ldquo;to check the column name&rdquo; &mdash; against the production replica.</p>
+        <p>Three constraints, applied together:</p>
+        <ul>
+          <li><strong>Tool restriction:</strong> <code>Read</code>, <code>Grep</code>, <code>Glob</code>. Nothing else
+          exists, so nothing else can be attempted. This is the one that is actually enforced.</li>
+          <li><strong>Context scoping:</strong> the diff and the existing changelog, not the repository and not the
+          parent&rsquo;s transcript. It cannot leak what it was never given.</li>
+          <li><strong>System prompt:</strong> names the role and its boundary, so the agent stops looking for a way to
+          verify things and asks the coordinator instead.</li>
+        </ul>
+        <p class="cb-take"><b>Takeaway &middot;</b> Constrain a subagent to the smallest set that still lets it finish. Tool restriction is enforcement, context scoping is blast-radius reduction, and the role prompt is what stops it trying &mdash; all three, in that order of reliability.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="o6">
@@ -597,6 +745,25 @@ demonstrate an exploit path, report it as an observation, not a finding.</code><
         subagent's <code>tools:</code> does not help if the session's permission settings deny it. Two layers must
         agree, and questions like to break exactly one of them.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Tarn Systems: twelve workers requested, three came back</h5>
+        <p>Nine subagents returned nothing and the parent produced a confident report based on three. The first theory was
+        rate limiting. Diagnosed properly, there were <strong>three different causes</strong>:</p>
+        <ul>
+          <li><strong>Four</strong> named an agent type that did not exist &mdash; a typo in the type string. They failed
+          at spawn, immediately, and silently.</li>
+          <li><strong>Three</strong> hit the concurrency cap, queued correctly, and were still queued when the
+          <em>parent&rsquo;s</em> own turn budget ran out.</li>
+          <li><strong>Two</strong> died on a terminal API error after retries and returned <code>null</code> &mdash; which
+          the parent&rsquo;s <code>.map()</code> then dereferenced, throwing an error that was caught and logged as
+          &ldquo;worker returned no data&rdquo;.</li>
+        </ul>
+        <p>Fixes: validate the agent type before fan-out, filter nulls before use, and give the parent a budget that
+        accommodates queueing. Adding retries &mdash; the original plan &mdash; would have fixed none of the three.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> &ldquo;No result&rdquo; has at least four distinct causes: never spawned, still queued, died and returned null, or returned something the parent could not read. Distinguish them before you reach for a retry.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="o7">
@@ -661,6 +828,21 @@ merge(results)                              batch   = plan.ready_tasks()     # i
         </ul>
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Loxley Payments: the incident agent that ran the same five checks for a year</h5>
+        <p>A fixed playbook &mdash; deploys, database, cache, queue, third parties &mdash; caught about 80% of incidents
+        and was useless on the rest. The 40-minute outage that forced the rebuild was an expired intermediate certificate,
+        and there was no step for it, so the agent ran all five checks, found nothing, and reported
+        &ldquo;no issues identified&rdquo;.</p>
+        <p>Rebuilt with a replan step: after each finding, the coordinator re-derives the <em>remaining</em> task list from
+        what it now knows. The bounds matter as much as the mechanism &mdash; a maximum decomposition depth, a token
+        budget, and an explicit rule that replan may add or drop <em>investigation steps</em> but may never change the
+        objective or the escalation criteria. On the certificate incident the rewritten agent went TLS handshake errors
+        &rarr; certificate chain &rarr; expiry date in two replans.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Decomposition is a function of what you have found so far, not a constant fixed at design time. Bound the replanning &mdash; depth, budget, and what it is forbidden to rewrite &mdash; rather than removing it.</p>
+      </div>
+
       <details class="qa"><summary>An incident agent runs the same five diagnostics on every incident and misses novel causes. Fix?</summary>
       <div class="qa-body"><p>Make the decomposition dynamic: run the cheap, always-relevant diagnostics first as
       an initial batch, then re-plan from their output — a spike in one dependency's error rate should
@@ -712,6 +894,20 @@ merge(results)                              batch   = plan.ready_tasks()     # i
         in the wrong place. Reporting what was <em>not</em> examined, and what could not be settled, is what lets
         the coordinator decide whether to re-plan (<a href="#o7">O7</a>) or escalate.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Wrayburn Media: eight reports the coordinator could not compare</h5>
+        <p>Eight content-audit subagents, each returning prose. The coordinator&rsquo;s merge produced a severity ranking
+        that quietly tracked <em>report length</em> &mdash; the two agents who wrote most had their issues ranked highest.
+        Worse, two agents had found nothing at all, and that was invisible inside &ldquo;I reviewed the section and it
+        looks broadly fine.&rdquo;</p>
+        <p>Adding a required output schema &mdash;
+        <code>{finding, severity: enum, url, evidence_quote, confidence: enum}</code>, returned as a list that may be empty
+        &mdash; turned the merge from a literary judgement into arithmetic, and made the two empty results explicit facts
+        the coordinator could report on.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> A schema is what makes N subagent results mergeable, and an explicitly empty list is what makes &ldquo;found nothing&rdquo; visible instead of hiding inside reassuring prose.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="o19">
@@ -746,6 +942,20 @@ merge(results)                              batch   = plan.ready_tasks()     # i
         Three agents that read the same stale document agree with each other and are all wrong. Agreement between
         workers is only evidence if their <em>sources</em> were independent — which is exactly why per-claim source
         metadata (<a href="#o18">O18</a>) has to survive the trip.
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Fenwick Grid, part two: two workers, two answers, one report</h5>
+        <p>Same incident as the topology case. The cache investigator reported that the rate limiter was not engaged; the
+        queue investigator reported that it was. The first synthesis agent picked the more confidently-worded one and wrote
+        a clean narrative around it.</p>
+        <p>The disagreement <em>was</em> the bug: two services were reading different config paths. The rewritten synthesis
+        prompt requires four things &mdash; state what the workers agree on; state disagreements <em>as</em> disagreements
+        with both sources named; mark any claim that came from a single worker as single-sourced; and never resolve a
+        conflict by preferring the more confident phrasing. Conflicts became the first section of the report rather than
+        something the report had to survive.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> A synthesis agent that always produces one coherent story is destroying your most valuable signal. Contradiction between workers is a finding, and single-sourced claims must be labelled as such.</p>
       </div>
 
       <details class="qa"><summary>Two workers disagree on whether a rate limit applies. What should synthesis emit?</summary>
@@ -786,6 +996,20 @@ merge(results)                              batch   = plan.ready_tasks()     # i
         fingerprint: tasks whose inputs are unchanged keep their cached output; tasks whose inputs changed are
         re-run; tasks that never ran are run. That is the same idea as <a href="#x2">X2</a> at pipeline scale.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ardenne Group: 2,300 documents in, and a 02:40 redeploy</h5>
+        <p>A nightly extraction pipeline over 3,000 documents kept its progress in the coordinator&rsquo;s working memory.
+        A deploy restarted the pod at 02:40 with 2,300 done. The run began again at document 1, re-billed 2,300
+        extractions, and left the operations team unable to say which records had been written twice.</p>
+        <p>What it needed was a per-item durable row &mdash; <code>status</code> in
+        <code>pending / in_progress / done / failed</code>, an attempt count, and a reference to the output &mdash; written
+        <em>before</em> the item is attempted and again after it completes; an idempotency key on the downstream write so a
+        repeat is a no-op rather than a duplicate; and a resume that simply selects <code>where status &lt;&gt;
+        'done'</code>. The rerun after the next deploy processed 700 documents and cost what 700 documents cost.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Resumption is a data-model decision, not a retry policy. Per-item state persisted outside the process, plus an idempotent write, is what makes &ldquo;start again&rdquo; safe and cheap.</p>
+      </div>
+
     </section>
 
     <!-- ================= CLAUDE CODE ================= -->
@@ -843,6 +1067,20 @@ paths: ["src/**/*.tsx", "src/**/*.jsx"]
 - Props interfaces are exported and named `&lt;Component&gt;Props`.</code></pre>
       <p>The win is context economy: 400 engineers on a monorepo do not each pay for every team's conventions on
       every turn. Only the rules matching the files in play are loaded.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ivory Lane: the rule everyone had agreed and nobody enforced</h5>
+        <p>Their rules file said <em>&ldquo;never edit files under <code>generated/</code>&rdquo;</em>. Three PRs in one
+        month edited them anyway, and each time the change was silently wiped by the next protobuf regeneration.</p>
+        <p>The requirement moved to project settings as
+        <code>deny: ["Edit(./generated/**)", "Write(./generated/**)"]</code> &mdash; decidable from the call, so it holds
+        without the model&rsquo;s cooperation. A single line stayed in the rules file explaining <em>why</em>
+        (&ldquo;regenerated from <code>proto/</code>; change the <code>.proto</code> instead&rdquo;), which is what turned
+        a blocked agent into a productive one. Meanwhile &ldquo;use British spelling in user-facing copy&rdquo; stayed
+        exactly where it was: a miss costs a review comment, and no hook is worth writing for that.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Settings hold the guarantee, the rules file holds the reason and the taste. When you move a rule to settings, leave the explanation behind &mdash; an agent that does not know why it is blocked will spend its turns fighting the block.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c14">
@@ -912,6 +1150,20 @@ plus a one-paragraph risk summary. Do not include intermediate output.</code></p
         </ul>
       </div>
 
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Bramley Analytics: the skill that got worse each time it ran</h5>
+        <p>A <code>db-review</code> skill invoked three times in one session: a good first answer, a muddled second, and a
+        third that reviewed the query from the <em>first</em> invocation. Each invocation had inherited the whole
+        accumulated session context, including the two reviews before it.</p>
+        <p><code>context: fork</code> gives every invocation a clean window seeded only with its declared inputs. The two
+        failures it prevents are worth naming separately: <strong>pollution</strong> &mdash; unrelated history crowding the
+        window and biasing the answer &mdash; and <strong>cross-contamination</strong> &mdash; invocation three treating
+        invocation one&rsquo;s conclusions as established facts about a different query. With the fork, all three reviews
+        came back at first-invocation quality.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Repeated, independent invocations inside one long session are the signature case for a fork. Degrading quality across invocations is the symptom to recognise.</p>
+      </div>
+
       <details class="qa"><summary>A skill invoked three times in one session gives worse answers each time. Diagnosis?</summary>
       <div class="qa-body"><p>Cross-contamination: each invocation inherits the previous ones' exploration, so by the
       third run the context is dominated by two runs' worth of irrelevant intermediate state. Adding
@@ -968,6 +1220,28 @@ plus a one-paragraph risk summary. Do not include intermediate output.</code></p
           <li>Multi-phase for a single-concern review — you pay N times the tokens to split a concern that was never competing with anything.</li>
           <li>Treating multi-phase as a substitute for approval. Phases are about <em>coverage</em>; the human gate is about <em>authority</em>. A question can require both.</li>
         </ul>
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Caldicott Software: three review problems, three architectures</h5>
+        <p>One team, three review needs, and they had been using an interactive session for all of them &mdash; which is
+        why the audit took a fortnight.</p>
+        <div class="table-wrap">
+        <table>
+          <tr><th style="width:38%">The problem</th><th>The architecture that fits</th></tr>
+          <tr><td>A 40-file payments refactor; the tech lead wants to see the approach before the detail</td>
+              <td><strong>Interactive session</strong>, plan first, human in the loop at the plan boundary. One judgement,
+              and a person has to own it.</td></tr>
+          <tr><td>The same six checks on every PR, output as a comment on the PR</td>
+              <td><strong>Non-interactive CLI in CI</strong>, structured output, no human in the loop, exit code driven by
+              severity.</td></tr>
+          <tr><td>A one-off audit of 240 handlers for a missing authorisation check</td>
+              <td><strong>Fan-out</strong> of independent subagents with a shared schema, then a synthesis pass. N
+              independent judgements, not one.</td></tr>
+        </table>
+        </div>
+        <p class="cb-take"><b>Takeaway &middot;</b> Choose by who consumes the output and whether the work is one judgement or N independent ones. Interactive for judgement a person must own, CI for a repeatable gate, fan-out for scale.</p>
       </div>
 
       <details class="qa"><summary>A 40-file refactor across payments, with the team lead wanting to see the approach first. Architecture?</summary>
@@ -1028,6 +1302,23 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         invisible to developers running the same review locally. Keep the standards in the repo's configuration
         surfaces; keep the workflow file to invocation and gating.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Caldicott, part two: a reviewer that had never read the standards</h5>
+        <p>The review agent flagged tabs-versus-spaces on a payments PR and walked straight past a write to the
+        <code>payments</code> table with no idempotency key. It had been given the diff and nothing else.</p>
+        <p>Three changes, in this order:</p>
+        <ol>
+          <li><strong>Load the actual standards.</strong> The team&rsquo;s <code>payments/CONVENTIONS.md</code> and the
+          OpenAPI spec go into the review context. Without them the agent reviews against a generic idea of good code.</li>
+          <li><strong>Restrict tools</strong> to <code>Read</code>, <code>Grep</code>, <code>Glob</code>. A reviewer that
+          can edit will helpfully &ldquo;fix&rdquo; things mid-review and hand you an unreviewable diff.</li>
+          <li><strong>Structured findings:</strong> <code>{file, line, severity, rule_id, rationale}</code>, so the CI step
+          can fail the build on <code>severity: high</code> only and post the rest as comments.</li>
+        </ol>
+        <p class="cb-take"><b>Takeaway &middot;</b> Standards in context, read-only tools, structured findings. A review agent with none of the three is not reviewing your code &mdash; it is reviewing code in general.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c24">
@@ -1056,6 +1347,19 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
       <p>Passes are independent, so they fan out in parallel (<a href="#o10b">O10</a>), each with its own tool
       allowlist, and their results merge in a synthesis stage that de-duplicates overlapping findings and preserves
       per-pass attribution (<a href="#o19">O19</a>).</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Caldicott, part three: one prompt asked for everything and found nothing</h5>
+        <p>&ldquo;Review this PR for security, performance, style and test coverage&rdquo; produced four shallow paragraphs
+        that read plausibly and caught nothing.</p>
+        <p>Split into four passes, each with a different lens <em>and a different context load</em>: the security pass got
+        the threat model and the auth middleware; the performance pass got the slow-query log and the project&rsquo;s
+        notes on N+1 patterns; the coverage pass got the existing test suite; the style pass got the conventions file. The
+        same PR then yielded a missing authorisation check on an admin route that the combined pass had walked past four
+        times. It cost roughly four times the review tokens, on the 15% of PRs that touch payments and auth.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> A lens is a question <em>plus</em> the context that question needs. One agent cannot hold four context loads at once, which is why the combined review is always the shallow one.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c30">
@@ -1089,6 +1393,25 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         positives and lose the genuine medium findings. Precision comes from telling the reviewer what is
         <em>accepted</em>, not from hiding output.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Marlow Freight: 61 findings, six real, and a team that stopped reading them</h5>
+        <p>The review bot&rsquo;s problem was precision, not recall: at roughly 10% real, engineers had learned to skim
+        past it, so the six genuine findings were as good as invisible.</p>
+        <p>Four changes:</p>
+        <ul>
+          <li><strong>Conventions in context</strong>, so idiomatic project code stops reading as suspicious.</li>
+          <li><strong>Evidence required.</strong> Every finding must carry a verbatim quote and a concrete failure
+          scenario &mdash; specific inputs producing a specific wrong outcome. Findings that cannot produce one are
+          dropped.</li>
+          <li><strong>A severity floor</strong> on the CI gate, so only high-severity findings can turn the build red.</li>
+          <li><strong>An adversarial verification pass</strong> whose instruction is to <em>refute</em> each finding, with
+          the benefit of the doubt going to the code.</li>
+        </ul>
+        <p>61 findings became 9, of which 7 were real &mdash; and people started reading them again.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> False positives are a trust problem, and trust is what makes the true positives useful. Make the agent prove the failure, and drop anything it cannot prove.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c15">
@@ -1138,6 +1461,20 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         Coverage is a diagnostic, never an objective, and any option that sets a coverage number as the quality
         mechanism is the distractor.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ridgeway Health: 140 new tests, coverage up 14 points, nothing actually tested</h5>
+        <p>The generated tests asserted that mocks had been called and that getters returned what setters had just set.
+        Coverage looked excellent. Then a genuine regression in dose rounding shipped, with every test green.</p>
+        <p>Three inputs the generation was missing: the <strong>existing test files</strong>, so new tests match the
+        project&rsquo;s naming and structure; the <strong>fixture factory module</strong>, so the agent stops inventing its
+        own patient objects; and an explicit statement of what makes a test <strong>meaningful</strong> &mdash; it must be
+        able to fail for a reason a user would notice, it must cover a boundary or an error path, and it must not assert on
+        implementation detail. Regenerated: 38 tests instead of 140, four of which failed immediately on real
+        bugs.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Coverage is not the objective and a test that cannot fail is a liability. Generation quality comes from the existing suite, the fixture conventions, and a written definition of &ldquo;meaningful&rdquo;.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c11">
@@ -1183,6 +1520,19 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         exists for sandboxes, and choosing it in CI to "avoid the prompts" is the wrong answer every time: the
         correct fix for prompts in CI is a precise <code>--allowedTools</code> allowlist.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Selby Manufacturing: the pipeline step that always passed</h5>
+        <p>Their CI had one line: <code>claude -p "review the diff"</code>. It passed on every PR for four months,
+        including the one that removed an authorisation check &mdash; because the step&rsquo;s success was measured by the
+        CLI exiting 0, and the CLI exits 0 when it finishes talking.</p>
+        <p>Rebuilt: <code>--max-turns</code> so the run is bounded; a permission mode that makes writes impossible; tool
+        restriction to read-only; an explicit output schema; and a wrapper script that parses the JSON and exits non-zero
+        when any finding has <code>severity: high</code>. Credentials for the MCP servers come from the runner&rsquo;s
+        environment, never from the prompt text, because the prompt is echoed in build logs.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> In CI the exit code is the contract, and the model does not set it &mdash; your wrapper does. Bound the run, restrict the tools, demand a schema, and derive the exit code from the parsed result.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c32">
@@ -1224,6 +1574,20 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         This is the single most common context-exhaustion path, and it is the wrong answer even when the module is
         small, because it does not scale to the next question. Grep for the specific thing; read the specific place.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ormsby Retail: 90,000 tokens to find one function</h5>
+        <p>Asked where discounts were applied, the agent <code>Read</code> twelve files of about 3,000 lines each,
+        consumed most of its window, and then answered from the two files it still had room to reason about.</p>
+        <p>The right sequence cost about 4,000 tokens: <code>Glob</code> for
+        <code>**/pricing/**/*.ts</code> to learn the module shape, <code>Grep</code> for <code>applyDiscount</code> to
+        find the two definitions, then <code>Read</code> with an offset around each hit. The rule they wrote down:
+        <strong>Glob</strong> finds files by name, <strong>Grep</strong> finds files by content, <strong>Read</strong> is
+        for when you already know which lines you want, and <strong>Bash</strong> is only for what the other three cannot
+        do &mdash; git history, running a test, checking a process.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Exploration order is a context-budget decision. Narrow with Glob and Grep first; reading whole files is the last resort, not the opening move.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="c12">
@@ -1248,6 +1612,19 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         the whole conversation again, so a chain of small corrections is the expensive option as well as the worse
         one.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ormsby, part two: the fourth attempt was worse than the second</h5>
+        <p>Four rounds of &ldquo;not quite, try again&rdquo; on a data-migration script. Each round added to the same
+        context, and by round four the agent was defending the design it had produced in round one rather than responding
+        to the feedback.</p>
+        <p>What worked: after each round, say <em>specifically</em> what was wrong <em>and what to keep</em>; run the
+        script against the fixture and paste the actual traceback rather than describing it; and treat &ldquo;still wrong
+        after three rounds&rdquo; as a signal to <strong>restart with a clean context</strong>, handing over the
+        accumulated requirements as a fresh brief instead of a transcript of four failures.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Refinement needs a concrete signal every round &mdash; real output, not a paraphrase &mdash; and a stopping rule. Past about three rounds, a clean context with better requirements beats another iteration.</p>
+      </div>
+
     </section>
 
     <!-- ================= CONTEXT ================= -->
@@ -1290,6 +1667,20 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
 
       <p><strong>Position matters.</strong> Re-inject state near the beginning of the request, where attention is
       strongest, rather than appending it at the end amid tool chatter.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Kelso Bank: 70% of the window spent on a file read twice</h5>
+        <p>One session was instrumented: 118,000 input tokens, of which <strong>41,000 were duplicate file reads</strong>
+        and 22,000 were tool results never referred to again. The team had been about to buy the problem away with a
+        larger-window model.</p>
+        <p>The levers, cheapest first: <em>read less</em> (grep to a line range instead of reading the file);
+        <em>summarise finished work</em> into a compact note and drop the raw material it came from; <em>externalise</em>
+        stable reference material into files the agent re-reads on demand rather than carrying all session; and only then
+        <em>split</em> the work across isolated agents. They applied the first two and the session came in at 44,000
+        tokens with a better answer.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Measure what is in the window before optimising it. The biggest single win is almost always a read you did not need to make, or made twice.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="x20">
@@ -1331,6 +1722,20 @@ jq -e '[.findings[] | select(.severity=="high")] | length == 0' review.json</cod
         long inputs, and costs more per turn. When it appears as an option in a context-management question, it is
         the distractor essentially every time.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Farthing Insurance: forty policies, one window, and an agent that lost the thread</h5>
+        <p>Reviewing 40 policy documents in a single session, the answers were sharp for the first dozen and visibly
+        degraded after that &mdash; the early policies were still occupying the window and being confused with the later
+        ones.</p>
+        <p>Rebuilt as one isolated agent per policy, each writing a structured finding to
+        <code>findings/policy-0012.json</code>, with the parent reading only the finished files. The scratchpad rules that
+        mattered: a fixed schema so the files are comparable, one file per item so a failure loses one item, written
+        <em>before</em> the agent finishes so a crash does not lose the work, and never the raw transcript &mdash; the
+        parent wants the conclusion, not the reasoning that produced it.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Isolation moves per-item context out of the parent; the scratchpad is what brings the answer back. A schema, one file per item, and conclusions rather than transcripts.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="x2">
@@ -1358,6 +1763,19 @@ for file in newly_added:            analyse(file)</code></pre>
         The dangerous resume is the one that restores confident conclusions about files that have since changed.
         Fingerprints are not an optimisation; they are what makes the restored state <em>true</em>.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Wexcombe Software: resuming a review after forty files changed</h5>
+        <p>Day three of a large refactor review. Resuming the old session replayed a 200,000-token transcript describing
+        files that no longer existed, and the agent&rsquo;s first act was to re-report six findings that had already been
+        fixed.</p>
+        <p>What worked instead: resume with a <strong>compact state note</strong> &mdash; decisions taken, questions still
+        open, the file list &mdash; then a <strong>targeted re-analysis</strong> of only the files whose content hash had
+        changed since the last pass, with the previous findings <strong>injected as context</strong> and an instruction not
+        to re-raise them. Second and third passes cost about a tenth of the first.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Resumption is re-assembly, not replay. Carry the conclusions forward, re-read only what actually moved, and tell the agent what it already told you.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="x22">
@@ -1392,6 +1810,23 @@ for file in newly_added:            analyse(file)</code></pre>
         answer that says "replace sampling with routing" is subtly wrong; the right framing is "route on signal,
         sample to calibrate".
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Danbury Council: 100% review, then 0%, then the right answer</h5>
+        <p>Three pilots of the same AI-drafted decision letters. The first sent every draft to a manager: the queue grew
+        faster than it drained and the backlog was worse than before. The second sent none, and a letter citing a repealed
+        regulation reached a resident. The third routed:</p>
+        <ul>
+          <li><strong>Always to a human:</strong> refusals, anything citing a regulation, anything involving a
+          safeguarding flag &mdash; chosen by the cost of being wrong.</li>
+          <li><strong>Conditionally:</strong> approvals where extraction confidence was low or the case carried an unusual
+          combination of flags &mdash; a signal that correlates with error.</li>
+          <li><strong>A 10% random sample</strong> of everything else, whose only job is to tell them whether the first two
+          rules are still calibrated.</li>
+        </ul>
+        <p class="cb-take"><b>Takeaway &middot;</b> Route by the cost of being wrong and by a signal that correlates with error &mdash; plus a random sample to check the routing itself. A flat percentage chosen from review capacity is not a control.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="x23">
@@ -1415,6 +1850,18 @@ for file in newly_added:            analyse(file)</code></pre>
         that move <em>both</em> halves to batch for the saving are wrong, and so are answers that reject batch
         outright because "part of it is interactive".
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Alderney Insurance: two workloads, two APIs</h5>
+        <p>The claims chat needs a first token in well under a second, so it uses the <strong>Messages API</strong> with
+        streaming. The overnight re-scoring of 180,000 historical claims does not care about latency at all and does care
+        about cost and rate limits, so it belongs on <strong>Message Batches</strong> &mdash; submit once, poll, collect.</p>
+        <p>They had been running the overnight job through the synchronous API behind a hand-rolled concurrency pool,
+        which meant hitting rate limits at 03:00, an on-call page, and paying full price for work nobody was waiting
+        for.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Interactive or latency-bound &rarr; Messages API with streaming. Large, offline, throughput-bound &rarr; Batches. The question is who is waiting for the answer.</p>
+      </div>
+
     </section>
 
     <!-- ================= STRUCTURED OUTPUT ================= -->
@@ -1446,6 +1893,22 @@ for file in newly_added:            analyse(file)</code></pre>
         guarantee the policy number is real. Accuracy comes from schema <em>design</em> (<a href="#s26">S26</a>),
         examples, and post-parse verification.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Grantley Publishing: prose, then JSON in a code fence, then a tool</h5>
+        <p>Three attempts at the same extraction, each one a rung up the guarantee ladder:</p>
+        <ol>
+          <li><strong>&ldquo;Reply as JSON.&rdquo;</strong> Mostly worked. Then came a response with a friendly sentence
+          before the brace and a <code>// nb</code> comment inside it, and the regex-based parser silently dropped a
+          contract.</li>
+          <li><strong>Prefill plus a stop sequence.</strong> Better &mdash; the response starts inside the object &mdash;
+          but nothing validates the shape, so a missing field is discovered downstream.</li>
+          <li><strong>A tool with a JSON Schema and a named <code>tool_choice</code>.</strong> The API layer validates,
+          so a shape mismatch becomes a retry at the boundary instead of a corrupt row in the warehouse.</li>
+        </ol>
+        <p class="cb-take"><b>Takeaway &middot;</b> Three mechanisms of increasing guarantee: instruction, prefill, tool schema. If the structure has to be right every time, only the third one is a guarantee.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="s26">
@@ -1480,6 +1943,19 @@ for file in newly_added:            analyse(file)</code></pre>
         about scan quality or ambiguity. They diagnose different problems and drive different fixes, so a schema
         with only one of them collapses two signals into one.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Grantley, part two: 12,000 contracts and one required field</h5>
+        <p><code>royalty_rate</code> was declared as a required, non-nullable number, on the reasoning that every
+        publishing contract has one. About 1,300 did not state a rate, and every one of them came back as
+        <code>0.1</code> &mdash; the portfolio mode. The schema had left no other option.</p>
+        <p>Adding <code>royalty_rate: ["number", "null"]</code>, a <code>royalty_basis</code> enum
+        (<code>net_receipts / list_price / not_stated</code>), an <code>evidence</code> span and an explicit
+        missing-information instruction turned 1,300 fabrications into 1,300 honest nulls and 74 flagged
+        <code>unclear</code> for a human.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Model missing, ambiguous and not-applicable as separate states, and never let a required field force the model to produce a value the document does not contain.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="s28">
@@ -1500,6 +1976,20 @@ for file in newly_added:            analyse(file)</code></pre>
       <a href="#o10b">O10</a>) and better attribution (each finding is tied to the scope that produced it). The
       merge belongs in code, not in another model call, because de-duplication and ordering are deterministic
       operations.</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Thoresby Legal: a 600-page bundle and a <code>max_tokens</code> stop</h5>
+        <p>The extraction returned JSON that ended mid-array. Because a truncated array of objects can be a
+        <em>syntactically valid prefix</em>, the lenient parser accepted the first 40 clauses and the remaining 90 simply
+        never existed as far as the downstream system was concerned. Nobody noticed for five weeks.</p>
+        <p>The fix has four parts: detect <code>stop_reason: max_tokens</code> and never treat that output as final;
+        <strong>split on document structure</strong> &mdash; per clause heading, not per N characters &mdash; so each chunk
+        is self-contained; extract per chunk carrying the chunk&rsquo;s provenance; and <strong>merge with a
+        reconciliation</strong>, comparing the count of extracted clauses against the count of headings in the contents
+        page and failing loudly on a mismatch.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> <code>max_tokens</code> is a truncation event, not an output. Split on structure, not size, and reconcile the merged count against something you can count independently.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="s29">
@@ -1532,6 +2022,26 @@ for file in newly_added:            analyse(file)</code></pre>
         it is layout-aware handling — classify the document first, then route to a layout-specific prompt with that
         layout's few-shot examples. A single prompt tuned until it works everywhere degrades everywhere.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Coleford Utilities: one field, three form generations, 68%</h5>
+        <p>Meter readings extracted from customer cards. Overall accuracy 68%, and the plan was a stronger model.
+        Segmented by form generation, the number decomposed into three unrelated problems:</p>
+        <div class="table-wrap">
+        <table>
+          <tr><th style="width:34%">Segment</th><th style="width:16%">Accuracy</th><th>Fix that actually applies</th></tr>
+          <tr><td>2019 forms</td><td>96%</td><td>None needed.</td></tr>
+          <tr><td>2014 forms</td><td>71%</td><td>The reading and serial-number columns are transposed relative to 2019 &mdash;
+              two <strong>targeted few-shot examples</strong> from this layout only.</td></tr>
+          <tr><td>Handwritten cards</td><td>22%</td><td>Not a prompting problem. <strong>Routed out</strong> of the
+              pipeline to manual entry.</td></tr>
+        </table>
+        </div>
+        <p>Plus a <strong>format normalisation</strong> instruction and a checksum on the serial-number format, which
+        caught the residual transpositions in code rather than hoping the model got them right.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> The accuracy patterns &mdash; structured schema, format normalisation, targeted few-shot &mdash; are not interchangeable. Segment first, then pick the one that matches that segment&rsquo;s actual failure, and accept that some segments need routing rather than prompting.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="s31">
@@ -1559,6 +2069,21 @@ If a finding does not clearly fall inside the inclusion list, omit it.</code></p
         reason, so the rule generalises — is what raises precision. Note the last line: an explicit tie-breaker for
         the ambiguous case, which is what stops the model resolving uncertainty by reporting.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Netherby Trust: &ldquo;list all the risks&rdquo; returned four hundred of them</h5>
+        <p>An extraction over board papers asked for &ldquo;all risks mentioned&rdquo; and returned everything from a
+        currency exposure to a note that the coffee machine was unreliable. The model was not wrong; the specification
+        was.</p>
+        <p>The boundary had to be written down, in the prompt and mirrored in the schema. <strong>Include</strong> a risk
+        only if it has a stated or clearly implied impact on operations, finances or compliance <em>and</em> appears in a
+        risk, issue or mitigation context. <strong>Exclude</strong> hypotheticals inside scenario appendices, risks
+        explicitly marked closed, and risks quoted from a previous meeting&rsquo;s minutes for reference. Borderline cases
+        carry an <code>excluded_because</code> enum, so the boundary itself can be reviewed and tuned instead of argued
+        about.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> &ldquo;All&rdquo; is not a specification. Write the inclusion test, write the exclusion list, and make the near-misses visible so the boundary can be corrected rather than guessed at.</p>
+      </div>
+
     </section>
 
     <!-- ================= TOOLS & MCP ================= -->
@@ -1622,6 +2147,19 @@ If a finding does not clearly fall inside the inclusion list, omit it.</code></p
           <li>Forgetting the parent: a subagent cannot exceed the session's own permissions (<a href="#o6">O6</a>).</li>
         </ul>
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ferndale Bank: one agent, 34 tools, a 40% wrong-tool rate</h5>
+        <p>A single support agent held every tool the bank had built. Selection accuracy fell steadily as the list grew,
+        and four of the 34 were never once chosen correctly in evaluation.</p>
+        <p>Split <strong>by workflow, not by team</strong>: a billing agent (6 tools), a shipping agent (4), a disputes
+        agent (5), and a router that holds no domain tools at all and whose only job is choosing which agent handles the
+        message. Wrong-tool rate 40% &rarr; 7%. The method: group tools by the user intent they serve, give each agent the
+        smallest set that lets it finish its own workflow end to end, and never split a workflow across two agents just
+        because two teams own the systems behind it.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Fewer tools per agent is a correctness change, not a tidiness one. Group by the intent the tools serve, and give the router the job of picking the agent rather than the tool.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="m34">
@@ -1652,6 +2190,19 @@ If a finding does not clearly fall inside the inclusion list, omit it.</code></p
         <strong>resource</strong>. Servers that expose everything as tools force the model to rediscover their
         contents on every session.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Sowerby Manufacturing: the product catalogue that was a tool call</h5>
+        <p>The catalogue was exposed as <code>search_catalogue</code>. Every question about product structure cost a round
+        trip, and the model could only ask for things it already suspected existed &mdash; it could not see the shape of
+        the data, so it never discovered the <code>compatible_with</code> relationship that answered half the customer
+        questions.</p>
+        <p>Re-modelled: the catalogue schema and the 40-page product taxonomy became <strong>resources</strong> &mdash;
+        addressable, read when relevant, no side effect &mdash; while <code>check_stock</code> and
+        <code>place_order</code> stayed <strong>tools</strong>, because they do something.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Resources are things to read; tools are things to do. Modelling a read as a tool costs a turn and hides the shape of the data from the model that needs it.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="m35">
@@ -1695,6 +2246,19 @@ If a finding does not clearly fall inside the inclusion list, omit it.</code></p
       the server's tools, confirm the namespaced names (<code>mcp__&lt;server&gt;__&lt;tool&gt;</code>) are present,
       and confirm any permission rules reference those exact names. Silent discovery failure is the usual cause of
       "the agent ignores our MCP server".</p>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ilkley Group: a server that worked locally and vanished in CI</h5>
+        <p>The database MCP server was configured at <strong>user scope</strong> on one developer&rsquo;s machine. In CI
+        the agent simply had no database tools &mdash; and rather than failing, it answered schema questions from what it
+        could infer from the code. Three weeks of confidently wrong migration reviews.</p>
+        <p>Three fixes: declare the server at <strong>project scope</strong> so it travels with the repository; expand
+        credentials from the environment (<code>${DB_TOKEN}</code>) rather than committing them or putting them in the
+        prompt; and add a <strong>startup discovery check</strong> that lists the tools actually available and fails the
+        job if an expected one is absent. That last one is the only reason you find out at all.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Scope decides who gets the server, environment expansion decides how it authenticates, and an explicit discovery check is the only thing that turns a missing server from a silent wrong answer into a failed build.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="m36">
@@ -1727,6 +2291,19 @@ If a finding does not clearly fall inside the inclusion list, omit it.</code></p
         description is attached to the decision itself. When a question offers "add a decision tree to the system
         prompt" against "rewrite the two descriptions with explicit negative scope", the second is the answer.
       </div>
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Ilkley, part two: <code>query</code> and <code>run_query</code></h5>
+        <p>Two MCP tools, both described as &ldquo;runs a SQL query&rdquo;. One was read-only against a replica; the other
+        could write to production. The agent chose between them at roughly a coin flip, and one of those flips wrote to
+        production.</p>
+        <p>The rewrite gave each one a use case in the user&rsquo;s own terms, the exact input format, an explicit
+        &ldquo;do not use for X &mdash; use Y&rdquo; line, and a description of what comes back. And they were
+        <strong>renamed</strong> to <code>query_replica_readonly</code> and <code>execute_write_statement</code>, because
+        the name is the first thing the model reads and the only thing it sees in every subsequent turn.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> A tool description is a selection contract: what it is for, what it is not for, the exact input shape, and what it returns. When two tools are genuinely confusable, fix the names as well as the prose.</p>
+      </div>
+
     </section>
 
     <section data-searchable id="m37">
@@ -1793,6 +2370,25 @@ Model calls process_return("ORD-00000")   ->  silent failure or wrong order</cod
         precondition into something the agent can recover from in one turn instead of failing the session. That
         makes this objective overlap with error design and with <a href="#o1">O1</a> — never parallelise a
         dependency.
+      </div>
+
+      <div class="casebox">
+        <span class="cb-label">Real scenario</span>
+        <h5>Hartsmere Energy: the discount applied before the tariff was known</h5>
+        <p><code>apply_tariff_discount</code> needed the customer&rsquo;s tariff band. Under
+        <code>tool_choice: auto</code> the model sometimes called it first, with a band it had inferred from the
+        conversation. Three fixes, in order of strength:</p>
+        <ol>
+          <li><strong>Structural.</strong> <code>apply_tariff_discount</code> requires a <code>band_token</code> that only
+          <code>get_tariff</code> returns. The wrong order stops being possible.</li>
+          <li><strong>Forced first turn.</strong> <code>tool_choice: {"type": "tool", "name": "get_tariff"}</code>, then
+          back to <code>auto</code>.</li>
+          <li><strong>Stated in the prompt.</strong> Works most of the time, which is exactly why it is the distractor.</li>
+        </ol>
+        <p>Separately, the classification step that must happen on every message got a <em>named</em>
+        <code>tool_choice</code> rather than <code>any</code> &mdash; because with four tools defined,
+        <code>any</code> guarantees a call, not the right call, and therefore does not guarantee you a record.</p>
+        <p class="cb-take"><b>Takeaway &middot;</b> Sequence with the schema first, <code>tool_choice</code> second, and the prompt last. A named tool is a guarantee; <code>any</code> is only a promise that something will be called.</p>
       </div>
 
       <details class="qa"><summary>A three-step workflow keeps skipping step one under load. Fix?</summary>
