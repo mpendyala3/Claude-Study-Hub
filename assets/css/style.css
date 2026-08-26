@@ -167,9 +167,12 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 28px 0; }
 
 .nav { display: flex; gap: 2px; width: 100%; align-items: center; flex-wrap: wrap; }
 
-/* Row 1: the four main pages. Short enough to sit beside the brand. */
-.nav-main { width: auto; margin-left: auto; gap: 4px; }
+/* Row 1: the five main pages, packed left beside the brand. The row takes the
+   rest of the width so the theme toggle -- the one control that is not a page
+   -- can stay pinned to the far right. */
+.nav-main { flex: 1 1 auto; width: auto; gap: 4px; }
 .nav-main a { font-size: 14.5px; font-weight: 650; padding: 7px 14px; }
+.nav-main .icon-btn { margin-left: auto; }
 
 /* Row 2: the current section's own pages. Absent on Home. */
 .subbar { border-top: 1px solid var(--border); background: var(--bg-sunk); }
@@ -752,7 +755,7 @@ kbd {
   text-decoration: none;
 }
 
-/* The header is two rows: the three main pages, then the current section's own
+/* The header is two rows: the five main pages, then the current section's own
    pages. Its height lives in --hdr, which app.js measures and keeps current;
    the sticky exam bar and the anchor scroll offset both read it, so nothing
    sticks at the wrong height. Below 1320px the group metrics tighten so the
@@ -766,7 +769,7 @@ kbd {
 @media (max-width: 900px) {
   :root { --hdr: 140px; }
   .nav { gap: 6px; }
-  .nav-main { width: 100%; margin-left: 0; }
+  .nav-main { width: 100%; }
   .nav-sub { padding: 6px 16px; }
 }
 
