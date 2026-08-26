@@ -1,26 +1,26 @@
 # Claude Study Hub
 
-### 🔗 Live site: **https://mpendyala3.github.io/CCAR-F-study-hub/**
+### 🔗 Live site: **https://mpendyala3.github.io/Claude-Study-Hub/**
 
-**CCAR-A1 track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/) ·
-[Docs](https://mpendyala3.github.io/CCAR-F-study-hub/docs.html) ·
-[Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/exam.html)
+**CCAR-A1 track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/exam.html)
 
-**CCAR-A2 track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/a2-index.html) ·
-[Docs](https://mpendyala3.github.io/CCAR-F-study-hub/a2-docs.html) ·
-[Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/a2-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/a2-exam.html)
+**CCAR-A2 track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/a2-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/a2-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/a2-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/a2-exam.html)
 
-**CCAO track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/ccao-index.html) ·
-[Docs](https://mpendyala3.github.io/CCAR-F-study-hub/ccao-docs.html) ·
-[Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/ccao-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/ccao-exam.html)
+**CCAO track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccao-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccao-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccao-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccao-exam.html)
 
-**CCDV track** — [Overview](https://mpendyala3.github.io/CCAR-F-study-hub/ccdv-index.html) ·
-[Docs](https://mpendyala3.github.io/CCAR-F-study-hub/ccdv-docs.html) ·
-[Exercises](https://mpendyala3.github.io/CCAR-F-study-hub/ccdv-exercises.html) ·
-[Mock exam](https://mpendyala3.github.io/CCAR-F-study-hub/ccdv-exam.html)
+**CCDV track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exam.html)
 
 ---
 
@@ -153,7 +153,7 @@ the context the exam items assume.
 ## Deploy to GitHub Pages
 
 This repository is already published at
-**https://mpendyala3.github.io/CCAR-F-study-hub/** (Pages source: branch `main`, folder `/ (root)`).
+**https://mpendyala3.github.io/Claude-Study-Hub/** (Pages source: branch `main`, folder `/ (root)`).
 The instructions below are for deploying your own copy.
 
 From this directory:
