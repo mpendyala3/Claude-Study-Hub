@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Overview — Claude Certified Architect Foundations</title>
+<meta name="description" content="Single-place study hub for the Anthropic Claude Certified Architect – Foundations exam (CCAR-F): the full blueprint, all five domains and thirty task statements documented, the six exam scenarios, browser-graded exercises, and a deliberately hard 65-question timed mock exam.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-F track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarf">
+        <span class="navlabel">CCAR-F</span>
+        <a href="ccarf-index.html">Overview</a>
+        <a href="ccarf-docs.html">Docs</a>
+        <a href="ccarf-exercises.html">Exercises</a>
+        <a href="ccarf-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main class="narrow content">
+
+  <div class="track-badge"><b>CCAR-F</b> Claude Certified Architect – Foundations</div>
+  <div class="eyebrow">Anthropic Certification &middot; Architect level &middot; Exam code CCAR-F</div>
+  <h1>Everything you need for the Claude Certified Architect &mdash; Foundations exam</h1>
+  <p class="lede">
+    Five content domains, thirty published task statements, and six production scenarios the exam draws from &mdash;
+    documented end to end from the official exam guide and Anthropic's product documentation. Every task statement
+    gets the mechanism, the exact surface (the file, the flag, the field), the decision rule the exam grades on, and
+    the distractor it plants. Twenty-eight graded exercises you work in the browser. Sixty-five scenario-based mock
+    questions, harder than the real thing, with an explanation for every option &mdash; right and wrong.
+  </p>
+
+  <div class="grid grid-4" style="margin:26px 0 34px">
+    <a class="stat" href="ccarf-docs.html" style="color:inherit">
+      <div class="k">30</div><div class="l">Task statements documented</div>
+    </a>
+    <a class="stat" href="ccarf-exercises.html" style="color:inherit">
+      <div class="k">28</div><div class="l">Hands-on exercises</div>
+    </a>
+    <a class="stat" href="ccarf-exam.html" style="color:inherit">
+      <div class="k">65</div><div class="l">Mock exam questions</div>
+    </a>
+    <div class="stat">
+      <div class="k">720</div><div class="l">Score needed to pass</div>
+    </div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card">
+      <h3 class="mt0">1 &middot; Read the documentation</h3>
+      <p class="small muted">Four platform primers &mdash; the agentic loop, the coordinator/subagent contract, the
+      four enforcement surfaces, and structured output &mdash; then all five domains and all thirty task statements,
+      each with code, a decision table, the traps, and a Q&amp;A drill.</p>
+      <a class="btn sm" href="ccarf-docs.html">Open documentation &rarr;</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">2 &middot; Do the exercises</h3>
+      <p class="small muted">Write the real tool description, the real structured error, the real extraction schema,
+      the real subagent prompt, the real <code>.claude/rules/</code> frontmatter &mdash; checked against the
+      properties the exam grades. Plus classification drills for the judgement calls it repeats.</p>
+      <a class="btn sm" href="ccarf-exercises.html">Open exercises &rarr;</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">3 &middot; Sit the mock exam</h3>
+      <p class="small muted">65 questions in the real exam's 120 minutes, weighted to the published blueprint and
+      set inside the six official scenario types. Near-miss distractors, select-two items, and no length tell to
+      fall back on.</p>
+      <a class="btn sm" href="ccarf-exam.html">Start mock exam &rarr;</a>
+    </div>
+  </div>
+
+  <h2>The exam at a glance</h2>
+  <p class="small muted">Transcribed from <em>Claude Certified Architect &ndash; Foundations Exam Guide</em>, version
+  1.0, effective July 2026.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:34%">Attribute</th><th>Detail</th></tr>
+    <tr><td>Credential</td><td>Claude Certified Architect &ndash; Foundations</td></tr>
+    <tr><td>Exam code</td><td><code>CCAR-F</code></td></tr>
+    <tr><td>Number of items</td><td><strong>60</strong></td></tr>
+    <tr><td>Item format</td><td>Multiple-choice and multiple-response. <strong>Each item states how many responses to select</strong></td></tr>
+    <tr><td>Exam structure</td><td><strong>4 scenarios, drawn at random from a bank of 6.</strong> You will not see all six</td></tr>
+    <tr><td>Time limit</td><td>120 minutes (2 minutes per item)</td></tr>
+    <tr><td>Delivery</td><td>Proctored &mdash; online proctored and/or Pearson VUE test center, per program policy</td></tr>
+    <tr><td>Passing score</td><td>Scaled <strong>720</strong> on a 100&ndash;1,000 scale</td></tr>
+    <tr><td>Exam fee</td><td>$125 USD, per attempt</td></tr>
+    <tr><td>Validity</td><td>12 months from the date the credential is awarded</td></tr>
+    <tr><td>Result reporting</td><td>Pass/fail with scaled score, plus <strong>percent-correct by domain</strong></td></tr>
+    <tr><td>Recommended experience</td><td>6+ months building with the Claude API, Agent SDK, Claude Code and MCP. No mandatory prerequisite</td></tr>
+  </table>
+  </div>
+
+  <div class="note rule">
+    <b>What this exam is actually about</b>
+    It is not an SDK trivia quiz, and it is not the Developer exam with different wording. Almost every item is the
+    same question in a different costume: <strong>the system is already built, something measurable is wrong with it
+    in production, and you must name the smallest change that fixes the actual root cause.</strong> The stem always
+    plants the evidence &mdash; a log line, a percentage, a decomposition the coordinator logged, a count of tools, a
+    latency figure. Find the sentence that names the observed behaviour, and the option that addresses <em>that</em>
+    behaviour rather than a neighbouring one is nearly always credited.
+  </div>
+
+  <div class="note trap">
+    <b>The three shapes almost every distractor takes</b>
+    It <strong>advises where it should enforce</strong> &mdash; a system-prompt sentence standing in for a
+    programmatic prerequisite, a hook, a schema constraint or a tool that was never granted. It <strong>blames a
+    downstream component that is working correctly</strong> &mdash; the synthesis agent, the search agent, the review
+    model &mdash; when the stem's own evidence points upstream. Or it is <strong>over-engineered relative to the
+    ask</strong> &mdash; a routing classifier, a fine-tuned model, an ML pipeline, a consensus vote across three runs
+    &mdash; when the stem says &ldquo;most effective <em>first step</em>&rdquo; and the cheap high-leverage fix has
+    not been tried yet.
+  </div>
+
+  <h2>Content outline and domain weightings</h2>
+  <p>These are the published weights, alongside the item counts in this hub's mock exam, which is built to them
+  &mdash; so your per-domain score is a meaningful signal about where to go back to the documentation.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:36px">#</th><th>Content domain</th><th style="width:82px">Weight</th><th style="width:70px">Real &asymp;</th><th style="width:70px">Mock Qs</th><th>What it actually tests</th></tr>
+    <tr>
+      <td>1</td><td><strong>Agentic Architecture &amp; Orchestration</strong></td><td><strong>27%</strong></td><td>16</td><td>18</td>
+      <td>The agentic loop and <code>stop_reason</code>; hub-and-spoke coordination; subagent context contracts and the <code>Task</code> tool; programmatic prerequisites and handoffs; Agent SDK hooks; fixed versus adaptive decomposition; session resume and <code>fork_session</code></td>
+    </tr>
+    <tr>
+      <td>2</td><td><strong>Tool Design &amp; MCP Integration</strong></td><td>18%</td><td>11</td><td>12</td>
+      <td>Tool descriptions as the selection mechanism; structured errors with <code>isError</code>, category and retryability; how many tools an agent can hold; <code>tool_choice</code>; <code>.mcp.json</code> scope and env expansion; MCP resources; Read/Write/Edit/Bash/Grep/Glob selection</td>
+    </tr>
+    <tr>
+      <td>3</td><td><strong>Claude Code Configuration &amp; Workflows</strong></td><td><strong>20%</strong></td><td>12</td><td>13</td>
+      <td><code>CLAUDE.md</code> hierarchy and <code>@import</code>; <code>.claude/rules/</code> with glob frontmatter; commands and skills, <code>context: fork</code>, <code>allowed-tools</code>, <code>argument-hint</code>; plan mode versus direct execution; iterative refinement; the CI flags <code>-p</code>, <code>--output-format json</code>, <code>--json-schema</code></td>
+    </tr>
+    <tr>
+      <td>4</td><td><strong>Prompt Engineering &amp; Structured Output</strong></td><td><strong>20%</strong></td><td>12</td><td>13</td>
+      <td>Explicit criteria over vague confidence language; few-shot for ambiguous cases; <code>tool_use</code> with JSON Schema; validation-and-retry and its limits; the Message Batches API and when it is wrong; independent review instances and multi-pass review</td>
+    </tr>
+    <tr>
+      <td>5</td><td><strong>Context Management &amp; Reliability</strong></td><td>15%</td><td>9</td><td>9</td>
+      <td>Case-facts extraction and trimming tool output; escalation triggers that are real versus proxies; structured error propagation between agents; scratchpads, subagent isolation and <code>/compact</code>; confidence calibration and stratified sampling; claim-source provenance and conflict annotation</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Read the weights as a study budget</b>
+    <strong>Domain 1 is more than a quarter of the exam</strong> &mdash; around sixteen items, and it has seven task
+    statements, more than any other domain. Add Domain 3 and Domain 4 at 20% each and <strong>two-thirds of the
+    paper</strong> is orchestration, Claude Code configuration and structured output. Domain 5 is the smallest at
+    15%, but do not skim it: it is also the domain that supplies the <em>secondary</em> half of many Domain 1 and
+    Domain 2 items, because context and error propagation are what make an orchestration answer right or wrong.
+  </div>
+
+  <h2>The six scenarios &mdash; and why they matter more here</h2>
+  <p>This is the structural difference between CCAR-F and the other Foundations papers. The exam does not present
+  sixty independent questions: it presents <strong>four scenarios drawn at random from a bank of six</strong>, and
+  the items hang off them. A scenario establishes a system, a stack and a measured problem, and then several items
+  ask you to reason inside it. That has two consequences worth planning around:</p>
+  <ul class="spaced">
+    <li><strong>You will not see all six.</strong> Two of them will not appear at all, and you have no way to know
+    which. So there is no scenario you can safely skip &mdash; but equally, a scenario you find hard may simply not
+    be drawn.</li>
+    <li><strong>Reading time is front-loaded.</strong> Four scenario texts read carefully once are cheaper than
+    sixty stems read cold. Read the scenario properly the first time it appears, note its stack and its stated
+    target metric, and skim it thereafter.</li>
+  </ul>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:26%">Scenario</th><th>The system</th><th style="width:26%">Primary domains</th></tr>
+    <tr><td>1</td><td><strong>Customer support resolution agent</strong></td><td>An Agent SDK agent handling returns, billing disputes and account issues, reaching backend systems through MCP tools (<code>get_customer</code>, <code>lookup_order</code>, <code>process_refund</code>, <code>escalate_to_human</code>). Target: 80%+ first-contact resolution, while knowing when to escalate</td><td>Agentic architecture &middot; Tool design &amp; MCP &middot; Context &amp; reliability</td></tr>
+    <tr><td>2</td><td><strong>Code generation with Claude Code</strong></td><td>A team using Claude Code for generation, refactoring, debugging and documentation, integrating it with custom slash commands and <code>CLAUDE.md</code>, and deciding plan mode versus direct execution</td><td>Claude Code configuration &middot; Context &amp; reliability</td></tr>
+    <tr><td>3</td><td><strong>Multi-agent research system</strong></td><td>A coordinator delegating to four specialised subagents &mdash; web search, document analysis, synthesis, report generation &mdash; producing comprehensive cited reports</td><td>Agentic architecture &middot; Tool design &amp; MCP &middot; Context &amp; reliability</td></tr>
+    <tr><td>4</td><td><strong>Developer productivity agent</strong></td><td>An Agent SDK agent that helps engineers explore unfamiliar codebases, understand legacy systems, generate boilerplate and automate repetitive work, using the built-in tools and MCP servers</td><td>Tool design &amp; MCP &middot; Claude Code configuration &middot; Agentic architecture</td></tr>
+    <tr><td>5</td><td><strong>Claude Code in CI/CD</strong></td><td>Claude Code inside the pipeline: automated code review, test generation and PR feedback, where prompts must be actionable and false positives must stay low</td><td>Claude Code configuration &middot; Prompt engineering &amp; structured output</td></tr>
+    <tr><td>6</td><td><strong>Structured data extraction</strong></td><td>Extraction from unstructured documents, validated against JSON schemas, holding high accuracy, handling edge cases gracefully and feeding downstream systems</td><td>Prompt engineering &amp; structured output &middot; Context &amp; reliability</td></tr>
+  </table>
+  </div>
+  <div class="note rule">
+    <b>The scenario is a constraint, not decoration</b>
+    Every scenario names a stack and a target. Scenario&nbsp;1 says MCP tools and 80% first-contact resolution, so
+    an answer that lowers resolution to be safe is wrong even when it is good engineering. Scenario&nbsp;5 says
+    <em>minimise false positives</em>, so an option that would raise recall at the cost of precision is wrong there
+    and right elsewhere. When two options both look defensible, the scenario's stated goal is the tie-breaker.
+  </div>
+
+  <h2>All thirty task statements, mapped</h2>
+  <p>Exam items are written against these. The guide publishes a per-domain weight but no per-task weight, so treat
+  every statement in a heavy domain as live. Each one is covered end to end in the documentation, drilled in the
+  exercises, and sampled in the mock exam.</p>
+
+  <div class="table-wrap">
+  <table class="objtable">
+    <tr><th style="width:56px">ID</th><th>Task statement</th><th style="width:78px">Study</th></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 1 &middot; Agentic Architecture &amp; Orchestration</strong> <span class="tag warn">27% &mdash; the heaviest domain</span></td></tr>
+    <tr><td class="oid">1.1</td><td>Design and implement agentic loops for autonomous task execution &mdash; <code>stop_reason</code> control flow, tool results back into history, model-driven versus pre-configured decisions</td><td><a href="ccarf-docs.html#d1-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.2</td><td>Orchestrate multi-agent systems with coordinator&ndash;subagent patterns &mdash; hub-and-spoke, isolated subagent context, scope partitioning, iterative refinement on coverage gaps</td><td><a href="ccarf-docs.html#d1-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.3</td><td>Configure subagent invocation, context passing and spawning &mdash; the <code>Task</code> tool, <code>allowedTools</code>, <code>AgentDefinition</code>, parallel spawning in one response, goal-oriented prompts</td><td><a href="ccarf-docs.html#d1-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.4</td><td>Implement multi-step workflows with enforcement and handoff patterns &mdash; programmatic prerequisites versus prompt guidance, multi-concern decomposition, structured escalation summaries</td><td><a href="ccarf-docs.html#d1-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.5</td><td>Apply Agent SDK hooks for tool call interception and data normalisation &mdash; <code>PostToolUse</code> normalisation, pre-call policy blocking, deterministic versus probabilistic compliance</td><td><a href="ccarf-docs.html#d1-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.6</td><td>Design task decomposition strategies for complex workflows &mdash; prompt chaining versus dynamic adaptive decomposition, per-file plus cross-file review passes</td><td><a href="ccarf-docs.html#d1-6">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.7</td><td>Manage session state, resumption and forking &mdash; <code>--resume &lt;name&gt;</code>, <code>fork_session</code>, telling a resumed session what changed, and when a fresh session with a summary beats resuming</td><td><a href="ccarf-docs.html#d1-7">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 2 &middot; Tool Design &amp; MCP Integration</strong> <span class="tag">18%</span></td></tr>
+    <tr><td class="oid">2.1</td><td>Design effective tool interfaces with clear descriptions and boundaries &mdash; descriptions as the selection mechanism, disambiguation, splitting generic tools, keyword-sensitive system prompts</td><td><a href="ccarf-docs.html#d2-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.2</td><td>Implement structured error responses for MCP tools &mdash; the <code>isError</code> flag, transient/validation/business/permission categories, <code>isRetryable</code>, local recovery before propagation</td><td><a href="ccarf-docs.html#d2-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.3</td><td>Distribute tools appropriately across agents and configure tool choice &mdash; scoped tool sets per role, constrained replacements, scoped cross-role tools, <code>tool_choice</code> auto/any/forced</td><td><a href="ccarf-docs.html#d2-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.4</td><td>Integrate MCP servers into Claude Code and agent workflows &mdash; project versus user scope, <code>${ENV}</code> expansion, simultaneous discovery, MCP resources as content catalogues</td><td><a href="ccarf-docs.html#d2-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.5</td><td>Select and apply built-in tools effectively &mdash; Grep for content, Glob for paths, Read/Write for whole files, Edit for unique-anchor changes, and incremental codebase mapping</td><td><a href="ccarf-docs.html#d2-5">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 3 &middot; Claude Code Configuration &amp; Workflows</strong> <span class="tag warn">20%</span></td></tr>
+    <tr><td class="oid">3.1</td><td>Configure <code>CLAUDE.md</code> with hierarchy, scoping and modular organisation &mdash; user/project/directory levels, <code>@import</code>, <code>.claude/rules/</code>, diagnosing with <code>/memory</code></td><td><a href="ccarf-docs.html#d3-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.2</td><td>Create and configure custom slash commands and skills &mdash; project versus user scope, <code>SKILL.md</code> frontmatter, <code>context: fork</code>, <code>allowed-tools</code>, <code>argument-hint</code>, skills versus <code>CLAUDE.md</code></td><td><a href="ccarf-docs.html#d3-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.3</td><td>Apply path-specific rules for conditional convention loading &mdash; YAML <code>paths:</code> globs, why glob rules beat directory <code>CLAUDE.md</code> for file types that spread across a tree</td><td><a href="ccarf-docs.html#d3-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.4</td><td>Determine when to use plan mode versus direct execution &mdash; architectural scope, multiple valid approaches, multi-file change, and the Explore subagent for verbose discovery</td><td><a href="ccarf-docs.html#d3-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.5</td><td>Apply iterative refinement techniques &mdash; concrete input/output examples, test-driven iteration, the interview pattern, batching interacting issues versus sequencing independent ones</td><td><a href="ccarf-docs.html#d3-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.6</td><td>Integrate Claude Code into CI/CD pipelines &mdash; <code>-p</code>, <code>--output-format json</code>, <code>--json-schema</code>, <code>CLAUDE.md</code> as CI context, and why an independent instance reviews better than the generator</td><td><a href="ccarf-docs.html#d3-6">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 4 &middot; Prompt Engineering &amp; Structured Output</strong> <span class="tag warn">20%</span></td></tr>
+    <tr><td class="oid">4.1</td><td>Design prompts with explicit criteria to improve precision &mdash; categorical criteria over &ldquo;be conservative&rdquo;, severity definitions with code examples, and the trust cost of false positives</td><td><a href="ccarf-docs.html#d4-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.2</td><td>Apply few-shot prompting to improve consistency and quality &mdash; 2&ndash;4 targeted examples for ambiguous cases, format demonstration, generalisation to novel patterns, varied document structures</td><td><a href="ccarf-docs.html#d4-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.3</td><td>Enforce structured output using tool use and JSON schemas &mdash; schema-as-tool-input, <code>tool_choice</code> selection, syntax versus semantic errors, nullable fields and <code>other</code>+detail enums</td><td><a href="ccarf-docs.html#d4-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.4</td><td>Implement validation, retry and feedback loops &mdash; retry with the document, the failed extraction and the specific error; when retry cannot work; <code>detected_pattern</code> for dismissal analysis</td><td><a href="ccarf-docs.html#d4-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.5</td><td>Design efficient batch processing strategies &mdash; Batches API economics and the 24-hour window, no mid-request tool calling, <code>custom_id</code> correlation, SLA arithmetic, failure resubmission</td><td><a href="ccarf-docs.html#d4-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.6</td><td>Design multi-instance and multi-pass review architectures &mdash; why self-review is weak, independent instances, per-file plus integration passes, calibrated confidence routing</td><td><a href="ccarf-docs.html#d4-6">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 5 &middot; Context Management &amp; Reliability</strong> <span class="tag">15%</span></td></tr>
+    <tr><td class="oid">5.1</td><td>Manage conversation context across long interactions &mdash; the case-facts block, trimming verbose tool results, lost-in-the-middle ordering, structured subagent metadata</td><td><a href="ccarf-docs.html#d5-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.2</td><td>Design escalation and ambiguity resolution patterns &mdash; the three real triggers, honouring an explicit request immediately, why sentiment and self-confidence are not triggers, multiple matches</td><td><a href="ccarf-docs.html#d5-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.3</td><td>Implement error propagation across multi-agent systems &mdash; structured failure context, access failure versus valid empty result, local recovery, coverage annotations on synthesis</td><td><a href="ccarf-docs.html#d5-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.4</td><td>Manage context in large codebase exploration &mdash; subagent isolation, scratchpad files, phase summaries, crash-recovery manifests, <code>/compact</code></td><td><a href="ccarf-docs.html#d5-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.5</td><td>Design human review workflows and confidence calibration &mdash; aggregate accuracy hiding segment failure, stratified sampling, field-level confidence calibrated on labelled data</td><td><a href="ccarf-docs.html#d5-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.6</td><td>Preserve provenance and handle uncertainty in multi-source synthesis &mdash; claim&ndash;source mappings, conflict annotation over arbitrary selection, publication dates, content-appropriate rendering</td><td><a href="ccarf-docs.html#d5-6">Read &rarr;</a></td></tr>
+  </table>
+  </div>
+
+  <div class="note good">
+    <b>The six task statements that carry the most items</b>
+    <a href="ccarf-docs.html#d1-2">1.2 Coordinator&ndash;subagent orchestration</a> &middot;
+    <a href="ccarf-docs.html#d1-3">1.3 Subagent invocation and context passing</a> &middot;
+    <a href="ccarf-docs.html#d2-1">2.1 Tool interface design</a> &middot;
+    <a href="ccarf-docs.html#d3-1">3.1 CLAUDE.md hierarchy and scoping</a> &middot;
+    <a href="ccarf-docs.html#d4-3">4.3 Structured output via tool use</a> &middot;
+    <a href="ccarf-docs.html#d1-4">1.4 Programmatic enforcement and handoff</a>.
+    Between them they own the two mechanisms the whole paper turns on &mdash; <em>who decides</em> and <em>what
+    guarantees it</em> &mdash; and they are the sections most worth reading twice.
+  </div>
+
+  <h2>The fourteen distractor patterns</h2>
+  <p>Nearly every wrong answer on this exam is one of these dressed in professional language. Learn them as a
+  checklist and you can usually eliminate two options before you finish reading the stem. The full set, with the
+  credited answer for each, is in <a href="ccarf-docs.html#antipatterns">the documentation's anti-pattern
+  table</a>.</p>
+
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:23%">Pattern</th><th style="width:38%">The tempting wrong answer</th><th>What the exam wants</th></tr>
+    <tr><td><strong>Prompt as guarantee</strong></td><td>&ldquo;State in the system prompt that verification is mandatory before any refund&rdquo;</td><td>A programmatic prerequisite that blocks the dependent tool until the prerequisite tool returned. Prompts have a non-zero failure rate; money does not tolerate one</td></tr>
+    <tr><td><strong>Blame the downstream agent</strong></td><td>&ldquo;The synthesis agent needs instructions to spot coverage gaps&rdquo; when the coordinator's own log shows a narrow decomposition</td><td>Fix the component the evidence indicts. Subagents executing their assignment correctly are not the fault when the assignment was wrong</td></tr>
+    <tr><td><strong>Over-engineering the first step</strong></td><td>&ldquo;Deploy a routing classifier / train a model on historical tickets&rdquo;</td><td>The cheap high-leverage fix that has not been tried: better tool descriptions, explicit criteria, a few-shot set. &ldquo;First step&rdquo; in a stem is a scope instruction</td></tr>
+    <tr><td><strong>Self-reported confidence</strong></td><td>&ldquo;Have the agent rate its confidence 1&ndash;10 and escalate below a threshold&rdquo;</td><td>Explicit categorical criteria. A model already wrong on hard cases is confidently wrong on them; calibration needs labelled data, not introspection</td></tr>
+    <tr><td><strong>Sentiment as complexity</strong></td><td>&ldquo;Escalate when negative sentiment crosses a threshold&rdquo;</td><td>Escalate on the three real triggers: the customer asked for a human, policy is silent or needs an exception, or the agent cannot make progress</td></tr>
+    <tr><td><strong>Bigger window, bigger model</strong></td><td>&ldquo;Move to a larger context window so all 14 files fit in one review pass&rdquo;</td><td>Split the pass. Attention dilution is not a capacity problem, and a bigger window fills up too</td></tr>
+    <tr><td><strong>Suppress the error</strong></td><td>&ldquo;Catch the subagent timeout and return an empty result marked successful&rdquo;</td><td>Structured error context: failure type, attempted query, partial results, alternatives &mdash; so the coordinator can decide</td></tr>
+    <tr><td><strong>Kill the whole run</strong></td><td>&ldquo;Propagate the exception to a top-level handler that terminates the workflow&rdquo;</td><td>Local recovery first, then partial results plus a coverage annotation. One failed source is not a failed report</td></tr>
+    <tr><td><strong>Everything required</strong></td><td>&ldquo;Mark all schema fields required so no record is incomplete&rdquo;</td><td>Nullable/optional fields and an <code>unclear</code> enum member. A required field the document does not contain is an instruction to fabricate</td></tr>
+    <tr><td><strong>Retry the unretryable</strong></td><td>&ldquo;Retry the extraction with a stronger instruction&rdquo; when the value is in a document you did not supply</td><td>Recognise the class: retry fixes format and structure errors, never absence. Route to human review or fetch the missing source</td></tr>
+    <tr><td><strong>Batch the blocking</strong></td><td>&ldquo;Move the pre-merge check to the Batches API for the 50% saving&rdquo;</td><td>Batch only what nobody waits for. No latency SLA and up to 24 hours makes it wrong for anything blocking a developer</td></tr>
+    <tr><td><strong>Consolidate to disambiguate</strong></td><td>&ldquo;Merge the two confusable tools into one <code>lookup_entity</code> that figures it out internally&rdquo;</td><td>Usually: differentiate the descriptions. Consolidation is a real option but it is a redesign, not a first step, and it hides the routing decision from the model</td></tr>
+    <tr><td><strong>More tools, more capable</strong></td><td>&ldquo;Give the synthesis agent the full web toolset so it never has to round-trip&rdquo;</td><td>Scoped access: one narrow cross-role tool for the common case, coordinator routing for the rest. Selection reliability falls as the tool count rises</td></tr>
+    <tr><td><strong>Self-review as the check</strong></td><td>&ldquo;Instruct the same session to critically review the code it just generated&rdquo;</td><td>An independent instance without the generator's reasoning context. A model that just argued itself into a design does not reopen the argument</td></tr>
+  </table>
+  </div>
+
+  <div class="note trap">
+    <b>Three tie-breakers for the last two options</b>
+    First, the <strong>structural</strong> answer beats the <strong>prose</strong> answer whenever the stem describes
+    a guarantee. Second, the answer that <strong>addresses the evidence the stem planted</strong> beats the one that
+    is better engineering in the abstract &mdash; a coordinator log showing three visual-arts subtasks is an
+    indictment of the coordinator, whatever else is wrong. Third, match the <strong>scope word</strong>: &ldquo;first
+    step&rdquo;/&ldquo;most effective&rdquo; wants the cheapest change with the largest effect, while
+    &ldquo;design&rdquo;/&ldquo;architecture&rdquo; permits a rebuild.
+  </div>
+
+  <h2>The official prep courses, mapped to this hub</h2>
+  <p>Anthropic lists the <a href="https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses" target="_blank" rel="noopener">CCAR-F prep courses</a>
+  as a set of independent courses rather than an ordered path, so they do <em>not</em> map one-to-one onto the
+  blueprint. The table shows where each lands here, and where the gaps are.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:38%">Prep course</th><th>Covered here</th></tr>
+    <tr><td>AI Fluency: Framework &amp; Foundations</td><td>Background only. Nothing in it is directly examined at CCAR-F level</td></tr>
+    <tr><td>Claude 101</td><td>Background. If you already hold CCAO-F you can skip it entirely</td></tr>
+    <tr><td>Building with the Claude API</td><td><a href="ccarf-docs.html#p1">Primer 1</a>, <a href="ccarf-docs.html#d4-3">4.3</a>, <a href="ccarf-docs.html#d4-5">4.5</a> &mdash; the loop, <code>stop_reason</code>, <code>tool_use</code> with schemas, <code>tool_choice</code>, Batches</td></tr>
+    <tr><td>Claude Code in Action</td><td>All of <a href="ccarf-docs.html#d3">Domain 3</a> and <a href="ccarf-docs.html#d2-5">2.5</a> &mdash; the single most exam-relevant course on the list</td></tr>
+    <tr><td>Introduction to Model Context Protocol</td><td><a href="ccarf-docs.html#d2">Domain 2</a> &mdash; tool interfaces, <code>isError</code>, resources, <code>.mcp.json</code></td></tr>
+    <tr><td>Claude on Google Cloud &middot; Claude with Amazon Bedrock</td><td>Platform-specific. <strong>Explicitly out of scope</strong> &mdash; the guide rules out cloud-provider configuration. Skip both for exam purposes</td></tr>
+  </table>
+  </div>
+  <div class="note warn">
+    <b>The gap the prep courses leave</b>
+    <strong>Domain 1 is 27% of the exam and no course owns it.</strong> Coordinator&ndash;subagent orchestration,
+    subagent context contracts, the <code>Task</code> tool and <code>allowedTools</code>, programmatic prerequisites,
+    Agent SDK hooks and <code>fork_session</code> are spread thinly across the API and Claude Code courses and
+    assumed as background in both. Domain 5 fares no better. It is entirely possible to finish every listed course
+    and still be under-prepared for close to half the paper &mdash; which is why the documentation here treats
+    Domains 1 and 5 at length and why the study plan below starts with Domain 1 rather than the API.
+  </div>
+
+  <h2>An eight-day plan</h2>
+  <ol class="spaced">
+    <li><strong>Day 1 &mdash; The loop, hands on.</strong> Read the four <a href="ccarf-docs.html#p1">primers</a>,
+    then write code: a manual agentic loop that branches on <code>stop_reason</code> and appends every tool result to
+    <code>messages</code>; one tool call forced with <code>tool_choice</code>. An hour of typing fixes more than an
+    evening of reading, because Domain 1 items assume you have felt the loop rather than skimmed it.</li>
+    <li><strong>Day 2 &mdash; Domain 1, first half.</strong> <a href="ccarf-docs.html#d1-1">1.1</a> through
+    <a href="ccarf-docs.html#d1-4">1.4</a>. The agentic loop, hub-and-spoke coordination, the subagent context
+    contract, and programmatic prerequisites. This is the densest reading in the hub; do it while you are
+    fresh.</li>
+    <li><strong>Day 3 &mdash; Domain 1, second half, plus Domain 5.</strong> <a href="ccarf-docs.html#d1-5">1.5</a>&ndash;<a href="ccarf-docs.html#d1-7">1.7</a>
+    then all of <a href="ccarf-docs.html#d5">Domain 5</a>. Pairing them is deliberate: hooks, decomposition and
+    session state are what error propagation and context management are <em>for</em>.</li>
+    <li><strong>Day 4 &mdash; Domain 3.</strong> Claude Code configuration end to end. Then do it for real on a
+    repository you own: a <code>CLAUDE.md</code> with an <code>@import</code>, a <code>.claude/rules/</code> file
+    with a <code>paths:</code> glob, a skill with <code>context: fork</code> and <code>allowed-tools</code>, and one
+    <code>claude -p ... --output-format json</code> invocation. Four configuration surfaces you have touched beat
+    twenty you have read about.</li>
+    <li><strong>Day 5 &mdash; Domain 4.</strong> Prompt engineering and structured output. Build the extraction tool
+    with a nullable field and an <code>other</code>+detail enum, then deliberately feed it a document that omits a
+    field and watch what a required field does to it.</li>
+    <li><strong>Day 6 &mdash; Domain 2.</strong> Tool design and MCP. Write two deliberately confusable tool
+    descriptions, watch the model misroute, then fix them &mdash; that experiment teaches 2.1 permanently.</li>
+    <li><strong>Day 7 &mdash; Build.</strong> Work every <a href="ccarf-exercises.html">exercise</a> with the
+    documentation closed. Get a partial score, read which checks failed, fix them, re-grade. That loop is what
+    transfers to the exam room.</li>
+    <li><strong>Day 8 &mdash; Sit it timed, then review.</strong> Take the <a href="ccarf-exam.html">mock exam</a> in
+    <em>Exam mode</em>: 120 minutes, no feedback until you submit. This bank is harder than the real exam and gives
+    you 65 items in the real exam's 120 minutes, so treat <strong>800+</strong> as a green light and anything under
+    700 as a signal to go back rather than book. Then read every explanation, including on items you got right
+    &mdash; the &ldquo;why the others are ruled out&rdquo; text is where the marginal points live.</li>
+  </ol>
+
+  <div class="note good">
+    <b>If you have three days, not eight</b>
+    Day 1: <a href="ccarf-docs.html#p1">the primers</a> and all of <a href="ccarf-docs.html#d1">Domain 1</a>. Day 2:
+    <a href="ccarf-docs.html#d3">Domain 3</a> and <a href="ccarf-docs.html#d4">Domain 4</a>. Day 3:
+    <a href="ccarf-docs.html#d2">Domain 2</a>, <a href="ccarf-docs.html#d5">Domain 5</a>,
+    <a href="ccarf-docs.html#antipatterns">the anti-patterns</a>, <a href="ccarf-docs.html#cheat">the cheat
+    sheet</a>, and the mock exam timed. That is the whole weighting and the whole distractor vocabulary.
+  </div>
+
+  <h2>Policies worth knowing before you book</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:30%">Policy</th><th>Detail</th></tr>
+    <tr><td>Registration</td><td>Anthropic Partner Academy for checkout (partner-tier discounts apply), then a Pearson VUE account to schedule. Delivery is by Pearson VUE</td></tr>
+    <tr><td>Fee</td><td><strong>$125 USD</strong> per attempt</td></tr>
+    <tr><td>Reschedule / cancel</td><td>Free up to <strong>24 hours</strong> before the appointment. Inside 24 hours you forfeit the fee</td></tr>
+    <tr><td>Identification</td><td>A valid, unexpired, government-issued photo ID whose name <strong>matches your registration exactly</strong>. Name corrections go to <code>certifications-support@anthropic.com</code> <em>before</em> you schedule</td></tr>
+    <tr><td>Accommodations</td><td>Requested and approved through Pearson VUE <strong>before</strong> you schedule. Do not book until approval lands</td></tr>
+    <tr><td>Retakes</td><td>14 days after a first fail, 30 after a second, 90 after a third. Maximum <strong>four attempts per rolling 12 months</strong>, per exam. Full fee each time</td></tr>
+    <tr><td>No-show</td><td>Fee forfeited, re-registration required</td></tr>
+    <tr><td>Exam room</td><td>Workspace clear of notes, books, phones and secondary monitors; stay in view of the webcam if online; no communication with anyone. No IDE, no documentation, no reference material</td></tr>
+    <tr><td>NDA</td><td>You accept a confidentiality agreement before the exam starts. Declining ends the session with no refund</td></tr>
+    <tr><td>Renewal</td><td>Valid <strong>12 months</strong>. Renew on time with a free, non-proctored assessment on the Partner Academy; let it lapse and you retake the full exam at full fee</td></tr>
+    <tr><td>Appeals</td><td>Within 14 days, via Pearson VUE support. The standard-setting outcome and individual item content are <strong>not</strong> appealable</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Two scoring details that change how you pace</b>
+    Your pass/fail is decided by the <strong>total scaled score only</strong> &mdash; the per-domain percentages on
+    your report are diagnostic, and there is no per-domain minimum to clear. So never over-invest in a domain you
+    find hard at the cost of losing easy marks elsewhere. And there is <strong>no partial credit on
+    multiple-response items</strong>: two right and one wrong scores the same as three wrong, so on a select-two item
+    be as sure of your second choice as your first.
+  </div>
+
+  <h2>What is explicitly out of scope</h2>
+  <p>The guide publishes an out-of-scope list, and it is unusually useful: several of these are things a working
+  architect thinks about daily, so their absence changes what you should revise. None of the following is
+  examined.</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h4 class="mt0">Not on this exam</h4>
+      <ul class="tight small">
+        <li>Fine-tuning or training custom models</li>
+        <li>API authentication, billing or account management</li>
+        <li>Language- or framework-specific implementation beyond what tool and schema configuration needs</li>
+        <li>Deploying or hosting MCP servers &mdash; infrastructure, networking, containers</li>
+        <li>Claude's internal architecture, training process or weights</li>
+        <li>Constitutional AI, RLHF, safety training methodology</li>
+        <li>Embedding models and vector database internals</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 class="mt0">Also not on this exam</h4>
+      <ul class="tight small">
+        <li>Computer use &mdash; browser and desktop automation</li>
+        <li>Vision and image analysis</li>
+        <li>Streaming APIs and server-sent events</li>
+        <li>Rate limiting, quotas, price calculation</li>
+        <li>OAuth, key rotation, authentication protocol detail</li>
+        <li>Cloud-provider specifics &mdash; AWS, GCP, Azure</li>
+        <li>Benchmarking and model comparison metrics</li>
+        <li>Prompt caching implementation detail <span class="muted">(beyond knowing it exists)</span></li>
+        <li>Token counting and tokenisation specifics</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note trap">
+    <b>Read the out-of-scope list as a distractor generator</b>
+    Several of these appear as <em>wrong answers</em> precisely because they are out of scope: an option proposing a
+    fine-tuned classifier, a vector-store redesign, a streaming change or a cloud-specific deployment is almost
+    always the distractor. If an option requires machinery the exam has declared out of scope, that is a strong
+    elimination signal in itself.
+  </div>
+
+  <h2>Primary sources</h2>
+  <p class="small">This hub is written from the official exam guide plus Anthropic's product documentation. Where a
+  detail is version-sensitive &mdash; CLI flag spellings, frontmatter keys, hook event names, model IDs, beta
+  availability &mdash; verify against the live documentation close to your exam date. Everything marked
+  <span class="tag warn">version-sensitive</span> in the docs is a place to check.</p>
+  <ul class="small">
+    <li><a href="https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses" target="_blank" rel="noopener">Anthropic Partner Academy &mdash; CCAR-F prep courses</a></li>
+    <li><code>CCAR-F/Claude_Certified_Architect-Foundations_Exam_Guide.pdf</code> &mdash; the official exam guide, v1.0, July 2026 (kept locally; not published in this repository)</li>
+    <li><a href="https://docs.claude.com/en/api/messages" target="_blank" rel="noopener">Claude API &mdash; Messages API reference</a></li>
+    <li><a href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview" target="_blank" rel="noopener">Claude Docs &mdash; Tool use overview</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/structured-outputs" target="_blank" rel="noopener">Claude Docs &mdash; Structured outputs</a></li>
+    <li><a href="https://docs.claude.com/en/docs/build-with-claude/batch-processing" target="_blank" rel="noopener">Claude Docs &mdash; Message Batches API</a></li>
+    <li><a href="https://docs.claude.com/en/docs/agents-and-tools/mcp" target="_blank" rel="noopener">Claude Docs &mdash; Model Context Protocol</a></li>
+    <li><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol specification</a></li>
+    <li><a href="https://code.claude.com/docs/en/agent-sdk" target="_blank" rel="noopener">Claude Agent SDK documentation</a></li>
+    <li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">Claude Code Docs &mdash; Memory and CLAUDE.md</a></li>
+    <li><a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Claude Code Docs &mdash; Agent Skills</a></li>
+    <li><a href="https://code.claude.com/docs/en/slash-commands" target="_blank" rel="noopener">Claude Code Docs &mdash; Slash commands</a></li>
+    <li><a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">Claude Code Docs &mdash; Hooks reference</a></li>
+    <li><a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">Claude Code Docs &mdash; CLI reference</a></li>
+    <li><a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">Claude Code Docs &mdash; MCP configuration</a></li>
+    <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic Engineering &mdash; Building effective agents</a></li>
+    <li><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">Anthropic Engineering &mdash; How we built our multi-agent research system</a></li>
+  </ul>
+
+  <div class="note warn" style="margin-top:26px">
+    <b>One honest caveat</b>
+    Anthropic does not publish its item bank. The 65 mock questions here are original, written to the published
+    blueprint, the thirty task statements, the six scenario premises and the official sample items' style, and to
+    documented product behaviour. They are not recalled or leaked exam content, and no source claiming to hold
+    verbatim exam items was used. The mock also runs <strong>65 items in 120 minutes</strong> rather than the live
+    exam's 60 &mdash; deliberately tighter, and with broader coverage than 60 items allow. The organisations in the
+    scenarios are invented; any resemblance to a real company is coincidental. Treat a strong score here as evidence
+    you understand the material, not as a preview of the live item pool.
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="narrow">
+    Claude Study Hub &middot; CCAR-F track &mdash; documentation, exercises and mock exam for the Claude Certified
+    Architect &ndash; Foundations certification. Independent study material; not affiliated with or endorsed by
+    Anthropic.
+  </div>
+</footer>
+
+</body>
+</html>

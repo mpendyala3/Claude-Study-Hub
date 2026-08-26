@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-P Overview — Claude Certified Architect Professional</title>
+<meta name="description" content="Single-place study hub for the Anthropic Claude Certified Architect – Professional exam (CCAR-P): the full blueprint, all seven domains and thirty-eight objectives documented, the official sample items worked, browser-graded exercises, and a deliberately hard 70-question timed mock exam.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-P track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarp">
+        <span class="navlabel">CCAR-P</span>
+        <a href="ccarp-index.html">Overview</a>
+        <a href="ccarp-docs.html">Docs</a>
+        <a href="ccarp-exercises.html">Exercises</a>
+        <a href="ccarp-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main class="narrow content">
+
+  <div class="track-badge"><b>CCAR-P</b> Claude Certified Architect – Professional</div>
+  <div class="eyebrow">Anthropic Certification &middot; Architect level &middot; Exam code CCAR-P</div>
+  <h1>Everything you need for the Claude Certified Architect &mdash; Professional exam</h1>
+  <p class="lede">
+    Seven content domains and thirty-eight published objectives, documented end to end from the official exam guide
+    and Anthropic's product documentation. This is the professional paper: it is not a bigger Foundations exam, it
+    is a different question. Foundations asks <em>what is the mechanism</em>; Professional asks <em>which
+    trade-off would you defend to a regulator, a CFO and an engineering team, and what evidence would you bring</em>.
+    Every objective gets the mechanism, the decision rule, the numbers the exam plants, and the distractor it hides
+    behind them. Thirty graded exercises you work in the browser. Seventy scenario-based mock questions, harder
+    than the real thing, with an explanation for every option &mdash; right and wrong.
+  </p>
+
+  <div class="grid grid-4" style="margin:26px 0 34px">
+    <a class="stat" href="ccarp-docs.html" style="color:inherit">
+      <div class="k">38</div><div class="l">Objectives documented</div>
+    </a>
+    <a class="stat" href="ccarp-exercises.html" style="color:inherit">
+      <div class="k">30</div><div class="l">Hands-on exercises</div>
+    </a>
+    <a class="stat" href="ccarp-exam.html" style="color:inherit">
+      <div class="k">70</div><div class="l">Mock exam questions</div>
+    </a>
+    <div class="stat">
+      <div class="k">720</div><div class="l">Score needed to pass</div>
+    </div>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card">
+      <h3 class="mt0">1 &middot; Read the documentation</h3>
+      <p class="small muted">Five architect primers &mdash; the solution-shaping conversation, the reference
+      architecture, the RAG pipeline, the evaluation harness and the control plane &mdash; then all seven domains
+      and all thirty-eight objectives, each with the mechanism, a decision table, the traps and a Q&amp;A drill.</p>
+      <a class="btn sm" href="ccarp-docs.html">Open documentation &rarr;</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">2 &middot; Do the exercises</h3>
+      <p class="small muted">Write the real discovery question set, the real chunking strategy, the real evaluation
+      plan, the real risk register, the real architecture decision record, the real SLA &mdash; checked against the
+      properties the exam grades. Plus classification drills for the judgement calls it repeats.</p>
+      <a class="btn sm" href="ccarp-exercises.html">Open exercises &rarr;</a>
+    </div>
+    <div class="card">
+      <h3 class="mt0">3 &middot; Sit the mock exam</h3>
+      <p class="small muted">70 questions in the real exam's 120 minutes, weighted to the published blueprint and
+      set inside six enterprise systems that recur across the hub. Near-miss distractors, select-two items, and no
+      length tell to fall back on.</p>
+      <a class="btn sm" href="ccarp-exam.html">Start mock exam &rarr;</a>
+    </div>
+  </div>
+
+  <h2>The exam at a glance</h2>
+  <p class="small muted">Transcribed from <em>Claude Certified Architect &ndash; Professional Exam Guide</em>,
+  version 1.0, effective July 2026.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:34%">Attribute</th><th>Detail</th></tr>
+    <tr><td>Credential</td><td>Claude Certified Architect &ndash; Professional</td></tr>
+    <tr><td>Exam code</td><td><code>CCAR-P</code></td></tr>
+    <tr><td>Number of items</td><td><strong>63</strong></td></tr>
+    <tr><td>Item format</td><td>Multiple-choice and multiple-response. <strong>Each item states how many responses to select</strong></td></tr>
+    <tr><td>Exam structure</td><td>Independent items. <strong>No fixed scenario bank</strong> &mdash; unlike CCAR-F, the guide does not publish a scenario list, so treat every item as self-contained</td></tr>
+    <tr><td>Time limit</td><td>120 minutes (about 1 minute 54 seconds per item)</td></tr>
+    <tr><td>Delivery</td><td>Proctored &mdash; online proctored and/or Pearson VUE test center, per program policy</td></tr>
+    <tr><td>Passing score</td><td>Scaled <strong>720</strong> on a 100&ndash;1,000 scale, criterion-referenced</td></tr>
+    <tr><td>Exam fee</td><td>$175 USD, per attempt</td></tr>
+    <tr><td>Validity</td><td>12 months from the date the credential is awarded</td></tr>
+    <tr><td>Result reporting</td><td>Pass/fail with scaled score, plus <strong>percent-correct by domain</strong> (diagnostic only)</td></tr>
+    <tr><td>Recommended experience</td><td>3+ years in systems architecture or platform engineering, 6+ months hands-on with Claude or a comparable LLM in production, and at least one system delivered discovery-to-operations. <strong>No mandatory prerequisite</strong> &mdash; CCAR-F is not required</td></tr>
+  </table>
+  </div>
+
+  <div class="note rule">
+    <b>What this exam is actually about</b>
+    Almost every item hands you <strong>a production system, a measured symptom and a constraint that rules out the
+    obvious fix</strong>, and asks for the change you would defend. The constraint is the whole item: a latency SLA,
+    a regulated data class, a fixed budget, an auditor, a stakeholder who has already been promised something. An
+    option that is excellent engineering and violates the stated constraint is <em>wrong</em>, every time. Read the
+    constraint before you read the options, and the field usually halves.
+  </div>
+
+  <div class="note trap">
+    <b>The three shapes almost every distractor takes</b>
+    It <strong>solves a different problem than the one measured</strong> &mdash; tuning the prompt when the evidence
+    points at retrieval, upgrading the model when the evidence points at context. It <strong>buys a control that
+    detects instead of one that prevents</strong> &mdash; logging, alerting, confirmation dialogs and after-the-fact
+    audits standing in for removing a capability that was never needed. Or it is <strong>an engineering answer to a
+    stakeholder question</strong> &mdash; more accuracy offered to a sponsor who asked what the thing will cost, a
+    benchmark quoted to a compliance officer who asked where the data goes.
+  </div>
+
+  <h2>Content outline and domain weightings</h2>
+  <p>These are the published weights, alongside the item counts in this hub's mock exam, which is built to them
+  &mdash; so your per-domain score is a meaningful signal about where to go back to the documentation.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:36px">#</th><th>Content domain</th><th style="width:82px">Weight</th><th style="width:70px">Real &asymp;</th><th style="width:70px">Mock Qs</th><th>What it actually tests</th></tr>
+    <tr>
+      <td>1</td><td><strong>Solution Design &amp; Architecture</strong></td><td><strong>17%</strong></td><td>11</td><td>12</td>
+      <td>Turning a business problem into a system with a measurable success criterion; the input&rarr;processing&rarr;output&rarr;feedback shape; choosing between augmented&nbsp;LLM, workflow and agent; multi-agent orchestration and when not to use it; decomposition; and mapping a design onto the value pillars &mdash; efficiency, transformation, productivity, cost and SLA</td>
+    </tr>
+    <tr>
+      <td>2</td><td><strong>Claude Models, Prompting &amp; Context Engineering</strong></td><td>13%</td><td>8</td><td>9</td>
+      <td>Model selection as a trade-off between capability, latency and price rather than a ranking; system prompts, templates and guardrails; zero-shot, few-shot and chain-of-thought and when each is the wrong tool; context-window budgeting and token accounting; and reuse through prompt caching, modular prompts and Skills</td>
+    </tr>
+    <tr>
+      <td>3</td><td><strong>Integration</strong></td><td><strong>19%</strong></td><td>12</td><td>13</td>
+      <td>The largest domain. Capability bloat and least privilege; authentication and authorisation gaps including the confused-deputy problem; accuracy-versus-latency; observability at scale; RAG chunking and indexing; retrieval strategy matched to data shape; choosing between MCP, API/CLI and agent-to-agent; and progressive discovery versus a monolithic context</td>
+    </tr>
+    <tr>
+      <td>4</td><td><strong>Evaluation, Testing &amp; Optimization</strong></td><td><strong>16%</strong></td><td>10</td><td>11</td>
+      <td>Defining metrics before optimising; building evaluation sets that include the hard cases; A/B testing with enough power to conclude anything; diagnosing whether a failure is prompt, retrieval, model or data; token, latency and cost optimisation; and the logging you need in place before the incident</td>
+    </tr>
+    <tr>
+      <td>5</td><td><strong>Governance, Safety &amp; Risk Management</strong></td><td>14%</td><td>9</td><td>10</td>
+      <td>Guardrails as layered controls rather than a prompt; naming the failure modes of an LLM system honestly; where a human must sit in the loop and where a human is theatre; GDPR, HIPAA and FedRAMP as design constraints with concrete consequences; and bias, fairness and transparency as things you measure, not assert</td>
+    </tr>
+    <tr>
+      <td>6</td><td><strong>Stakeholder Communication &amp; Lifecycle Management</strong></td><td>14%</td><td>9</td><td>10</td>
+      <td>The domain engineers under-prepare. Structured discovery that surfaces the real constraint; explaining a trade-off to a non-technical sponsor; feedback loops and SLAs you can actually meet; architecture decision records and handoff documentation; and the lifecycle from discovery through design, handoff, monitoring and iteration</td>
+    </tr>
+    <tr>
+      <td>7</td><td><strong>Developer Productivity &amp; Operational Enablement</strong></td><td>7%</td><td>4</td><td>5</td>
+      <td>The smallest domain, and the one where a single careless answer costs the most. Configuring Claude Code for a team rather than an individual; raising the floor of a whole engineering org rather than the ceiling of one engineer; and using the same tooling to shorten an incident</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Read the weights as a study budget</b>
+    <strong>Integration at 19% is the single largest domain</strong> and it also has the most objectives &mdash;
+    eight, against five or six everywhere else &mdash; so each one is thinner but none is safe. Integration plus
+    Solution Design plus Evaluation is <strong>52% of the paper</strong>. The two domains most engineers
+    under-prepare are the two that together are <strong>28%</strong>: Governance and Stakeholder Communication. If
+    you come from a delivery background you will find Domain 6 easier than the blueprint implies; if you come from
+    a pure engineering background, budget real time for it, because &ldquo;explain this trade-off to the CFO&rdquo;
+    is a skill with its own wrong answers.
+  </div>
+
+  <h2>The three official sample items, worked</h2>
+  <p>The guide publishes three sample items with an answer key. They are worth more than their length suggests,
+  because they fix the <em>cognitive level</em> of the paper: none of the three is a recall question, and all three
+  turn on eliminating options that are individually reasonable. Read them as a calibration exercise.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:22%">Item</th><th>What it is really testing</th></tr>
+    <tr>
+      <td><strong>Sample 1</strong><br><span class="small muted">Domain 3 &mdash; least privilege</span></td>
+      <td>A support agent holds refund and delete-account tools that support staff never use. The credited answer is
+      to <strong>remove them from the configuration</strong>. Logging makes misuse auditable after it happens and a
+      confirmation prompt asks the model to police itself; both are <em>detective or compensating</em> controls
+      standing where a <em>preventive</em> one belongs. A bigger model is not an authorisation control at all. The
+      generalisation to carry into the exam: <strong>when a capability is not needed by the role, the answer is
+      almost always to remove it</strong>, not to watch it. See <a href="ccarp-docs.html#d3-1">3.1</a> and
+      <a href="ccarp-docs.html#d3-2">3.2</a>.</td>
+    </tr>
+    <tr>
+      <td><strong>Sample 2</strong><br><span class="small muted">Domain 2 &mdash; caching and ordering</span></td>
+      <td>An 8,000-token static prefix is resent on every request; both latency and cost are concerns. The credited
+      answer <strong>puts the stable content first and enables prompt caching</strong>, which is the only option
+      that improves both without discarding required context. Truncation loses policy the system needs;
+      downsizing the model blindly trades quality for the wrong saving; moving the policy into a few-shot block
+      changes where the text sits without making any prefix reusable. The generalisation: <strong>when an option
+      improves one metric by sacrificing a stated requirement, it loses to one that improves both</strong>. See
+      <a href="ccarp-docs.html#d2-5">2.5</a> and <a href="ccarp-docs.html#d4-5">4.5</a>.</td>
+    </tr>
+    <tr>
+      <td><strong>Sample 3</strong><br><span class="small muted">Domain 4 &mdash; diagnosis</span></td>
+      <td>A RAG system starts returning confident wrong answers <em>after a document refresh</em>, with latency and
+      model version unchanged. The credited answer is <strong>the retrieval and indexing step</strong>. Every other
+      option names something the refresh could not have changed. The generalisation, and it is the single most
+      reusable habit on this exam: <strong>find the thing that changed, and start there</strong>. Confident and
+      wrong points at context, not at the model. See <a href="ccarp-docs.html#d4-4">4.4</a> and
+      <a href="ccarp-docs.html#d3-5">3.5</a>.</td>
+    </tr>
+  </table>
+  </div>
+
+  <div class="note rule">
+    <b>What the samples tell you about the distractors</b>
+    In all three, <strong>every wrong option is something a competent engineer might say in a meeting</strong>.
+    None is absurd. That is the difficulty model of this exam: you are not eliminating nonsense, you are ranking
+    four defensible actions against a constraint the stem stated once. If you find yourself thinking
+    &ldquo;honestly you would do all four&rdquo;, go back and re-read the sentence that names the measurement or
+    the limit &mdash; that sentence is the discriminator.
+  </div>
+
+  <h2>The six systems this hub uses</h2>
+  <p>The exam guide publishes no scenario bank for CCAR-P, so items are self-contained. This hub still runs six
+  enterprise systems across the documentation, the exercises and the mock exam &mdash; not to mimic an exam
+  structure that does not exist, but so that the context you build reading Domain 1 is still paying you in Domain
+  6. Each one is chosen to force a different constraint to the surface.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:24%">System</th><th>The constraint it forces</th><th style="width:22%">Primary domains</th></tr>
+    <tr><td>1</td><td><strong>Thornbury Health</strong><br><span class="small muted">clinical documentation assistant</span></td><td>RAG over 2.4 million clinical notes, under HIPAA. PHI cannot leave the boundary, every generated summary needs clinician sign-off before it enters the record, and the retrieval corpus is re-indexed nightly</td><td>Integration &middot; Governance &middot; Evaluation</td></tr>
+    <tr><td>2</td><td><strong>Calderon Financial</strong><br><span class="small muted">adviser assist platform</span></td><td>A regulated advice business. The system may summarise and retrieve but must never produce a personalised recommendation; every interaction is retained for seven years; GDPR erasure requests must be honoured against the same store; p95 latency is contractually 3 seconds</td><td>Governance &middot; Solution design &middot; Stakeholder</td></tr>
+    <tr><td>3</td><td><strong>Merrowfield Retail</strong><br><span class="small muted">catalogue enrichment at scale</span></td><td>Forty million SKUs to enrich, a fixed pilot budget, and a sponsor who has been promised a payback figure in ninety days. Every design decision is a cost-per-item decision, and the pilot must produce evidence a CFO will accept</td><td>Evaluation &middot; Solution design &middot; Stakeholder</td></tr>
+    <tr><td>4</td><td><strong>Aldergate Agency</strong><br><span class="small muted">public-sector case handling</span></td><td>A FedRAMP-bounded environment. Model and region choices are constrained by the authorisation boundary, third-party services need their own authorisation, and the programme has an accreditation deadline that no architecture may slip</td><td>Governance &middot; Integration &middot; Lifecycle</td></tr>
+    <tr><td>5</td><td><strong>Vantis Software</strong><br><span class="small muted">internal developer platform</span></td><td>Claude Code across 120 engineers, an MCP registry, and an evaluation harness that runs in CI. The measure of success is the median engineer, not the best one, and every capability granted to the platform is granted to everybody on it</td><td>Developer productivity &middot; Integration &middot; Evaluation</td></tr>
+    <tr><td>6</td><td><strong>Northlake Logistics</strong><br><span class="small muted">operations copilot</span></td><td>A multi-agent copilot handling 40,000 sessions a day, migrating off a 6,000-token monolithic prompt. Nobody can currently answer &ldquo;why did it say that&rdquo; for a given session, and an A/B test is about to be run on a metric nobody has defined</td><td>Evaluation &middot; Integration &middot; Solution design</td></tr>
+  </table>
+  </div>
+  <div class="note rule">
+    <b>The constraint is the tie-breaker</b>
+    Thornbury forbids PHI leaving the boundary, so an option that improves accuracy by calling an external
+    enrichment service is wrong there and right at Merrowfield. Calderon has a 3-second p95 in a contract, so an
+    option that adds a verification pass is wrong there and right at Thornbury, where a clinician is already in the
+    loop. Merrowfield is cost-bounded, so an option that doubles per-item spend to gain two points of accuracy is
+    wrong there and defensible at Aldergate. <strong>Nothing on this exam is universally correct.</strong>
+  </div>
+
+  <h2>All thirty-eight objectives, mapped</h2>
+  <p>Exam items are written against these. The guide publishes a per-domain weight but no per-objective weight, so
+  treat every objective in a heavy domain as live. Each one is covered end to end in the documentation, drilled in
+  the exercises, and sampled in the mock exam.</p>
+
+  <div class="table-wrap">
+  <table class="objtable">
+    <tr><th style="width:56px">ID</th><th>Objective</th><th style="width:78px">Study</th></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 1 &middot; Solution Design &amp; Architecture</strong> <span class="tag warn">17%</span></td></tr>
+    <tr><td class="oid">1.1</td><td>Translate business problems into Claude-based AI solutions &mdash; the problem behind the request, a success criterion someone will measure, what is in and out of the first release, and when the answer is that Claude is the wrong tool</td><td><a href="ccarp-docs.html#d1-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.2</td><td>Design end-to-end architectures &mdash; input, processing, output and the feedback loop that most designs omit; where validation sits; where state lives; and what happens on the failure path rather than the happy one</td><td><a href="ccarp-docs.html#d1-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.3</td><td>Select architectural patterns &mdash; augmented LLM, prompt chain, routing, parallelisation, orchestrator&ndash;worker, evaluator&ndash;optimiser and autonomous agent, and the predictability you give up at each step</td><td><a href="ccarp-docs.html#d1-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.4</td><td>Design multi-agent systems and orchestration strategies &mdash; when the parallelism is worth the coordination cost, the coordinator's vantage point, shared state, and the cost multiplier nobody budgets for</td><td><a href="ccarp-docs.html#d1-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.5</td><td>Apply decomposition techniques &mdash; splitting by stage, by document, by criterion or by hypothesis; what each split makes attributable; and the difference between decomposing the work and decomposing the context</td><td><a href="ccarp-docs.html#d1-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">1.6</td><td>Align solutions to business value pillars &mdash; efficiency, transformation, productivity, cost and performance SLAs; picking the pillar the sponsor is actually funding; and stating the value in the unit that sponsor already reports</td><td><a href="ccarp-docs.html#d1-6">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 2 &middot; Claude Models, Prompting &amp; Context Engineering</strong> <span class="tag">13%</span></td></tr>
+    <tr><td class="oid">2.1</td><td>Select appropriate Claude models based on trade-offs &mdash; capability against latency against price per million tokens; the routing pattern that uses two models rather than arguing about one; and why &ldquo;use the best model&rdquo; is a cost answer, not a quality one</td><td><a href="ccarp-docs.html#d2-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.2</td><td>Design system prompts, templates and guardrails &mdash; role, task, constraints, output contract and refusal behaviour; templating the variable parts without breaking the cacheable prefix; and what a prompt can and cannot guarantee</td><td><a href="ccarp-docs.html#d2-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.3</td><td>Apply prompt engineering techniques &mdash; zero-shot, few-shot and chain-of-thought; choosing examples that cover the ambiguity rather than the easy case; and the latency and token cost that extended reasoning actually charges you</td><td><a href="ccarp-docs.html#d2-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.4</td><td>Optimise context windows and manage token usage &mdash; budgeting a window by section, what to trim first, the position effect in long contexts, and why a larger window is capacity rather than attention</td><td><a href="ccarp-docs.html#d2-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">2.5</td><td>Implement prompt reuse strategies &mdash; prompt caching and the ordering it demands, cache breakpoints and TTL, modular prompt composition, and Skills as progressive disclosure rather than a bigger prompt</td><td><a href="ccarp-docs.html#d2-5">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 3 &middot; Integration</strong> <span class="tag warn">19%</span></td></tr>
+    <tr><td class="oid">3.1</td><td>Evaluate tool and agent configuration for capability bloat &mdash; least privilege as a design step rather than a review step; what a large tool surface does to selection accuracy; and removing a capability versus guarding it</td><td><a href="ccarp-docs.html#d3-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.2</td><td>Analyse authentication and authorisation requirements to identify security gaps &mdash; the agent's identity versus the user's, the confused-deputy problem, scoped tokens and per-request authorisation, and where secrets are allowed to live</td><td><a href="ccarp-docs.html#d3-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.3</td><td>Evaluate accuracy&ndash;latency trade-offs and justify configuration decisions &mdash; what each additional pass, retrieval hop and verification step costs in p95; streaming and perceived latency; and which half of the trade the stated SLA has already decided for you</td><td><a href="ccarp-docs.html#d3-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.4</td><td>Analyse observability challenges and select monitoring strategies at scale &mdash; the trace that makes &ldquo;why did it say that&rdquo; answerable, sampling that keeps the tail, cost and token metrics as first-class signals, and what you must log before the incident</td><td><a href="ccarp-docs.html#d3-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.5</td><td>Design a RAG pipeline with appropriate chunking and indexing strategies &mdash; chunk size against retrieval precision, overlap, structure-aware splitting, metadata that makes filtering possible, and re-indexing as an operational event with its own failure mode</td><td><a href="ccarp-docs.html#d3-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.6</td><td>Apply retrieval strategies matched to data shape and query pattern &mdash; semantic, keyword and hybrid; when a database query beats a vector search outright; reranking; and matching the strategy to whether users ask lookup questions or thematic ones</td><td><a href="ccarp-docs.html#d3-6">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.7</td><td>Evaluate connection protocols and select the appropriate integration mechanism &mdash; MCP for reusable tool surfaces, direct API or CLI for a single point-to-point call, agent-to-agent for delegation across ownership boundaries, and the cost of choosing the general mechanism for a specific job</td><td><a href="ccarp-docs.html#d3-7">Read &rarr;</a></td></tr>
+    <tr><td class="oid">3.8</td><td>Evaluate progressive discovery versus a monolithic context strategy &mdash; loading what the task needs when it needs it, the latency that discovery adds, and the point at which a monolithic prompt stops being simpler and starts being unmaintainable</td><td><a href="ccarp-docs.html#d3-8">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 4 &middot; Evaluation, Testing &amp; Optimization</strong> <span class="tag warn">16%</span></td></tr>
+    <tr><td class="oid">4.1</td><td>Define evaluation metrics &mdash; accuracy, latency, cost, safety and security; choosing the metric before the optimisation; per-segment reporting; and why a single aggregate number is the most common way a good system hides a bad one</td><td><a href="ccarp-docs.html#d4-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.2</td><td>Design evaluation datasets and test frameworks using mixed methodologies &mdash; code assertions, LLM-as-judge and human review, each on the cases it can actually score; building a set that contains the hard examples; and keeping a held-out set honest</td><td><a href="ccarp-docs.html#d4-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.3</td><td>Conduct A/B testing and iterative improvements &mdash; one variable at a time unless the variables interact, a sample size that can detect the effect you care about, a pre-declared primary metric, and the guardrail metrics that stop a win in one place being a loss in another</td><td><a href="ccarp-docs.html#d4-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.4</td><td>Diagnose system issues &mdash; separating prompt failure, retrieval failure, model mismatch and data drift; reading the symptom for what it rules out; and starting from whatever changed</td><td><a href="ccarp-docs.html#d4-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.5</td><td>Optimise token usage, latency and cost-performance trade-offs &mdash; caching, batching, routing, trimming and truncation ranked by what each costs you in quality; and the arithmetic that tells you which one is worth doing at your volume</td><td><a href="ccarp-docs.html#d4-5">Read &rarr;</a></td></tr>
+    <tr><td class="oid">4.6</td><td>Monitor system performance using logging and observability tools &mdash; the difference between a metric, a log and a trace; alerting on user-visible symptoms rather than internals; and instrumenting before you need it</td><td><a href="ccarp-docs.html#d4-6">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 5 &middot; Governance, Safety &amp; Risk Management</strong> <span class="tag">14%</span></td></tr>
+    <tr><td class="oid">5.1</td><td>Implement guardrails and safety controls &mdash; input, model and output layers; deterministic checks where the requirement is absolute; refusal and escalation behaviour; and why a guardrail the model enforces on itself is not a control</td><td><a href="ccarp-docs.html#d5-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.2</td><td>Identify risks, limitations and failure modes of LLM systems &mdash; hallucination, prompt injection, data exfiltration, silent degradation, over-reliance and the failure modes that only appear at scale; and writing a risk register a reviewer can act on</td><td><a href="ccarp-docs.html#d5-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.3</td><td>Apply human-in-the-loop validation strategies &mdash; placing the human where the decision is irreversible, routing by calibrated confidence and by segment, sampling that keeps review affordable, and designing the review so it feeds back into the system</td><td><a href="ccarp-docs.html#d5-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.4</td><td>Ensure compliance with regulations &mdash; GDPR, HIPAA and FedRAMP as concrete architectural constraints: lawful basis and erasure, PHI and business associate agreements, authorisation boundaries and inherited controls; and data residency and retention as design inputs</td><td><a href="ccarp-docs.html#d5-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">5.5</td><td>Address ethical AI considerations &mdash; bias measured per affected group rather than asserted, fairness as a stated and tested property, transparency and disclosure to the people affected, and contestability of an automated decision</td><td><a href="ccarp-docs.html#d5-5">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 6 &middot; Stakeholder Communication &amp; Lifecycle Management</strong> <span class="tag">14%</span></td></tr>
+    <tr><td class="oid">6.1</td><td>Conduct structured discovery and requirement gathering &mdash; the questions that surface a constraint before it surfaces itself, separating the stated request from the underlying problem, quantifying the current process, and identifying who has to sign off</td><td><a href="ccarp-docs.html#d6-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">6.2</td><td>Communicate architectural decisions and trade-offs &mdash; naming the decision, the alternatives, the criteria and the consequence; pitching at the audience's unit of concern; and saying what you gave up rather than only what you gained</td><td><a href="ccarp-docs.html#d6-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">6.3</td><td>Manage stakeholder feedback loops and expectation alignment &mdash; SLAs you can meet and the measurement that proves it, setting an accuracy expectation with a segment breakdown, and handling the demand for a guarantee a probabilistic system cannot give</td><td><a href="ccarp-docs.html#d6-3">Read &rarr;</a></td></tr>
+    <tr><td class="oid">6.4</td><td>Document architectures and provide implementation guidance &mdash; the architecture decision record, the runbook, the interface contract, and documentation aimed at the person who will be on call at three in the morning</td><td><a href="ccarp-docs.html#d6-4">Read &rarr;</a></td></tr>
+    <tr><td class="oid">6.5</td><td>Support lifecycle phases &mdash; discovery, design, handoff, monitoring and iteration; what has to be true before each gate; the handoff artefacts that decide whether a system survives its architect; and treating iteration as a funded phase rather than a hope</td><td><a href="ccarp-docs.html#d6-5">Read &rarr;</a></td></tr>
+
+    <tr class="domrow"><td colspan="3"><strong>Domain 7 &middot; Developer Productivity &amp; Operational Enablement</strong> <span class="tag">7%</span></td></tr>
+    <tr><td class="oid">7.1</td><td>Configure Claude tools and environments for teams &mdash; committed <code>CLAUDE.md</code>, path-scoped rules, shared slash commands and skills, an MCP registry, and permissions set once for everyone rather than accepted repeatedly by each engineer</td><td><a href="ccarp-docs.html#d7-1">Read &rarr;</a></td></tr>
+    <tr><td class="oid">7.2</td><td>Improve developer workflows using AI-assisted tooling &mdash; where AI assistance actually removes toil, the review and CI integration that keeps quality from drifting, and measuring adoption by the median engineer rather than the enthusiast</td><td><a href="ccarp-docs.html#d7-2">Read &rarr;</a></td></tr>
+    <tr><td class="oid">7.3</td><td>Support debugging and operational issue resolution &mdash; using the same tooling under incident conditions, reconstructing what a session actually did from traces, and the boundary between an assistant that suggests and an automation that acts during an incident</td><td><a href="ccarp-docs.html#d7-3">Read &rarr;</a></td></tr>
+  </table>
+  </div>
+
+  <div class="note good">
+    <b>How to use that table</b>
+    Read it once now as a self-assessment: mark every objective you could not explain to a colleague for two
+    minutes without notes. That marked set, not the domain weights, is your study plan &mdash; the weights tell you
+    what the exam asks about, but your marks tell you where you will lose points. Come back to it after the mock
+    exam and compare: the objectives you failed on the mock but did <em>not</em> mark here are the dangerous ones,
+    because you did not know you did not know them.
+  </div>
+
+  <h2>The distractor patterns this exam reuses</h2>
+  <p>Professional-level items rarely contain a wrong answer. They contain four defensible answers, three of which
+  are defensible <em>somewhere else</em>. These are the sixteen shapes that recur; being able to name one is worth
+  more under time pressure than re-reading the stem a third time.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:32%">Pattern</th><th>How it looks, and the tell</th></tr>
+    <tr><td><strong>Detective control for a preventive requirement</strong></td><td>Logging, alerting, an audit trail or a confirmation prompt offered where the requirement is that the thing must not happen. <em>Tell:</em> the option describes what you will know afterwards. If the stem says &ldquo;must never&rdquo;, the answer removes the capability or blocks it in code.</td></tr>
+    <tr><td><strong>Model as the enforcer</strong></td><td>&ldquo;Instruct the model to always verify&hellip;&rdquo;, &ldquo;add to the system prompt that it must never&hellip;&rdquo;. <em>Tell:</em> the guarantee depends on the probabilistic component. Absolute requirements live outside the model.</td></tr>
+    <tr><td><strong>Bigger model as the fix</strong></td><td>Offered for a failure caused by missing context, wrong retrieval, an absent tool or an undefined term. <em>Tell:</em> the stem already told you the model has never seen the information it needed.</td></tr>
+    <tr><td><strong>Solves a different symptom</strong></td><td>The stem measures cost; the option improves accuracy. The stem measures p95; the option improves throughput. <em>Tell:</em> read the last sentence again and check the option moves the metric it names.</td></tr>
+    <tr><td><strong>Ignores the stated constraint</strong></td><td>Excellent engineering that crosses a regulatory boundary, exceeds a contractual SLA, or spends past a stated budget. <em>Tell:</em> the constraint sentence is usually mid-stem and unrepeated. It is not decoration.</td></tr>
+    <tr><td><strong>Optimises before measuring</strong></td><td>A concrete optimisation offered where nothing has yet established what is slow, expensive or wrong. <em>Tell:</em> the stem contains no baseline. The credited answer usually establishes one.</td></tr>
+    <tr><td><strong>Single aggregate metric</strong></td><td>One overall accuracy or satisfaction number proposed as the success criterion. <em>Tell:</em> the stem mentions a segment, a subgroup or a tail. Aggregates hide exactly those.</td></tr>
+    <tr><td><strong>Under-powered experiment</strong></td><td>An A/B test with a sample that could not detect the effect, no pre-declared metric, or two variables changed at once. <em>Tell:</em> the option promises a conclusion the design cannot support.</td></tr>
+    <tr><td><strong>Human in the loop as decoration</strong></td><td>A reviewer placed where they see everything and therefore attend to nothing, or after the irreversible action. <em>Tell:</em> ask what the human would have to do to catch the failure, and whether the volume makes that possible.</td></tr>
+    <tr><td><strong>More context instead of better context</strong></td><td>Raising the window, loading the whole corpus, appending everything &ldquo;just in case&rdquo;. <em>Tell:</em> capacity is not attention, and the relevant fact was already in the window in the failing case.</td></tr>
+    <tr><td><strong>Vector search for a lookup question</strong></td><td>Semantic retrieval offered where users ask for a specific record, an exact identifier or a numeric filter. <em>Tell:</em> the query pattern in the stem is structured. A query beats an embedding there.</td></tr>
+    <tr><td><strong>Protocol chosen by prestige</strong></td><td>MCP for a single point-to-point call, or a bespoke integration where a reusable server already exists. <em>Tell:</em> count the consumers. One consumer and one call rarely justifies a protocol surface.</td></tr>
+    <tr><td><strong>Multi-agent for a linear problem</strong></td><td>Parallel agents proposed for work whose steps are ordered and dependent. <em>Tell:</em> if step two needs step one's output, the parallelism buys coordination cost and nothing else.</td></tr>
+    <tr><td><strong>Engineering answer to a stakeholder question</strong></td><td>A sponsor asks about cost or timeline; the option answers with architecture or benchmark scores. <em>Tell:</em> identify who is asking and in what unit they will be held accountable.</td></tr>
+    <tr><td><strong>Promising a guarantee</strong></td><td>An SLA on accuracy, a commitment that the system will never hallucinate, a fixed answer to &ldquo;how often will it be wrong&rdquo; without a measurement plan. <em>Tell:</em> the credited answer commits to a measured range with a review cadence, not to certainty.</td></tr>
+    <tr><td><strong>Deferring the hard decision</strong></td><td>&ldquo;Escalate to leadership&rdquo;, &ldquo;gather more requirements&rdquo;, &ldquo;convene a working group&rdquo; where the stem has already given you enough to decide. <em>Tell:</em> the option produces no change to the system. Sometimes it <em>is</em> right &mdash; but only when the stem shows a genuine conflict of authority, not just difficulty.</td></tr>
+  </table>
+  </div>
+
+  <h2>The official prep path, and the gap it leaves</h2>
+  <p>Anthropic publishes a five-lesson learning path for CCAR-P on Partner Academy &mdash; about <strong>733 minutes,
+  roughly 12&nbsp;hours</strong> of content. It is the primary source and you should work through all of it. Here is
+  how each lesson maps onto the blueprint.</p>
+  <p><a class="btn sm" href="https://anthropic-partners.skilljar.com/path/claude-certified-architect-professional" target="_blank" rel="noopener">Open the CCAR-P learning path &rarr;</a></p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Lesson</th><th style="width:78px">Length</th><th style="width:118px">Domains</th><th>What to take from it</th></tr>
+    <tr><td><strong>Claude Platform &amp; Solution Design</strong></td><td>238 min</td><td>D1, D2</td><td>The largest lesson and the foundation of the paper. Model trade-offs, the architectural patterns and where each stops working, decomposition, and the vocabulary the exam uses for value pillars. If you only have time for one lesson, this is it.</td></tr>
+    <tr><td><strong>Enterprise Integration &amp; Production</strong></td><td>158 min</td><td>D3, D4</td><td>Covers the largest exam domain. MCP versus direct API, RAG design, authentication, observability. Pair it with the RAG and retrieval sections in the documentation here, because chunking and retrieval strategy carry more items than the lesson length suggests.</td></tr>
+    <tr><td><strong>Responsible AI, Safety &amp; Risk for Architects</strong></td><td>114 min</td><td>D5</td><td>Guardrail layering, failure modes, human-in-the-loop placement. Thinner than the 14% weight warrants on the regulatory specifics &mdash; supplement with the GDPR, HIPAA and FedRAMP section here.</td></tr>
+    <tr><td><strong>Stakeholder Engagement, Lifecycle &amp; GTM</strong></td><td>178 min</td><td>D6</td><td>The lesson engineers skip and then lose points on. Discovery structure, communicating trade-offs, expectation management, the lifecycle gates. Watch it properly; the exam tests it at 14%.</td></tr>
+    <tr><td><strong>Team Enablement &amp; Operational Productivity</strong></td><td>45 min</td><td>D7</td><td>Short, matching the 7% weight. Team-level Claude Code configuration and workflow improvement. The exam's angle is always <em>team</em> rather than <em>individual</em>.</td></tr>
+  </table>
+  </div>
+
+  <div class="note warn">
+    <b>Where the path stops and this hub starts</b>
+    The learning path teaches the concepts. It does not put you in front of <strong>four defensible options and a
+    constraint that eliminates three of them</strong>, which is the actual skill the exam measures. It also cannot
+    tell you which of the thirty-eight objectives you would fail on right now. That is what the
+    <a href="ccarp-exercises.html">exercises</a> and the <a href="ccarp-exam.html">70-question mock</a> are for
+    &mdash; and it is why the per-domain breakdown on the results page matters more than the score.
+  </div>
+
+  <h2>A ten-day study plan</h2>
+  <p>Assumes about two focused hours a day. If you have already passed CCAR-F, you can compress days 1&ndash;3,
+  because Domains 1&ndash;3 overlap materially with what you have already learned &mdash; but do not skip them, the
+  cognitive level is different.</p>
+  <ol class="spaced">
+    <li><strong>Day 1 &mdash; Orient and baseline.</strong> Read this page end to end, including the thirty-eight
+    objectives, and mark the ones you could not explain unaided. Then read the five architect primers in the
+    <a href="ccarp-docs.html#p1">documentation</a>. Do not touch the mock exam yet.</li>
+    <li><strong>Day 2 &mdash; Solution design (17%).</strong> Documentation <a href="ccarp-docs.html#d1">Domain 1</a>
+    in full, then exercises 1&ndash;5. Objectives 1.3 and 1.4 &mdash; pattern selection and multi-agent
+    orchestration &mdash; carry the most items; make sure you can state the failure mode of each pattern, not just
+    its shape.</li>
+    <li><strong>Day 3 &mdash; Models, prompting, context (13%).</strong>
+    <a href="ccarp-docs.html#d2">Domain 2</a> plus exercises 6&ndash;9. Do the token-budget arithmetic by hand at
+    least once; the exam plants numbers and expects you to divide.</li>
+    <li><strong>Day 4 &mdash; Integration, first half (19%).</strong>
+    <a href="ccarp-docs.html#d3-1">3.1</a> through <a href="ccarp-docs.html#d3-4">3.4</a> &mdash; capability bloat,
+    auth, accuracy&ndash;latency, observability &mdash; plus exercises 10&ndash;12. Sample item 1 lives here.</li>
+    <li><strong>Day 5 &mdash; Integration, second half.</strong> <a href="ccarp-docs.html#d3-5">3.5</a> through
+    <a href="ccarp-docs.html#d3-8">3.8</a> &mdash; RAG, retrieval strategy, protocol choice, progressive discovery
+    &mdash; plus exercises 13&ndash;15. Sample item 3 lives here.</li>
+    <li><strong>Day 6 &mdash; Evaluation and optimisation (16%).</strong>
+    <a href="ccarp-docs.html#d4">Domain 4</a> plus exercises 16&ndash;20. Write one full evaluation plan from
+    scratch; it is the single highest-yield hour on this list.</li>
+    <li><strong>Day 7 &mdash; Governance and risk (14%).</strong> <a href="ccarp-docs.html#d5">Domain 5</a> plus
+    exercises 21&ndash;24. Learn what GDPR, HIPAA and FedRAMP each <em>forbid you from designing</em>, in one
+    sentence apiece.</li>
+    <li><strong>Day 8 &mdash; Stakeholders and lifecycle (14%).</strong>
+    <a href="ccarp-docs.html#d6">Domain 6</a> plus exercises 25&ndash;28. Write the architecture decision record and
+    the discovery question set for real. This is the domain where reading is least sufficient.</li>
+    <li><strong>Day 9 &mdash; Developer enablement (7%), then study mode.</strong>
+    <a href="ccarp-docs.html#d7">Domain 7</a> plus exercises 29&ndash;30, then work the
+    <a href="ccarp-exam.html">mock exam in study mode</a>, reading every explanation including the ones for options
+    you did not pick. Expect this to take longer than the exam itself.</li>
+    <li><strong>Day 10 &mdash; Timed run and repair.</strong> Sit the mock in exam mode, cold, 120 minutes. Then
+    take the per-domain breakdown and re-read only the objectives you missed, plus the
+    <a href="ccarp-docs.html#antipatterns">anti-pattern catalogue</a> and the
+    <a href="ccarp-docs.html#cheat">one-page summary</a>. Retake shuffled if any domain is below 75%.</li>
+  </ol>
+
+  <div class="note good">
+    <b>The three-day version</b>
+    If you are already architecting production Claude systems and you are here for calibration rather than
+    learning: <strong>Day 1</strong> &mdash; the mock exam in study mode, cold, all 70 items, reading every
+    explanation. <strong>Day 2</strong> &mdash; the documentation for the domains where you scored below 80%, plus
+    the whole of Domain 6 regardless of your score, plus the anti-pattern catalogue.
+    <strong>Day 3</strong> &mdash; the exercises for those domains, then a shuffled timed retake. The reason Domain
+    6 is unconditional is that practitioners consistently over-rate their stakeholder-communication answers, and
+    it is 14% of the paper.
+  </div>
+
+  <h2>Registration, policy and what happens on the day</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:34%">Topic</th><th>What the guide says</th></tr>
+    <tr><td>Registration</td><td>Through the Anthropic certification portal or Pearson VUE, per the current program instructions</td></tr>
+    <tr><td>Identification</td><td>Government-issued photo ID whose name <strong>matches your registration exactly</strong>. Mismatches are the most common avoidable cause of a forfeited attempt &mdash; contact <code>certifications-support@anthropic.com</code> before exam day for a name correction</td></tr>
+    <tr><td>Accommodations</td><td>Must be requested and <strong>approved by Pearson VUE before you schedule</strong>, not after</td></tr>
+    <tr><td>Reschedule / cancel</td><td>Free up to <strong>24 hours</strong> before the appointment. Inside 24 hours, or a no-show, forfeits the fee</td></tr>
+    <tr><td>Retakes</td><td><strong>14 days</strong> after a first failure, <strong>30 days</strong> after a second, <strong>90 days</strong> after a third. Maximum <strong>four attempts per rolling 12 months</strong> per exam. Each attempt is charged at the full $175</td></tr>
+    <tr><td>NDA</td><td>Presented before the exam begins and must be accepted to proceed. It covers item content &mdash; do not reproduce or discuss questions afterwards</td></tr>
+    <tr><td>Conduct</td><td>No external resources, no second person in the room, no recording. Online-proctored sessions require a clear workspace and a working camera and microphone throughout</td></tr>
+    <tr><td>Results</td><td>Pass or fail with a scaled score, plus <strong>percent correct by domain</strong>. The domain figures are diagnostic and are not used to determine pass/fail</td></tr>
+    <tr><td>Recertification</td><td>Before the 12 months expire, via a <strong>free non-proctored assessment</strong> on Partner Academy. Let it lapse and you retake the full proctored exam at full fee</td></tr>
+    <tr><td>Appeals</td><td>Within <strong>14 days</strong>, through Pearson VUE. Administrative and delivery issues are appealable; the <strong>standard-setting outcome and item content are not</strong></td></tr>
+    <tr><td>Support</td><td><code>certifications-support@anthropic.com</code> for name corrections, accommodations questions and delivery problems</td></tr>
+  </table>
+  </div>
+
+  <div class="note">
+    <b>Two things about the scoring that change how you sit it</b>
+    The score is <strong>scaled and criterion-referenced</strong>: 720 is a fixed standard, not a percentile, so you
+    are not competing against other candidates and there is no curve to hope for.
+    And <strong>there is no penalty for a wrong answer</strong> &mdash; the scaled score is a function of items
+    correct. Never leave an item blank. With 120 minutes for 63 items you have just under two minutes each: if an
+    item has held you for three, mark your best elimination, flag it, and move on. Coming back with a fresh read is
+    worth more than grinding.
+  </div>
+
+  <h2>If you are also taking CCAR-F</h2>
+  <p>The two architect exams overlap in subject matter and almost not at all in what they ask you to do. Knowing the
+  difference stops you from preparing for the wrong one.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th style="width:24%"></th><th>CCAR-F &mdash; Foundations</th><th>CCAR-P &mdash; Professional</th></tr>
+    <tr><td><strong>Items / time</strong></td><td>60 items, 120 minutes</td><td>63 items, 120 minutes</td></tr>
+    <tr><td><strong>Fee</strong></td><td>$125</td><td>$175</td></tr>
+    <tr><td><strong>Structure</strong></td><td>Four scenarios drawn from a published bank of six, with items attached</td><td>Independent items, no scenario bank</td></tr>
+    <tr><td><strong>Blueprint</strong></td><td>5 domains, 30 task statements</td><td>7 domains, 38 objectives</td></tr>
+    <tr><td><strong>Centre of gravity</strong></td><td>Agentic architecture, tools and MCP, Claude Code configuration, prompting, context reliability</td><td>The same material plus <strong>evaluation, governance, stakeholder communication and lifecycle</strong> &mdash; which together are 44% of the paper and have no CCAR-F equivalent</td></tr>
+    <tr><td><strong>What it asks</strong></td><td>Which mechanism is correct, and where a guarantee belongs</td><td>Which trade-off you would defend, to whom, with what evidence, under a stated constraint</td></tr>
+    <tr><td><strong>Prerequisite?</strong></td><td>&mdash;</td><td><strong>No.</strong> CCAR-F is not required for CCAR-P</td></tr>
+    <tr><td><strong>Order</strong></td><td colspan="2">Either. Foundations first is the gentler ramp and its mechanisms carry directly into Professional Domains 1&ndash;3. Straight to Professional is reasonable if you already run these systems in production &mdash; but budget the time you save onto Domains 5 and 6, which Foundations does not cover.</td></tr>
+  </table>
+  </div>
+  <p class="small muted">Working both? The <a href="ccarf-index.html">CCAR-F track</a> in this hub is built the same
+  way &mdash; 30 task statements documented, 28 exercises, and a 65-question mock at the Foundations cognitive
+  level.</p>
+
+  <h2>Primary sources</h2>
+  <p>Everything here is written against these. When this hub and a primary source disagree, the primary source is
+  right &mdash; please tell me so I can fix it.</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <h4 class="mt0">Certification and prep</h4>
+      <ul class="small tight">
+        <li><a href="https://anthropic-partners.skilljar.com/path/claude-certified-architect-professional" target="_blank" rel="noopener">CCAR-P learning path &mdash; Partner Academy</a></li>
+        <li><a href="https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses" target="_blank" rel="noopener">CCAR-F prep courses &mdash; Partner Academy</a></li>
+        <li><a href="https://www.anthropic.com/learn/certifications" target="_blank" rel="noopener">Anthropic certifications overview</a></li>
+        <li><em>Claude Certified Architect &ndash; Professional Exam Guide</em>, v1.0, July 2026 (the PDF in <code>CCAR-P/</code>)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 class="mt0">Architecture and agents</h4>
+      <ul class="small tight">
+        <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Building effective agents</a></li>
+        <li><a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener">How we built our multi-agent research system</a></li>
+        <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Effective context engineering for AI agents</a></li>
+        <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank" rel="noopener">Writing tools for agents</a></li>
+        <li><a href="https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues" target="_blank" rel="noopener">A postmortem of three recent issues</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 class="mt0">Platform documentation</h4>
+      <ul class="small tight">
+        <li><a href="https://docs.claude.com/en/docs/build-with-claude/prompt-caching" target="_blank" rel="noopener">Prompt caching</a></li>
+        <li><a href="https://docs.claude.com/en/docs/build-with-claude/batch-processing" target="_blank" rel="noopener">Batch processing</a></li>
+        <li><a href="https://docs.claude.com/en/docs/build-with-claude/tool-use/overview" target="_blank" rel="noopener">Tool use</a></li>
+        <li><a href="https://docs.claude.com/en/docs/build-with-claude/context-windows" target="_blank" rel="noopener">Context windows</a></li>
+        <li><a href="https://docs.claude.com/en/docs/about-claude/models/overview" target="_blank" rel="noopener">Model comparison</a></li>
+        <li><a href="https://docs.claude.com/en/docs/agents-and-tools/mcp" target="_blank" rel="noopener">Model Context Protocol</a></li>
+        <li><a href="https://modelcontextprotocol.io" target="_blank" rel="noopener">modelcontextprotocol.io</a></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 class="mt0">Evaluation, safety and operations</h4>
+      <ul class="small tight">
+        <li><a href="https://docs.claude.com/en/docs/test-and-evaluate/develop-tests" target="_blank" rel="noopener">Creating strong empirical evaluations</a></li>
+        <li><a href="https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/reduce-hallucinations" target="_blank" rel="noopener">Reducing hallucinations</a></li>
+        <li><a href="https://docs.claude.com/en/docs/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks" target="_blank" rel="noopener">Mitigating jailbreaks and prompt injection</a></li>
+        <li><a href="https://docs.claude.com/en/docs/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation</a></li>
+        <li><a href="https://docs.claude.com/en/docs/claude-code/memory" target="_blank" rel="noopener">CLAUDE.md and memory</a></li>
+        <li><a href="https://docs.claude.com/en/docs/claude-code/hooks" target="_blank" rel="noopener">Hooks</a></li>
+        <li><a href="https://www.anthropic.com/legal/commercial-terms" target="_blank" rel="noopener">Commercial terms and data handling</a></li>
+        <li><a href="https://trust.anthropic.com" target="_blank" rel="noopener">Anthropic Trust Center &mdash; compliance and certifications</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note warn" style="margin-top:26px">
+    <b>Independence</b>
+    This is independent study material. It is not affiliated with, endorsed by, or reviewed by Anthropic. The
+    blueprint, weights, policies and sample items summarised here are transcribed from the publicly distributed
+    <em>Claude Certified Architect &ndash; Professional Exam Guide</em>; the exam guide PDF itself is deliberately
+    not redistributed in this repository. All documentation prose, exercises and mock-exam items are original work
+    written to the published objectives &mdash; no recalled or leaked exam content was used, and the six systems
+    are invented. Exam details change; the guide and Partner Academy are authoritative.
+  </div>
+
+  <div class="exam-actions" style="margin:30px 0 10px">
+    <a class="btn" href="ccarp-docs.html">Start with the documentation &rarr;</a>
+    <a class="btn ghost" href="ccarp-exercises.html">Go to exercises</a>
+    <a class="btn ghost" href="ccarp-exam.html">Go to mock exam</a>
+  </div>
+
+</main>
+
+<footer class="footer"><div class="narrow">Claude Study Hub · CCAR-P track — independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+</body>
+</html>

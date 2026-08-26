@@ -14,40 +14,54 @@
 [Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exercises.html) ·
 [Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccdv-exam.html)
 
+**CCAR-F track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccarf-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccarf-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccarf-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccarf-exam.html)
+
+**CCAR-P track** — [Overview](https://mpendyala3.github.io/Claude-Study-Hub/ccarp-index.html) ·
+[Docs](https://mpendyala3.github.io/Claude-Study-Hub/ccarp-docs.html) ·
+[Exercises](https://mpendyala3.github.io/Claude-Study-Hub/ccarp-exercises.html) ·
+[Mock exam](https://mpendyala3.github.io/Claude-Study-Hub/ccarp-exam.html)
+
 ---
 
-A study site for two Anthropic certifications:
+A study site for four Anthropic certifications:
 
 - **Claude Certified Associate – Foundations** (CCAO-F) — built to the seven domains and thirty objectives in the
   published exam guide, carried as the **CCAO** track.
 - **Claude Certified Developer – Foundations** (CCDV-F) — built to the eight domains and twenty-five skills in
   the published exam guide, carried as the **CCDV** track.
+- **Claude Certified Architect – Foundations** (CCAR-F) — built to the five domains and thirty task statements in
+  the published exam guide, carried as the **CCAR-F** track.
+- **Claude Certified Architect – Professional** (CCAR-P) — built to the seven domains and thirty-eight objectives
+  in the published exam guide, carried as the **CCAR-P** track.
 
 Static HTML, CSS and vanilla JavaScript. No build step, no dependencies, no network calls at runtime — it works
 offline and on GitHub Pages as-is.
 
-The Architect exam has its own site, built the same way:
-[Claude-Study-Hub-CCAR-F](https://github.com/mpendyala3/Claude-Study-Hub-CCAR-F).
-
 ---
 
-## Two tracks
+## Four tracks
 
-CCAO and CCDV are **different certifications** — separate exams, each with its own blueprint, registration and
-passing score — so each lives in its own section rather than being folded together. CCDV is the one aimed at
-people who write the code: it is weighted towards building and integrating an application rather than towards
-choosing between Claude products.
+These are **four different certifications** — separate exams, each with its own blueprint, registration and fee —
+so each lives in its own section rather than being folded together. CCAO is the judgement exam for people who use
+Claude; CCDV is for people who write the code; CCAR-F is for people who design agentic systems and configure
+Claude Code around a team; CCAR-P is the senior exam, weighted towards integration, evaluation, governance and
+the conversation with a sponsor rather than towards syntax.
 
 | Track | Exam | Built from | Emphasis |
 |---|---|---|---|
 | **CCAO** | CCAO-F (Associate) | Published exam guide (7 domains, 30 objectives) | Prompting, output evaluation and validation, product and model selection, workflow design, Projects and connectors, governance and responsible use, troubleshooting |
 | **CCDV** | CCDV-F (Developer) | Published exam guide (8 domains, 25 skills) | Agent construction and loop termination, Messages API mechanics and `stop_reason`, structured outputs, retries and error handling, cost and prompt caching, context engineering, tool and MCP design, Claude Code, application security and guardrails |
+| **CCAR-F** | CCAR-F (Architect, Foundations) | Published exam guide (5 domains, 30 task statements) | The agentic loop and its termination contracts, coordinator/subagent context contracts, tool and MCP design, Claude Code configuration — `CLAUDE.md`, settings, permissions, hooks, subagents — prompt engineering and structured output, context management and reliability |
+| **CCAR-P** | CCAR-P (Architect, Professional) | Published exam guide (7 domains, 38 objectives) | Solution design and reference architecture, model and context strategy, integration — identity, retrieval, orchestration, observability — evaluation harnesses and optimisation, governance, safety and risk, stakeholder communication and lifecycle, developer productivity at team scale |
 
 Each track has the same four pages: an **Overview** (blueprint and study plan), **Documentation**, browser-graded
-**Exercises**, and a 60-question / 120-minute **Mock Exam**.
+**Exercises**, and a 120-minute **Mock Exam** (60 to 70 items, depending on the track).
 
-The header carries two rows. The first is the three main pages — **Home**, **CCAO-F**, **CCDV-F** — and the
-second is the four pages of whichever track you are in.
+The header carries two rows. The first is the five main pages — **Home**, **CCAO-F**, **CCDV-F**, **CCAR-F**,
+**CCAR-P** — and the second is the four pages of whichever track you are in.
 
 ### The CCAO exam at a glance
 
@@ -83,6 +97,47 @@ Eval, Testing, and Debugging 2.6% · Model Selection and Optimization 16.8% · P
 The live paper is **53 items in 120 minutes**; the mock here is **60 in the same 120 minutes**. That is
 deliberate — it covers the two smallest domains properly and leaves you 2.00 minutes an item instead of 2.26.
 
+### The CCAR-F exam at a glance
+
+| | |
+|---|---|
+| Items | 60 — multiple choice and multiple response (each states how many to select) |
+| Structure | **4 scenarios, drawn at random from a published bank of 6** — you will not see all six |
+| Time | 120 minutes |
+| Pass | **720** on a 100–1000 scale |
+| Delivery | Proctored — online or at a Pearson VUE test center |
+| Cost | $125 per attempt |
+| Validity | 12 months |
+| Prerequisite | None. 6+ months building with the Claude API, Agent SDK, Claude Code and MCP is the recommended experience |
+
+Domain weights: **Agentic Architecture and Orchestration 27%** · Tool Design and MCP Integration 18% · Claude
+Code Configuration and Workflows 20% · Prompt Engineering and Structured Output 20% · Context Management and
+Reliability 15%.
+
+The six scenarios matter more here than on any other exam in the hub: because four of them carry the whole
+paper, the hub's documentation, exercises and mock exam all reuse the same six systems, so the context you build
+in one page is the context the next page assumes.
+
+### The CCAR-P exam at a glance
+
+| | |
+|---|---|
+| Items | 63 — multiple choice and multiple response (each states how many to select) |
+| Structure | Independent items. **No fixed scenario bank** — unlike CCAR-F, treat every item as self-contained |
+| Time | 120 minutes |
+| Pass | **720** on a 100–1000 scale, criterion-referenced |
+| Delivery | Proctored — online or at a Pearson VUE test center |
+| Cost | $175 per attempt |
+| Validity | 12 months |
+| Prerequisite | **None — CCAR-F is not required.** The recommended experience is 3+ years in systems architecture or platform engineering, 6+ months hands-on with Claude in production, and at least one system delivered discovery-to-operations |
+
+Domain weights: Solution Design and Architecture 17% · Claude Models, Prompting and Context Engineering 13% ·
+**Integration 19%** · Evaluation, Testing and Optimisation 16% · Governance, Safety and Risk Management 14% ·
+Stakeholder Communication and Lifecycle Management 14% · Developer Productivity and Operational Enablement 7%.
+
+The live paper is **63 items in 120 minutes**; the mock here is **70 in the same 120 minutes** — enough to cover
+all thirty-eight objectives, and tighter than the real thing on purpose.
+
 ---
 
 ## What's in it
@@ -98,22 +153,32 @@ deliberate — it covers the two smallest domains properly and leaves you 2.00 m
 | `ccdv-docs.html` — CCDV Documentation | Five primers (the agent loop and its termination contracts, the Messages API surface, model tiers and the cost levers, context management, the MCP model), then **all 25 skills end-to-end** across eight domains with per-skill anchors, a 20-row anti-pattern table with elimination cues, an exam-day playbook and a cheat sheet |
 | `ccdv-exercises.html` — CCDV Exercises | 28 exercises weighted to the blueprint — 9 graded as you type against reference solutions, 9 classification drills, 5 prose decision sets, 3 JSON builds and 2 labs. Every graded exercise's own model answer scores full marks against its checklist, so a failing check means the property really is missing |
 | `ccdv-exam.html` — CCDV Mock Exam | 60 items weighted to the published blueprint across eight recurring engineering organisations, **deliberately harder and tighter than the live exam**: 53 items become 60 in the same 120 minutes, two plausible finalists per item, and distractors drawn from the 20 anti-patterns |
+| `ccarf-index.html` — CCAR-F Overview | The exam at a glance, the content outline with domain weightings against mock-item counts, **the six official scenarios** and why the four-of-six draw changes how you prepare, **all thirty task statements** linked to their documentation section, the fourteen distractor patterns, the official prep courses mapped course-by-course to the blueprint, an eight-day plan, the booking and retake policies, and what the guide puts explicitly out of scope |
+| `ccarf-docs.html` — CCAR-F Documentation | Four primers (the agentic loop exactly as it runs, the coordinator/subagent context contract, the four enforcement surfaces, structured output as a contract), then **all 30 task statements end-to-end** across the five domains with per-objective anchors, **41 Q&A drills**, a 20-row distractor table with elimination cues, an exam-day playbook and a cheat sheet |
+| `ccarf-exercises.html` — CCAR-F Exercises | 28 exercises weighted to the blueprint — 11 graded in the browser against reference solutions, 7 classification drills, 4 prose decision sets, 4 JSON builds (settings, hooks, subagent and tool definitions) and 2 labs. Every graded exercise's own model answer scores full marks against its checklist |
+| `ccarf-exam.html` — CCAR-F Mock Exam | 65 items weighted to the published blueprint across the six official scenarios, **deliberately harder and tighter than the live exam**: 60 items become 65 in the same 120 minutes, every item labelled with its task statement, two plausible finalists per item, and an explanation on all four options |
+| `ccarp-index.html` — CCAR-P Overview | The exam at a glance, the content outline with domain weightings against mock-item counts, **the three official sample items worked through**, the six systems this hub reuses, **all thirty-eight objectives** linked to their documentation section, the distractor patterns the exam reuses, the official prep path and the gap it leaves, a ten-day study plan, registration and exam-day policy, and how the track relates to CCAR-F |
+| `ccarp-docs.html` — CCAR-P Documentation | Five primers (the solution-shaping conversation, the reference architecture, the RAG pipeline end to end, the evaluation harness, the control plane), then **all 38 objectives end-to-end** across the seven domains with per-objective anchors, **86 Q&A drills**, a 24-row anti-pattern table with elimination cues, an exam-day playbook and a cheat sheet |
+| `ccarp-exercises.html` — CCAR-P Exercises | 30 exercises weighted to the blueprint — 6 graded as you type against reference solutions, 6 classification drills, 7 prose decision sets, 7 JSON builds (eval harnesses, routing policies, retention and redaction rules) and 4 labs, all set in the same six systems as the docs and the exam |
+| `ccarp-exam.html` — CCAR-P Mock Exam | 70 items weighted to the published blueprint across six recurring systems, **deliberately harder and tighter than the live exam**: 63 items become 70 in the same 120 minutes, full coverage of all thirty-eight objectives, every item labelled with its objective, and every number in the stem load-bearing |
 
 ### Mock exam construction
 
-Both banks are built to the same rules:
+All four banks are built to the same rules:
 
 - **Weighted to the blueprint**, so a weak per-domain score is a real signal.
 - **The answer key is balanced** across A/B/C/D, and select-two items use all six distinct letter pairs.
 - **No length tell.** Within every question the options are written to a similar length, and the correct option is
-  deliberately never the longest and never the shortest. Measured across both banks, the key is the longest option
-  on 0% of items, against 25% by chance.
+  deliberately never the longest and never the shortest. Measured across all four banks, the key is the longest
+  option on 0% of items, against 25% by chance.
 - **Every option is explained** — the rule behind the right answer and why each distractor fails.
 
 | Bank | Items | Select-two | Key letters (A/B/C/D) |
 |---|---|---|---|
 | CCAO | 60 | 10 | 16 / 18 / 19 / 17 |
 | CCDV | 60 | 10 | 18 / 17 / 18 / 17 |
+| CCAR-F | 65 | 10 | 19 / 19 / 19 / 18 |
+| CCAR-P | 70 | 10 | 20 / 20 / 20 / 20 |
 
 The CCAO bank adds two rules of its own, because the exam it is written for tests judgement rather than syntax:
 
@@ -131,6 +196,21 @@ The CCDV bank adds one of its own, because it is an engineering exam:
 
 Its eight scenarios are shared with the CCDV exercises, so the context you build working through the drills is
 the context the exam items assume.
+
+The two Architect banks add rules of their own:
+
+- **CCAR-F: every item names its task statement.** All 30 are covered, so the results page tells you which
+  objective to go back to rather than just which domain. The six scenarios are the six from the published guide
+  and are shared with the CCAR-F documentation and exercises.
+- **CCAR-P: the arithmetic in the stem is load-bearing.** A per-unit price against a fixed budget, a share of
+  sessions answerable from one lookup, a confidence interval that straddles zero — every number is there to
+  eliminate an option, and all thirty-eight objectives get at least one item.
+
+Both Architect banks reuse the same six systems as their documentation and exercises: a hospital group where the
+clinician's signature is the legal act, a wealth manager that must inform without ever advising, a marketplace
+with 40M SKUs and a fixed pilot budget, a government programme delivering inside an accreditation boundary, a
+software company running Claude Code across 120 engineers, and a freight operator whose prompt now contradicts
+itself.
 
 ---
 
@@ -177,10 +257,10 @@ Your exam answers, flags, timer state and half-finished exercise editors are sav
 external request of any kind. Clearing site data resets everything; the exam's **Reset** button
 clears just the exam attempt.
 
-Keys are prefixed `csh-`. They were prefixed `ccarf-` until the Architect track moved to its own site; both
-sites sit on `mpendyala3.github.io` and therefore share one `localStorage`, so the prefixes have to differ.
-Your saved theme and any in-progress CCAO or CCDV attempt are copied over the first time you open the site
-after the change.
+Keys are prefixed `csh-`. They were prefixed `ccarf-` back when this site carried the Architect track alone, and
+any other study site published under `mpendyala3.github.io` shares this one's `localStorage` — a shared origin is
+a shared store — so the prefixes have to differ or one site's half-typed answer lands in the other's box.
+Anything you saved under the old prefix is copied across the first time you open the site.
 
 ---
 
@@ -197,15 +277,21 @@ The documentation is written from Anthropic's product documentation plus public 
 - [Claude API — Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 - [Anthropic Academy — Associate Foundations prep path](https://anthropic-partners.skilljar.com/path/claude-certified-associate-foundations)
 - [Anthropic Academy — Developer Foundations prep path](https://anthropic-partners.skilljar.com/path/claude-certified-developer-foundations)
+- [Anthropic Academy — Architect Foundations prep courses](https://anthropic-partners.skilljar.com/page/claude-certified-architect-foundations-prep-courses)
+- [Anthropic Academy — Architect Professional prep path](https://anthropic-partners.skilljar.com/path/claude-certified-architect-professional)
 - *Claude Certified Associate — Foundations Exam Guide* — the source for the CCAO domains, objectives,
   weightings and exam policies.
 - *Claude Certified Developer — Foundations Exam Guide* — the source for the CCDV domains, skills, weightings
   and exam policies.
+- *Claude Certified Architect — Foundations Exam Guide* — the source for the CCAR-F domains, task statements,
+  weightings, scenario bank and exam policies.
+- *Claude Certified Architect — Professional Exam Guide* — the source for the CCAR-P domains, objectives,
+  weightings, sample items and exam policies.
 
-Both exam guides are deliberately **not** committed here: download them from the prep paths above. They are
+All four exam guides are deliberately **not** committed here: download them from the prep paths above. They are
 Anthropic’s documents to distribute rather than this repository’s.
 
-**All 120 mock questions are original.** They were written to the two published exam guides, to documented
+**All 255 mock questions are original.** They were written to the four published exam guides, to documented
 product behaviour, and to the traps reported by candidates who have sat the exams. The scenarios are invented;
 any resemblance to a real organisation is coincidental. They are not recalled or leaked exam items, and no
 source claiming to hold verbatim exam content was used. Treat a strong score as evidence you understand the

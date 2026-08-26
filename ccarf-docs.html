@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Documentation — Claude Certified Architect Foundations</title>
+<meta name="description" content="Complete documentation for all five CCAR-F domains and all thirty task statements: agentic architecture and orchestration, tool design and MCP integration, Claude Code configuration and workflows, prompt engineering and structured output, context management and reliability. With runnable code, decision tables, worked scenarios and Q&A drills.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-F track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarf">
+        <span class="navlabel">CCAR-F</span>
+        <a href="ccarf-index.html">Overview</a>
+        <a href="ccarf-docs.html">Docs</a>
+        <a href="ccarf-exercises.html">Exercises</a>
+        <a href="ccarf-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+
+  <aside class="sidebar">
+    <input class="searchbox" id="docSearch" type="search" placeholder="Search all domains…" aria-label="Search documentation">
+    <h4>Primer · what everything assumes</h4>
+    <a href="#p1">The agentic loop, exactly</a>
+    <a href="#p2">Coordinator and subagent: the context contract</a>
+    <a href="#p3">The four enforcement surfaces</a>
+    <a href="#p4">Structured output as a contract</a>
+
+    <h4>Domain 1 · Agentic Architecture (27%)</h4>
+    <a href="#d1-1" class="prio"><span class="sb-num">1.1</span> Agentic loops</a>
+    <a href="#d1-2" class="prio"><span class="sb-num">1.2</span> Coordinator &amp; subagent patterns</a>
+    <a href="#d1-3" class="prio"><span class="sb-num">1.3</span> Subagent invocation &amp; context</a>
+    <a href="#d1-4" class="prio"><span class="sb-num">1.4</span> Enforcement &amp; handoff</a>
+    <a href="#d1-5"><span class="sb-num">1.5</span> Agent SDK hooks</a>
+    <a href="#d1-6"><span class="sb-num">1.6</span> Task decomposition</a>
+    <a href="#d1-7"><span class="sb-num">1.7</span> Session state, resume, fork</a>
+
+    <h4>Domain 2 · Tools &amp; MCP (18%)</h4>
+    <a href="#d2-1" class="prio"><span class="sb-num">2.1</span> Tool interface design</a>
+    <a href="#d2-2"><span class="sb-num">2.2</span> Structured MCP errors</a>
+    <a href="#d2-3"><span class="sb-num">2.3</span> Tool distribution &amp; choice</a>
+    <a href="#d2-4"><span class="sb-num">2.4</span> MCP server integration</a>
+    <a href="#d2-5"><span class="sb-num">2.5</span> Built-in tool selection</a>
+
+    <h4>Domain 3 · Claude Code (20%)</h4>
+    <a href="#d3-1" class="prio"><span class="sb-num">3.1</span> CLAUDE.md hierarchy</a>
+    <a href="#d3-2" class="prio"><span class="sb-num">3.2</span> Commands &amp; skills</a>
+    <a href="#d3-3"><span class="sb-num">3.3</span> Path-specific rules</a>
+    <a href="#d3-4"><span class="sb-num">3.4</span> Plan mode vs direct execution</a>
+    <a href="#d3-5"><span class="sb-num">3.5</span> Iterative refinement</a>
+    <a href="#d3-6"><span class="sb-num">3.6</span> CI/CD integration</a>
+
+    <h4>Domain 4 · Prompting &amp; Output (20%)</h4>
+    <a href="#d4-1" class="prio"><span class="sb-num">4.1</span> Explicit criteria</a>
+    <a href="#d4-2"><span class="sb-num">4.2</span> Few-shot prompting</a>
+    <a href="#d4-3" class="prio"><span class="sb-num">4.3</span> Structured output enforcement</a>
+    <a href="#d4-4"><span class="sb-num">4.4</span> Validation &amp; retry loops</a>
+    <a href="#d4-5"><span class="sb-num">4.5</span> Batch processing</a>
+    <a href="#d4-6"><span class="sb-num">4.6</span> Multi-instance review</a>
+
+    <h4>Domain 5 · Context &amp; Reliability (15%)</h4>
+    <a href="#d5-1"><span class="sb-num">5.1</span> Long-conversation context</a>
+    <a href="#d5-2"><span class="sb-num">5.2</span> Escalation &amp; ambiguity</a>
+    <a href="#d5-3"><span class="sb-num">5.3</span> Error propagation</a>
+    <a href="#d5-4"><span class="sb-num">5.4</span> Large-codebase context</a>
+    <a href="#d5-5"><span class="sb-num">5.5</span> Human review &amp; calibration</a>
+    <a href="#d5-6"><span class="sb-num">5.6</span> Provenance &amp; uncertainty</a>
+
+    <h4>Closing</h4>
+    <a href="#antipatterns">The distractor catalogue</a>
+    <a href="#playbook">Exam-day playbook</a>
+    <a href="#cheat">One-page cheat sheet</a>
+    <h4>Elsewhere</h4>
+    <a href="ccarf-index.html">← CCAR-F Overview</a>
+    <a href="ccarf-exercises.html">Exercises →</a>
+    <a href="ccarf-exam.html">Mock exam →</a>
+  </aside>
+
+  <main class="content">
+
+    <div class="spread" style="margin-bottom:20px">
+      <div>
+        <div class="track-badge"><b>CCAR-F</b> Claude Certified Architect &ndash; Foundations</div>
+        <div class="eyebrow">CCAR-F Documentation</div>
+        <h1 style="margin-bottom:4px">Five domains, thirty task statements, end to end</h1>
+      </div>
+      <button class="btn ghost sm" id="expandAll">Expand all Q&amp;A</button>
+    </div>
+
+    <p class="lede">This is an architect exam, so the material is <em>judgement under evidence</em> rather than
+    syntax recall. You are handed a system that already works badly and asked which change fixes the cause. Read the
+    four primers first &mdash; they establish the mechanisms all five domains assume &mdash; then work the domains
+    in weight order. Every task statement gives you the mechanism, the code or configuration, the decision rule the
+    exam grades on, the distractor it plants, and a Q&amp;A drill. Every domain opens with a <strong>worked
+    scenario</strong>: one team, one thing measurably wrong in production, and what the credited fix actually
+    was.</p>
+
+    <div class="note rule">
+      <b>Where your study time goes</b>
+      <strong>Domain 1 is 27% of the exam</strong> and carries seven task statements &mdash; more than any other
+      domain, and the only one where a single section (<a href="#d1-2">1.2</a>) reliably generates multiple items.
+      Domains 3 and 4 are 20% each. That is <strong>two-thirds of the paper in three domains</strong>. Domain 2 at
+      18% and Domain 5 at 15% are smaller, but Domain 5 is not skippable: it supplies the second half of the
+      reasoning in a large fraction of Domain 1 and Domain 2 items, because context handling and error propagation
+      are what decide whether an orchestration answer is right.
+    </div>
+
+    <div class="note trap">
+      <b>How to read the decision tables</b>
+      This exam almost never asks &ldquo;what is X&rdquo;. It asks &ldquo;given this system, this measured symptom
+      and this constraint, what do you change&rdquo;. Wherever a table below has a <em>Symptom</em>,
+      <em>Situation</em> or <em>Evidence</em> column, that table is the answerable unit &mdash; memorise the rows,
+      not the prose around them. And wherever you see <span class="tag warn">version-sensitive</span>, check the
+      live documentation close to your exam date: flag spellings, frontmatter keys and hook event names move
+      between releases.
+    </div>
+
+    <!-- ======================= PRIMERS ======================= -->
+
+    <section data-searchable id="p1">
+      <h2>Primer 1 &middot; The agentic loop, exactly</h2>
+
+      <p>Every agent on this exam &mdash; the support agent, the research coordinator, the developer productivity
+      agent, Claude Code itself &mdash; is the same loop. Understand it once mechanically and a large fraction of
+      Domain 1 becomes bookkeeping. The loop is <strong>not</strong> a feature of the API. It is code <em>you</em>
+      write around a stateless endpoint, and every architectural decision in Domain 1 is a decision about what that
+      code does between calls.</p>
+
+<pre><code>messages = [{"role": "user", "content": user_request}]
+
+while True:
+    response = client.messages.create(
+        model="claude-opus-5",
+        max_tokens=4096,
+        system=SYSTEM_PROMPT,
+        tools=TOOLS,
+        messages=messages,
+    )
+
+    # 1. The assistant turn ALWAYS goes back into history, verbatim.
+    messages.append({"role": "assistant", "content": response.content})
+
+    # 2. Branch on stop_reason BEFORE you read any content.
+    if response.stop_reason != "tool_use":
+        break                      # end_turn | max_tokens | refusal | pause_turn
+
+    # 3. Execute every tool_use block in the turn — there may be several.
+    results = []
+    for block in response.content:
+        if block.type == "tool_use":
+            try:
+                out = dispatch(block.name, block.input)
+                results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": json.dumps(out),
+                })
+            except ToolError as e:
+                results.append({
+                    "type": "tool_result",
+                    "tool_use_id": block.id,
+                    "content": json.dumps(e.structured()),
+                    "is_error": True,        # the model sees this and adapts
+                })
+
+    # 4. Tool results are a USER message. Then loop.
+    messages.append({"role": "user", "content": results})</code></pre>
+
+      <div class="note rule">
+        <b>Seven facts about that loop that generate exam items</b>
+        <ul class="tight">
+          <li><strong>The API is stateless.</strong> There is no server-side agent. Everything the agent
+          &ldquo;knows&rdquo; on turn 12 is what you resent in <code>messages</code>. &ldquo;It forgot the customer
+          ID&rdquo; is nearly always &ldquo;you dropped it&rdquo; or &ldquo;it is buried in the middle&rdquo;
+          &mdash; see <a href="#d5-1">5.1</a>.</li>
+          <li><strong>Every tool result must come back.</strong> A <code>tool_use</code> block with no matching
+          <code>tool_result</code> in the next user message is a 400. You cannot silently drop a call you did not
+          like.</li>
+          <li><strong>Tool results are user messages.</strong> The call lives in an assistant message; the result
+          lives in a user message. Reversing them is a hard error, and it is a favourite distractor detail.</li>
+          <li><strong>One turn can contain several <code>tool_use</code> blocks.</strong> That is how parallel
+          subagent spawning works (<a href="#d1-3">1.3</a>) &mdash; several <code>Task</code> calls in one assistant
+          response, executed concurrently, results returned together.</li>
+          <li><strong>The loop needs a stop condition you own.</strong> Max iterations, a wall-clock budget, a token
+          budget. Absent one, a model that keeps choosing tools runs until your bill notices.</li>
+          <li><strong><code>is_error: true</code> is a signal, not a crash.</strong> The model reads the error text
+          and adapts &mdash; retries with a fixed argument, tries an alternative tool, or reports the failure. That
+          is why the <em>text</em> of the error matters so much (<a href="#d2-2">2.2</a>).</li>
+          <li><strong>Where the decision is made is the architectural question.</strong> If your code chooses which
+          tool runs next, you built a workflow. If <code>stop_reason</code> and the model's choice drive it, you
+          built an agent. The exam cares about which one the requirement actually needs.</li>
+        </ul>
+      </div>
+
+      <h3>Agent or workflow: the decision the exam keeps re-asking</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:33%">Requirement in the stem</th><th style="width:22%">Build</th><th>Why</th></tr>
+        <tr><td>The steps are known in advance and never change &mdash; extract, validate, store</td><td><strong>Prompt chain / workflow</strong></td><td>Deterministic, testable, cheaper, and every step is independently observable. Handing a fixed sequence to a model adds variance and buys nothing</td></tr>
+        <tr><td>The path depends on what the previous step found &mdash; the ticket could be a return, a billing dispute or an account issue, and you cannot know which until you look</td><td><strong>Agentic loop</strong></td><td>The branch structure is data-dependent. Pre-configuring it means enumerating branches you cannot enumerate</td></tr>
+        <tr><td>A fixed set of independent analyses that are then merged</td><td><strong>Parallel workflow (fan-out/fan-in)</strong></td><td>Concurrency without delegation reasoning. No coordinator judgement needed</td></tr>
+        <tr><td>Open-ended research where the number and shape of the subtasks depends on the question</td><td><strong>Coordinator + subagents</strong></td><td>Decomposition itself is the model's job. See <a href="#d1-2">1.2</a></td></tr>
+        <tr><td>A quality bar that must be met before the work is accepted, with a bounded number of tries</td><td><strong>Evaluator&ndash;optimiser loop</strong></td><td>Generate, critique with explicit criteria, revise. The critique must be a <em>separate</em> call &mdash; see <a href="#d4-6">4.6</a></td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The agentic bias trap</b>
+        Because the exam is about agents, candidates over-select agentic answers. The guide's own framing is the
+        opposite: <em>use the simplest thing that meets the requirement</em>. When a stem describes a fixed,
+        auditable, three-step sequence with a compliance requirement, the credited answer is usually the
+        deterministic workflow with the model doing one bounded job inside it &mdash; not an autonomous agent with
+        four tools and a prompt asking it to be careful.
+      </div>
+
+      <details class="qa"><summary>A support agent occasionally calls <code>process_refund</code> without ever having called <code>get_customer</code>. Where in the loop is the fix?</summary>
+      <div class="qa-body">In <code>dispatch()</code> &mdash; not in <code>SYSTEM_PROMPT</code>. The loop hands you
+      the tool name and input <em>before</em> the side effect happens, so the dispatcher can check whether
+      <code>get_customer</code> has already returned for this conversation and, if not, return a
+      <code>tool_result</code> with <code>is_error: true</code> and text saying <em>verification required: call
+      get_customer first</em>. The model reads that and complies on the next iteration. This is the single most
+      important structural idea in Domain 1: <strong>the loop gives you a programmatic interception point, and a
+      guarantee belongs there rather than in a sentence</strong>. See <a href="#d1-4">1.4</a> and
+      <a href="#p3">Primer 3</a>.</div></details>
+
+      <details class="qa"><summary>Why is it wrong to break out of the loop when a tool raises?</summary>
+      <div class="qa-body">Because a tool failure is usually recoverable and the model is the cheapest recovery
+      mechanism you have. Returning the failure as a <code>tool_result</code> with <code>is_error: true</code> lets
+      the model retry with a corrected argument, fall back to a different tool, or tell the user precisely what
+      could not be done. Breaking out converts a recoverable local failure into a total failure &mdash; the
+      &ldquo;kill the whole run&rdquo; distractor from <a href="#d5-3">5.3</a>. Break out only for failures the
+      model cannot act on: an exhausted iteration budget, an auth failure, or a policy block.</div></details>
+    </section>
+
+    <section data-searchable id="p2">
+      <h2>Primer 2 &middot; Coordinator and subagent: the context contract</h2>
+
+      <p>Multi-agent items are the densest part of this exam, and nearly all of them turn on one fact:
+      <strong>a subagent starts with an empty context window</strong>. It does not inherit the coordinator's
+      conversation, the user's original question, the other subagents' findings, or anything discovered so far. It
+      receives exactly one thing &mdash; the prompt the coordinator writes for it &mdash; and it returns exactly one
+      thing: a final message. That is the entire interface.</p>
+
+<pre><code>Coordinator context                     Subagent context (fresh)
+┌────────────────────────────┐          ┌────────────────────────────┐
+│ user question              │          │ ONLY the task prompt the   │
+│ plan / decomposition       │  spawn   │ coordinator wrote:         │
+│ subagent A summary  ───────┼─────────▶│  • the goal                │
+│ subagent B summary         │          │  • the constraints         │
+│ subagent C summary         │          │  • the output shape        │
+│ synthesis                  │◀─────────┼─ final message only        │
+└────────────────────────────┘  return  └────────────────────────────┘
+        ▲ grows with summaries                  ▲ discarded after
+        ▲ NOT with raw work                     ▲ raw work never surfaces</code></pre>
+
+      <div class="note rule">
+        <b>Both directions of that arrow are exam material</b>
+        <strong>Outbound</strong>, the coordinator must write a self-contained prompt: everything the subagent needs
+        and nothing it does not. Omit the constraint and the subagent cannot honour it; paste the whole conversation
+        and you have thrown away the isolation you were buying. <strong>Inbound</strong>, only the final message
+        crosses back, which is exactly why delegation saves context &mdash; the subagent can read forty files and
+        return four hundred tokens. Design the return shape deliberately: an unstructured paragraph forces the
+        coordinator to re-derive facts it should have been handed.
+      </div>
+
+      <h3>Hub-and-spoke, and why not a mesh</h3>
+      <p>Subagents do not talk to each other. Every result flows back to the coordinator, which decides what happens
+      next. This is deliberate: the coordinator is the only component with the whole picture, so it is the only
+      component that can notice a coverage gap, resolve a conflict between two sources, or decide that a fourth
+      subagent is needed. A mesh in which the search agent hands directly to the synthesis agent has no such vantage
+      point, and it is a standard wrong answer.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Concern</th><th>Owned by</th></tr>
+        <tr><td>Decomposing the request into subtasks</td><td><strong>Coordinator.</strong> Its decomposition is the ceiling on the whole system's coverage &mdash; a subagent cannot research a facet it was never assigned</td></tr>
+        <tr><td>Writing each subagent's prompt and scope</td><td><strong>Coordinator.</strong> Overlapping scopes cause duplicated work; gapped scopes cause silent omissions</td></tr>
+        <tr><td>Doing the narrow work</td><td><strong>Subagent</strong>, in isolation, with only the tools its role needs</td></tr>
+        <tr><td>Noticing that coverage is incomplete</td><td><strong>Coordinator</strong>, on receiving the results &mdash; then spawning a second round. This is <em>iterative refinement</em></td></tr>
+        <tr><td>Resolving conflicts between sources</td><td><strong>Coordinator or synthesis agent</strong>, with the conflict annotated, never silently resolved &mdash; see <a href="#d5-6">5.6</a></td></tr>
+        <tr><td>Deciding the run has failed</td><td><strong>Coordinator</strong>, after local recovery has been tried &mdash; see <a href="#d5-3">5.3</a></td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The single most reliable tell in multi-agent items</b>
+        When a stem quotes <em>what the coordinator assigned</em> &mdash; a list of three subtasks, a set of search
+        queries, a scope description &mdash; and the reported failure is a missing dimension in the output, the
+        answer is about the <strong>coordinator's decomposition</strong>, not about the subagents. Options that give
+        the synthesis agent better instructions, or the search agent more tools, are treating a symptom. The
+        subagents did exactly what they were told; the telling was wrong.
+      </div>
+
+      <h3>When multi-agent is the wrong architecture</h3>
+      <p>Delegation costs tokens (each subagent re-establishes context), latency (a round trip per hop) and
+      reliability (more moving parts). It pays for itself when the subtasks are genuinely parallel, each needs deep
+      exploration whose raw material should not pollute the main context, and the results compress well. It does not
+      pay when the task is sequential and each step needs the previous step's full detail &mdash; then you have
+      added hops and lost information. Expect at least one item where the credited answer is
+      &ldquo;<em>do this in a single agent</em>&rdquo;.</p>
+
+      <details class="qa"><summary>A coordinator passes each subagent the full conversation history &ldquo;so they have context&rdquo;. What breaks?</summary>
+      <div class="qa-body">The economics and the focus. You are paying to re-send a large history per subagent while
+      getting none of the isolation benefit, and each subagent now has to work out which part of a long history is
+      relevant to its narrow task &mdash; which is precisely the attention problem delegation exists to avoid. The
+      correct pattern is a <em>purpose-written, self-contained</em> prompt per subagent: the goal, the constraints
+      that apply to it, any facts it cannot derive on its own, and the required output shape. Nothing else.</div></details>
+    </section>
+
+    <section data-searchable id="p3">
+      <h2>Primer 3 &middot; The four enforcement surfaces</h2>
+
+      <p>If you internalise one thing before the exam, make it this. The recurring question is <em>where does the
+      guarantee live?</em> A system prompt is <strong>guidance</strong>: it shifts probabilities and it fails
+      occasionally. Four other surfaces are <strong>enforcement</strong>: they cannot fail in the same way, because
+      the undesired action is not reachable. Whenever a stem describes something that must <em>always</em> hold
+      &mdash; money never moves without verification, this agent can never write files, this field is never
+      fabricated &mdash; the credited answer moves the rule onto one of these four.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:20%">Surface</th><th style="width:30%">Mechanism</th><th>Use it when</th></tr>
+        <tr><td><strong>1. Tool availability</strong></td><td>Do not put the tool in this agent's <code>tools</code> array / <code>allowedTools</code></td><td>A whole capability must be impossible for a role. A subagent with no <code>Write</code> cannot write, whatever it is asked. Strongest and cheapest surface there is</td></tr>
+        <tr><td><strong>2. Dispatcher precondition</strong></td><td>Your tool executor checks state before performing the side effect and returns <code>is_error</code> if the prerequisite is unmet</td><td>An ordering guarantee &mdash; verify before refund, lock before write, approve before deploy. The model is told <em>why</em> and self-corrects</td></tr>
+        <tr><td><strong>3. Hooks</strong></td><td>Agent SDK / Claude Code hooks: <code>PreToolUse</code> can deny a call outright; <code>PostToolUse</code> can normalise or reject its result</td><td>A cross-cutting policy that must apply to every call regardless of which agent makes it &mdash; secret redaction, blocked paths, currency normalisation, audit logging</td></tr>
+        <tr><td><strong>4. Schema</strong></td><td>JSON Schema on a tool's <code>input_schema</code> (or a structured-output schema): enums, types, <code>required</code>, nullability</td><td>An output must be machine-consumable and cannot express an invalid value. An enum with four members cannot return a fifth</td></tr>
+      </table>
+      </div>
+
+      <div class="note good">
+        <b>The rule, stated as a test you can apply in ten seconds</b>
+        Ask: <em>if the model ignored this instruction entirely, would the bad thing happen?</em> If yes, the option
+        is guidance and the exam wants enforcement. If no &mdash; because the tool is absent, the dispatcher blocks
+        it, a hook denies it or the schema cannot represent it &mdash; that is the credited answer.
+      </div>
+
+      <div class="note warn">
+        <b>Guidance is not worthless &mdash; and the exam knows the difference</b>
+        Prompts remain the right surface for things that are matters of <em>judgement</em> rather than
+        <em>permission</em>: tone, when to ask a clarifying question, how to phrase an escalation summary, which of
+        two valid approaches to prefer. The mistake the exam punishes is using a prompt where a hard constraint was
+        required. It also punishes the reverse, less often but it does happen: proposing a rigid programmatic gate
+        for something that genuinely needs case-by-case judgement, which shows up as an option that would block
+        legitimate work.
+      </div>
+
+      <details class="qa"><summary>&ldquo;Add to the system prompt: never include customer PII in the summary.&rdquo; Rank the four surfaces for this requirement.</summary>
+      <div class="qa-body">A <code>PostToolUse</code> hook (or an output filter) that redacts PII patterns is
+      strongest &mdash; it runs on every call and cannot be talked out of it. A schema helps if the summary is a
+      structured field set that simply has no PII fields. Tool availability helps if the PII source is a tool the
+      summarising agent does not need. The prompt sentence is the weakest of the four and should be kept as a
+      belt-and-braces addition, not as the control. On the exam, an option offering the prompt sentence
+      <em>alone</em> against a compliance requirement is nearly always the distractor.</div></details>
+    </section>
+
+    <section data-searchable id="p4">
+      <h2>Primer 4 &middot; Structured output as a contract</h2>
+
+      <p>Domain 4 is 20% of the exam and half of it is the same insight: <strong>when a downstream system consumes
+      the output, prose is a bug</strong>. Asking for JSON in the prompt and parsing what comes back gives you a
+      format that is <em>usually</em> right. Defining a tool whose <code>input_schema</code> is your target shape,
+      and forcing the model to call it, gives you a format that is <em>structurally</em> right, because the schema
+      is enforced at generation time rather than checked afterwards.</p>
+
+<pre><code>extract_invoice = {
+  "name": "extract_invoice",
+  "description": "Record the fields extracted from a single supplier invoice.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "invoice_number": {"type": "string"},
+      "issue_date":     {"type": "string", "description": "ISO 8601 date, YYYY-MM-DD"},
+      "total_amount":   {"type": "number", "description": "Grand total including tax"},
+      "currency":       {"type": "string", "enum": ["USD", "EUR", "GBP", "JPY"]},
+      "payment_terms":  {"type": ["string", "null"],
+                         "description": "Verbatim terms, or null if the document does not state them"},
+      "line_items": {
+        "type": "array",
+        "items": {"type": "object",
+                  "properties": {"description": {"type": "string"},
+                                 "quantity":    {"type": "number"},
+                                 "unit_price":  {"type": "number"}},
+                  "required": ["description", "quantity", "unit_price"]}
+      }
+    },
+    "required": ["invoice_number", "issue_date", "total_amount", "currency", "line_items"]
+  }
+}
+
+resp = client.messages.create(
+    model="claude-opus-5", max_tokens=2048,
+    tools=[extract_invoice],
+    tool_choice={"type": "tool", "name": "extract_invoice"},   # forced: it MUST call this
+    messages=[{"role": "user", "content": [{"type": "document", ...}, {"type": "text", "text": PROMPT}]}],
+)
+data = next(b.input for b in resp.content if b.type == "tool_use")</code></pre>
+
+      <div class="note rule">
+        <b>Four schema decisions the exam grades</b>
+        <ul class="tight">
+          <li><strong>Force the call.</strong> <code>tool_choice={"type":"tool","name":...}</code> when the response
+          must be that structure. <code>{"type":"any"}</code> when it must call <em>some</em> tool.
+          <code>{"type":"auto"}</code> (the default) when text is a legitimate answer.</li>
+          <li><strong>Make genuinely-optional fields nullable</strong> &mdash; <code>"type": ["string","null"]</code>
+          &mdash; or leave them out of <code>required</code>. A required field the source document does not contain
+          is a standing instruction to invent one.</li>
+          <li><strong>Give every closed enum an escape hatch</strong> when reality is open: an <code>other</code>
+          member plus a free-text detail field, or an <code>unclear</code> member. Otherwise the model must
+          mis-classify rather than admit the case is novel &mdash; and you lose the signal that a new category
+          exists.</li>
+          <li><strong>Put the semantics in <code>description</code>.</strong> The schema constrains type and shape;
+          it cannot express &ldquo;the grand total including tax, not the subtotal&rdquo;. That distinction lives in
+          the field description, and it is where semantic accuracy comes from.</li>
+        </ul>
+      </div>
+
+      <h3>Syntax errors versus semantic errors</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Failure</th><th style="width:30%">Example</th><th>Fixed by</th></tr>
+        <tr><td><strong>Syntactic / structural</strong></td><td>Malformed JSON, a missing required key, a string where a number belongs, a value outside an enum</td><td><strong>The schema itself.</strong> Forced tool use makes most of these unreachable. What remains is caught by validation and usually fixed by one retry</td></tr>
+        <tr><td><strong>Semantic</strong></td><td>The subtotal captured as <code>total_amount</code>; the wrong date of three on the page; a plausible invoice number that is actually the PO number</td><td><strong>Not the schema.</strong> Field descriptions, few-shot examples of the confusing layout, and human review of low-confidence fields. This is <a href="#d4-2">4.2</a> and <a href="#d5-5">5.5</a> territory</td></tr>
+        <tr><td><strong>Absence</strong></td><td>The field genuinely is not in the document</td><td><strong>Nullability.</strong> Neither schema strictness nor retry can conjure it &mdash; retrying an absent value just produces a more confident hallucination</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The distinction the exam tests hardest</b>
+        &ldquo;Accuracy is 94% but 6% of records have the wrong total&rdquo; is a <em>semantic</em> problem, and
+        options offering a stricter schema, more <code>required</code> fields, or a validation-and-retry loop do not
+        touch it. Retry re-runs the same reasoning on the same input and gets the same answer. Read the failure
+        description carefully: if the output parsed cleanly and was simply wrong, the schema is not the lever.
+      </div>
+
+      <div class="note warn">
+        <b><span class="tag warn">version-sensitive</span> Native structured outputs</b>
+        Newer API versions expose a first-class structured-output path &mdash; a response-format / JSON-schema
+        parameter that constrains the model's output directly, without the tool-use indirection. Where it is
+        available it is the cleaner answer for &ldquo;the response must match this schema&rdquo;. The exam guide's
+        own vocabulary is <em>tool use with JSON schemas</em>, so that is the framing to expect on the paper, but do
+        not be thrown if an option references a native structured-output setting: the underlying decision &mdash;
+        schema-enforced rather than prompt-requested &mdash; is identical.
+      </div>
+
+      <details class="qa"><summary>A team marks every schema field <code>required</code> so no downstream record is ever incomplete. What actually happens?</summary>
+      <div class="qa-body">Hallucination rate goes up, and the failures get harder to detect. The model must emit
+      something for a field the document does not contain, so it emits something plausible &mdash; a date near the
+      other dates, a term that appears on similar invoices. You have converted a <em>visible</em> gap (a null you
+      could route to a human) into an <em>invisible</em> error (a confident wrong value that flows straight into the
+      ledger). Correct design: required for fields that must exist for the record to be meaningful; nullable for the
+      rest; and a downstream rule that routes nulls in important fields to review.</div></details>
+    </section>
+
+    <!-- ======================= DOMAIN 1 ======================= -->
+
+    <section data-searchable id="d1">
+      <h2>Domain 1 &middot; Agentic Architecture &amp; Orchestration <span class="tag warn">27%</span></h2>
+
+      <p>The largest domain, with seven task statements. It is about <em>who decides</em>: the model, your code, or
+      a coordinator. Almost every item hands you a system that already runs and a measurement that shows it running
+      wrong, and asks which layer to change. Get comfortable with two moves &mdash; reading the evidence back to the
+      component that produced it, and preferring enforcement over instruction &mdash; and the domain becomes
+      tractable.</p>
+
+      <div class="casebox">
+        <div class="cb-label">Worked scenario</div>
+        <h5>Harbourline Retail: the refund that skipped verification</h5>
+        <p>Harbourline runs an Agent SDK support agent with four MCP tools: <code>get_customer</code>,
+        <code>lookup_order</code>, <code>process_refund</code> and <code>escalate_to_human</code>. Policy says a
+        refund may only be issued after the customer's identity has been verified. The system prompt says so, in
+        bold, twice. Over 12,000 conversations, audit finds <strong>47 refunds issued without a preceding
+        <code>get_customer</code> call</strong> &mdash; 0.4%. Engineering proposes strengthening the prompt wording
+        and adding a reminder in every turn.</p>
+        <table>
+          <tr><th style="width:34%">Option on the table</th><th>Verdict</th></tr>
+          <tr><td>Strengthen the system-prompt wording; repeat the rule each turn</td><td><strong>No.</strong> It reduces a rate that must be zero. 0.4% of 12,000 is 47 unverified refunds; a &ldquo;better&rdquo; prompt might make it 12. Twelve is still a compliance finding</td></tr>
+          <tr><td>Remove <code>process_refund</code> from the agent and route all refunds to a human</td><td><strong>No.</strong> It works, but it destroys the 80% first-contact-resolution target the scenario is built around. Over-correcting past the requirement is its own wrong answer</td></tr>
+          <tr><td>Add a <code>PostToolUse</code> hook that logs every refund for later audit</td><td><strong>No.</strong> Detection, not prevention. The money has already moved</td></tr>
+          <tr><td><strong>Enforce the prerequisite in the tool layer: <code>process_refund</code> checks that <code>get_customer</code> has returned for this conversation, and returns an <code>is_error</code> result naming the missing step if not</strong></td><td><strong>Yes.</strong> The failure rate becomes structurally zero, the model is told exactly what to do and self-corrects on the next iteration, and legitimate refunds are unaffected</td></tr>
+        </table>
+        <div class="cb-take"><b>The takeaway</b> When a stem gives you a <em>non-zero rate of a thing that must
+        never happen</em>, it is telling you the control is probabilistic. The credited answer moves the control to a
+        surface where the failure mode does not exist. Every &ldquo;improve the prompt&rdquo; option in that
+        situation is a distractor, no matter how well written.</div>
+      </div>
+    </section>
+
+    <section data-searchable id="d1-1">
+      <h2>1.1 &middot; Design and implement agentic loops</h2>
+
+      <p>Covered mechanically in <a href="#p1">Primer 1</a>. What this task statement adds is the
+      <em>architecture</em> layer: choosing the loop's boundaries, its termination, and how much of the control flow
+      belongs to the model.</p>
+
+      <h3>What the loop owner is responsible for</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Responsibility</th><th>Concretely</th></tr>
+        <tr><td>Branching on <code>stop_reason</code></td><td><code>tool_use</code> → execute and continue. <code>end_turn</code> → done. <code>max_tokens</code> → the output was cut by <em>your</em> ceiling; do not parse it as complete. <code>refusal</code> → HTTP 200 with near-empty content; check it before reading text. <code>pause_turn</code> → a long-running server tool paused; send the content back unchanged to resume</td></tr>
+        <tr><td>Maintaining history</td><td>Append the assistant turn verbatim, then a user message carrying one <code>tool_result</code> per <code>tool_use</code> block. Never drop or reorder</td></tr>
+        <tr><td>Termination</td><td>A maximum iteration count, a token budget, or a wall-clock deadline &mdash; plus a graceful message when it trips. Without one, a looping model is unbounded spend</td></tr>
+        <tr><td>Error surfacing</td><td>Failures return as <code>tool_result</code> with <code>is_error: true</code> and actionable text, not as exceptions that unwind the loop</td></tr>
+        <tr><td>Observability</td><td>Log the tool name, arguments, latency and outcome per iteration. Almost every diagnostic item on this exam presupposes someone has this log &mdash; it is what makes &ldquo;the coordinator assigned three subtasks&rdquo; knowable</td></tr>
+      </table>
+      </div>
+
+      <h3>Model-driven versus pre-configured decisions</h3>
+      <p>Within one system, some decisions should be the model's and some should be yours. The exam tests the
+      boundary. A useful split: <strong>the model decides what is true and what to do next; your code decides what
+      is permitted and when to stop</strong>.</p>
+      <div class="dd">
+        <div class="do">
+          <h5>Give to the model</h5>
+          <ul class="tight">
+            <li>Which tool answers the question in front of it</li>
+            <li>How to phrase a query, a summary, an escalation note</li>
+            <li>Whether the evidence gathered so far is sufficient</li>
+            <li>How to classify an ambiguous case, given explicit criteria</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h5>Keep in your code</h5>
+          <ul class="tight">
+            <li>Whether a prerequisite has been satisfied</li>
+            <li>Whether this agent may touch this resource at all</li>
+            <li>How many iterations, tokens or seconds remain</li>
+            <li>Whether the final output matches the required shape</li>
+            <li>What gets logged, redacted and audited</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note trap">
+        <b>Two loop bugs that show up as &ldquo;model quality&rdquo; problems</b>
+        <strong>Truncation read as completion</strong> &mdash; <code>stop_reason: "max_tokens"</code> ignored, so
+        half-written JSON is parsed and blamed on the model. <strong>Unbounded retry</strong> &mdash; a tool that
+        keeps failing, an error result the model keeps reacting to, and no iteration cap, producing a conversation
+        that spirals. Both are integration defects. When a stem describes intermittent malformed output or runaway
+        cost, look at the loop before you look at the prompt.
+      </div>
+
+      <details class="qa"><summary>An agent sometimes stops mid-task and returns a partial answer that reads as if it were finished. What do you check first?</summary>
+      <div class="qa-body"><code>stop_reason</code> on the final response. <code>max_tokens</code> means your ceiling
+      cut it; <code>refusal</code> means a safety classifier declined and returned 200 with near-empty content, which
+      an integration that reads <code>content[0].text</code> blindly will render as a short, confident, wrong answer.
+      Both are invisible unless you branch on the stop reason before consuming content.</div></details>
+
+      <details class="qa"><summary>When is a pre-configured sequence the better architecture even though the task &ldquo;feels&rdquo; agentic?</summary>
+      <div class="qa-body">When the steps do not vary with the data, and when auditability matters. A three-stage
+      document pipeline &mdash; extract, validate, persist &mdash; that runs identically every time gains nothing
+      from letting a model choose the order, and loses testability, determinism and cost predictability. Reserve the
+      agentic loop for the part that genuinely varies: inside that pipeline, the extraction step may well be one
+      bounded model call with a forced tool.</div></details>
+    </section>
+
+    <section data-searchable id="d1-2">
+      <h2>1.2 &middot; Orchestrate multi-agent systems with coordinator&ndash;subagent patterns <span class="tag warn">high yield</span></h2>
+
+      <p>The mechanics are in <a href="#p2">Primer 2</a>. This section is about the failures the exam actually
+      presents, which are almost always failures of <em>decomposition</em> or <em>scope</em> rather than of the
+      subagents themselves.</p>
+
+      <h3>The four multi-agent failure modes, and their fixes</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:22%">Symptom in the stem</th><th style="width:30%">Root cause</th><th>Credited fix</th></tr>
+        <tr><td>The report covers the topic narrowly &mdash; three subtasks all on the same facet, whole dimensions missing</td><td><strong>Coordinator decomposition too narrow.</strong> The subagents each did their assignment correctly</td><td>Improve the coordinator's decomposition prompt: require it to enumerate the distinct dimensions of the question before assigning, and to name what each subagent is <em>not</em> covering</td></tr>
+        <tr><td>Two subagents return substantially the same material; cost is double what was budgeted</td><td><strong>Overlapping scopes.</strong> The assignments were not partitioned</td><td>Explicit, disjoint scope statements per subagent &mdash; each prompt names its boundary and what belongs to a sibling</td></tr>
+        <tr><td>The synthesis reads as a list of disconnected findings rather than an answer</td><td><strong>No integration step, or the synthesis agent received raw dumps rather than structured summaries</strong></td><td>A defined return shape per subagent (findings, sources, confidence, gaps) and a synthesis prompt whose job is to relate them, not to concatenate them</td></tr>
+        <tr><td>The first round misses something obvious; nobody notices</td><td><strong>No refinement loop.</strong> One round, then publish</td><td><em>Iterative refinement</em>: the coordinator evaluates the returned set against the original question, identifies gaps, and spawns a targeted second round for just those gaps</td></tr>
+      </table>
+      </div>
+
+      <h3>Iterative refinement, concretely</h3>
+<pre><code>1. Coordinator decomposes:      Q → [subtask A, subtask B, subtask C]  (disjoint, dimension-named)
+2. Spawn A, B, C in parallel;   each returns {findings, sources, confidence, gaps_noted}
+3. Coordinator EVALUATES:       "Given the original question, what is still unanswered?"
+                                → "no coverage of regulatory constraints; B flagged a
+                                   conflicting figure it could not resolve"
+4. Spawn round two, targeted:   [subtask D: regulatory], [subtask E: resolve the conflict]
+5. Synthesise, annotating       what remains unresolved rather than smoothing it over
+   coverage and conflicts</code></pre>
+
+      <div class="note rule">
+        <b>Step 3 is the one candidates skip</b>
+        The coordinator's evaluation between rounds is what separates a multi-agent system from a fan-out. An option
+        that adds a second round <em>unconditionally</em> is worse than one that adds a gap analysis and then a
+        <em>targeted</em> round: the first burns budget uniformly, the second spends it where coverage is missing.
+        When a stem says the coordinator &ldquo;spawns subagents and assembles the results&rdquo;, the missing piece
+        is nearly always the evaluation step.
+      </div>
+
+      <h3>Scope partitioning that actually works</h3>
+      <div class="dd">
+        <div class="do">
+          <h5>Do</h5>
+          <ul class="tight">
+            <li>Name each subagent's dimension explicitly: &ldquo;economic effects only&rdquo;, &ldquo;peer-reviewed sources published 2023 or later&rdquo;</li>
+            <li>State the boundary: &ldquo;do not cover regulatory questions; another agent owns those&rdquo;</li>
+            <li>Fix the return shape so the coordinator can compare like with like</li>
+            <li>Ask each subagent to report <em>what it could not find</em>, not just what it found</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h5>Don't</h5>
+          <ul class="tight">
+            <li>Give three subagents the same question and hope for diversity</li>
+            <li>Let subagents talk to each other &mdash; you lose the only global vantage point</li>
+            <li>Pass the whole conversation as &ldquo;context&rdquo;</li>
+            <li>Let a subagent silently return nothing when its source failed &mdash; see <a href="#d5-3">5.3</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <details class="qa"><summary>A research coordinator's log shows it assigned: &ldquo;economic impact of AI on employment&rdquo;, &ldquo;AI and job displacement statistics&rdquo;, &ldquo;automation effects on labour markets&rdquo;. The report is criticised for ignoring social, educational and regulatory dimensions. Which component do you fix?</summary>
+      <div class="qa-body">The coordinator. All three subtasks are the same facet in three phrasings, so the system's
+      maximum possible coverage was one dimension wide before a single subagent ran. The fix is in the decomposition
+      prompt: require the coordinator to enumerate <em>distinct</em> dimensions of the question and to justify that
+      they are disjoint. Options that improve the synthesis agent, add a fourth search subagent on the same facet, or
+      give the search agents better tools are all treating a component that behaved correctly.</div></details>
+
+      <details class="qa"><summary>When does adding a coordinator make a system worse?</summary>
+      <div class="qa-body">When the work is inherently sequential and each step needs the previous step's full
+      output. Delegation compresses &mdash; that is the point &mdash; so a chain of subagents each handed the
+      previous one's summary loses detail at every hop, plus latency and tokens. Single agent with good context
+      management beats a coordinator here. Also when there is exactly one subtask: a coordinator that spawns one
+      subagent is pure overhead.</div></details>
+    </section>
+
+    <section data-searchable id="d1-3">
+      <h2>1.3 &middot; Configure subagent invocation, context passing and spawning <span class="tag warn">high yield</span></h2>
+
+      <p>Where 1.2 is the strategy, 1.3 is the API surface: the <code>Task</code> tool, the tool allow-list, agent
+      definitions, and what a good subagent prompt contains.</p>
+
+      <h3>Spawning with the Task tool</h3>
+      <p>In the Agent SDK and in Claude Code, a coordinator delegates by calling the <code>Task</code> tool. The call
+      carries a prompt, a short description, and the subagent type. Crucially, <strong>several <code>Task</code>
+      calls in a single assistant turn run concurrently</strong> &mdash; that is the mechanism for parallel
+      subagents, and it is a favourite detail. Sequential spawning across turns gives you no concurrency at all.</p>
+
+<pre><code>// Agent SDK — defining the roles a coordinator may delegate to
+const agents: Record&lt;string, AgentDefinition&gt; = {
+  "web-research": {
+    description: "Searches the public web for a NAMED, NARROW facet of a question. "
+               + "Use when the facet requires external sources.",
+    prompt: "You research one assigned facet. Return findings with a source URL and a "
+          + "publication date for every claim. Report explicitly what you could not find.",
+    tools: ["WebSearch", "WebFetch"],        // enforcement surface 1: nothing else is reachable
+    model: "sonnet",
+  },
+  "doc-analysis": {
+    description: "Analyses documents already present in the workspace. No web access.",
+    prompt: "Extract the requested facts from the supplied documents. Quote the source line "
+          + "for each fact. If a fact is absent, say so; never infer it.",
+    tools: ["Read", "Grep", "Glob"],
+    model: "sonnet",
+  },
+};</code></pre>
+
+      <div class="note rule">
+        <b>Three fields, three different jobs</b>
+        <code>description</code> is read by the <em>coordinator</em> and is how it decides which subagent type to
+        use &mdash; it is a routing signal, exactly like a tool description (<a href="#d2-1">2.1</a>), and vague
+        descriptions cause mis-delegation. <code>prompt</code> is the subagent's system prompt, defining how it
+        behaves and what it returns. <code>tools</code> (or <code>allowedTools</code>) is enforcement: a capability
+        left out of this list is unreachable for that role, full stop.
+      </div>
+
+      <h3>What a good subagent prompt contains</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Element</th><th>Why the subagent cannot proceed without it</th></tr>
+        <tr><td><strong>The goal, stated as an outcome</strong></td><td>&ldquo;Determine whether the 2024 filings disclose a contingent liability&rdquo; beats &ldquo;search the filings&rdquo;. Goal-oriented prompts let the subagent choose its own path; procedural prompts make it a slow function call</td></tr>
+        <tr><td><strong>The scope boundary</strong></td><td>It has no idea what its siblings are doing. Without &ldquo;economic effects only&rdquo; it will wander</td></tr>
+        <tr><td><strong>Facts it cannot derive</strong></td><td>Customer ID, the date range, the account tier, the decision already taken upstream. It has none of the conversation</td></tr>
+        <tr><td><strong>The required return shape</strong></td><td>Only the final message crosses back. Specify the structure &mdash; findings, sources, confidence, gaps &mdash; or the coordinator will have to re-parse prose</td></tr>
+        <tr><td><strong>The quality bar</strong></td><td>&ldquo;Cite a URL and a publication date for every claim&rdquo;, &ldquo;flag conflicts rather than resolving them&rdquo;. What you do not ask for, you do not get</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The two symmetrical context-passing errors</b>
+        <strong>Too little:</strong> the subagent is told to &ldquo;analyse the account&rdquo; without the account
+        ID, and either asks a question nobody will answer or invents a plausible one. <strong>Too much:</strong> the
+        entire conversation history is pasted in, which costs the tokens delegation was meant to save and buries the
+        actual assignment in the middle of a long context. The credited answer is nearly always <em>a purpose-written
+        self-contained brief</em>, and options at either extreme are distractors.
+      </div>
+
+      <div class="note">
+        <b>Parallel spawning, in one line</b>
+        To run four subagents concurrently, the coordinator must emit four <code>Task</code> calls in
+        <strong>one</strong> assistant turn. The runtime executes them in parallel and returns all four results
+        together in the following user message. If your coordinator emits one, waits, then emits the next, you have
+        a sequential system that merely looks parallel on an architecture diagram &mdash; and the latency figure in
+        the stem will say so.
+      </div>
+
+      <details class="qa"><summary>A developer-productivity agent gives its exploration subagent the full built-in tool set including <code>Write</code>, <code>Edit</code> and <code>Bash</code>, on the grounds that it &ldquo;might need them&rdquo;. What is wrong?</summary>
+      <div class="qa-body">Two things. First, safety: an exploration role that can write and execute is one
+      misinterpretation away from mutating the repository, and no prompt reliably prevents that. Restricting
+      <code>tools</code> to <code>Read</code>, <code>Grep</code> and <code>Glob</code> makes it impossible. Second,
+      selection quality: every extra tool dilutes tool choice, so an agent with nine tools picks worse than one with
+      three (<a href="#d2-3">2.3</a>). Scope the allow-list to the role's actual job.</div></details>
+
+      <details class="qa"><summary>Why does a subagent's <code>description</code> matter as much as its <code>prompt</code>?</summary>
+      <div class="qa-body">Because the coordinator routes on it. Two subagent types described as &ldquo;researches
+      topics&rdquo; and &ldquo;investigates subjects&rdquo; are indistinguishable to the delegating model, so it
+      picks arbitrarily &mdash; the same failure as two confusable tool descriptions. Descriptions should state
+      <em>when to use this one</em> and <em>when not to</em>: &ldquo;public web sources only; use doc-analysis for
+      files already in the workspace&rdquo;.</div></details>
+    </section>
+
+    <section data-searchable id="d1-4">
+      <h2>1.4 &middot; Multi-step workflows: enforcement and handoff <span class="tag warn">high yield</span></h2>
+
+      <p>This task statement is <a href="#p3">Primer 3</a> applied to sequences. Two ideas: <strong>programmatic
+      prerequisites</strong> for ordering guarantees, and <strong>structured handoffs</strong> for the moment work
+      leaves the agent.</p>
+
+      <h3>Programmatic prerequisites</h3>
+<pre><code>REQUIRES = {
+    "process_refund":   ["get_customer"],           # identity verified first
+    "close_account":    ["get_customer", "lookup_open_orders"],
+    "apply_credit":     ["get_customer"],
+}
+
+def dispatch(name, args, state):
+    for prereq in REQUIRES.get(name, []):
+        if prereq not in state.completed_tools:
+            return {
+                "isError": True,
+                "error": {
+                    "category": "precondition_failed",
+                    "isRetryable": True,
+                    "message": f"'{name}' requires '{prereq}' to be called first for this "
+                               f"conversation. Call '{prereq}', then retry.",
+                    "missing_prerequisite": prereq,
+                },
+            }
+    result = TOOLS[name](**args)
+    state.completed_tools.add(name)
+    return result</code></pre>
+
+      <div class="note good">
+        <b>Why this beats the prompt on every axis the exam cares about</b>
+        The bad outcome is <em>unreachable</em>, not merely unlikely. The error text is <em>actionable</em>, so the
+        model fixes itself in one iteration rather than failing the customer. The rule is <em>auditable</em> &mdash;
+        it is code with a test, not a paragraph someone may have edited. And it is <em>per-conversation stateful</em>,
+        which no prompt can be.
+      </div>
+
+      <h3>Decomposing multi-concern requests</h3>
+      <p>A frequent stem shape: a customer message contains three separate issues (a damaged item, a duplicate
+      charge, and a delivery-address change) and the agent handles one and drops the others. The fix is neither a
+      bigger model nor a longer prompt &mdash; it is an <strong>explicit decomposition step</strong>: enumerate the
+      distinct requests first, then resolve each, then confirm each in the reply. The same shape appears in code
+      review (per-file findings plus a cross-file pass, <a href="#d1-6">1.6</a>) and in extraction (per-section, then
+      reconcile).</p>
+
+      <h3>Handoff: what an escalation must carry</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:28%">Field in the handoff</th><th>Why the human needs it</th></tr>
+        <tr><td>What the customer asked, in their words</td><td>So the human is not re-deriving intent from a summary of a summary</td></tr>
+        <tr><td>What the agent already did &mdash; tools called, facts established</td><td>So the human does not repeat verification the customer has already sat through. This is the single biggest driver of the &ldquo;I already told the bot that&rdquo; complaint</td></tr>
+        <tr><td>Exactly why it escalated</td><td>Policy gap, explicit request, or no progress &mdash; each implies a different human action</td></tr>
+        <tr><td>What remains unresolved and what the options are</td><td>So the human starts at the decision, not at the beginning</td></tr>
+        <tr><td>The full transcript, attached but not summarised away</td><td>Detail the summary dropped is often the detail that matters</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>&ldquo;Transfer the conversation to a human agent&rdquo; is not a handoff</b>
+        An option that escalates without a structured summary is incomplete even when escalating was correct. The
+        exam consistently credits the option that carries context across the boundary; simply moving the customer to
+        a queue re-imposes the whole conversation on them and on the human.
+      </div>
+
+      <details class="qa"><summary>A stem reports that an agent &ldquo;occasionally&rdquo; performs a destructive operation the policy forbids, and the options are: (a) stronger prompt, (b) remove the tool, (c) prerequisite check in the dispatcher, (d) log and alert. How do you choose between (b) and (c)?</summary>
+      <div class="qa-body">Ask whether the operation is <em>ever</em> legitimate for this agent. If never &mdash;
+      the role should not have that capability at all &mdash; (b) is the strongest and simplest answer. If it is
+      legitimate <em>under conditions</em> (verified customer, order found, amount under a threshold), (b)
+      over-corrects and destroys the capability the scenario needs, so (c) is right: it permits the legitimate case
+      and blocks the rest. The stem's stated business target &mdash; first-contact resolution, throughput &mdash; is
+      usually the tie-breaker, because it tells you whether removing the capability is affordable.</div></details>
+    </section>
+
+    <section data-searchable id="d1-5">
+      <h2>1.5 &middot; Agent SDK hooks for interception and normalisation</h2>
+
+      <p>Hooks are enforcement surface 3. They are shell commands or callbacks the runtime invokes at fixed points in
+      the agent's lifecycle, and they run <strong>every time</strong>, deterministically, regardless of what the
+      model decided. That property &mdash; determinism &mdash; is the whole reason they appear on this exam.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:20%">Hook event</th><th style="width:30%">Fires</th><th>Architectural use</th></tr>
+        <tr><td><code>PreToolUse</code></td><td>After the model chooses a tool, <strong>before</strong> it executes</td><td><strong>Blocking.</strong> Deny the call outright &mdash; forbidden path, unapproved command, missing approval. The decision is returned to the model with a reason, so it can adapt</td></tr>
+        <tr><td><code>PostToolUse</code></td><td>After the tool returns, before the result reaches the model</td><td><strong>Normalisation and validation.</strong> Convert currencies and dates to a canonical form, redact secrets, truncate a huge payload, run a formatter or linter after an edit, reject a result that violates an invariant</td></tr>
+        <tr><td><code>UserPromptSubmit</code></td><td>On each user turn, before the model sees it</td><td>Inject dynamic context &mdash; the current ticket, the deploy state &mdash; or block a prompt that violates policy</td></tr>
+        <tr><td><code>Stop</code> / <code>SubagentStop</code></td><td>When the main agent or a subagent finishes</td><td>Completion gates: verify the required artefact exists, tests were run, the return shape is valid</td></tr>
+        <tr><td><code>SessionStart</code> / <code>SessionEnd</code></td><td>Session lifecycle</td><td>Load state at the start; persist a summary or clean up at the end</td></tr>
+        <tr><td><code>PreCompact</code></td><td>Before context compaction</td><td>Preserve facts that must survive summarisation &mdash; see <a href="#d5-4">5.4</a></td></tr>
+      </table>
+      </div>
+      <p class="small muted"><span class="tag warn">version-sensitive</span> Event names, the exact JSON a hook
+      receives, and the shape of a blocking decision have changed across releases. Learn the <em>capabilities</em>
+      &mdash; block before, normalise after &mdash; because that is what the exam tests; check the current
+      <a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">hooks reference</a> for
+      spellings before you rely on them in production.</p>
+
+      <h3>The canonical normalisation case</h3>
+      <p>Three MCP servers return dates as <code>2026-03-14</code>, <code>14/03/2026</code> and
+      <code>March 14, 2026</code>, and amounts as <code>1250.00</code>, <code>"$1,250.00"</code> and
+      <code>125000</code> (minor units). The agent reasons over all three and occasionally compares them wrongly.
+      The instinct is to tell the model about the formats in the system prompt. The architecture answer is a
+      <code>PostToolUse</code> hook that rewrites every tool result into one canonical representation before the
+      model ever sees it &mdash; because then there is nothing to reason about, no per-server special case in the
+      prompt, and no new failure when a fourth server is added.</p>
+
+      <div class="note rule">
+        <b>Hook or prompt? One question</b>
+        <em>Must this happen on every single call, identically, with no judgement?</em> Yes → hook. If it requires
+        weighing context &mdash; is this the right moment to ask a clarifying question, is this refund reasonable
+        &mdash; a hook is the wrong shape and the prompt (or a tool the model can choose) is right.
+      </div>
+
+      <details class="qa"><summary>Would you enforce &ldquo;never write outside the project directory&rdquo; with a hook or a prompt?</summary>
+      <div class="qa-body">A <code>PreToolUse</code> hook that inspects the path argument and denies anything
+      outside the root. It is a hard boundary with no judgement in it, it applies to every write regardless of which
+      agent or subagent attempted it, and the denial reason goes back to the model so it can retry inside the tree.
+      A prompt sentence is a probability, and this is a security boundary.</div></details>
+
+      <details class="qa"><summary>A team adds a <code>PostToolUse</code> hook that rejects any tool result over 10,000 tokens. Good idea?</summary>
+      <div class="qa-body">Truncating or summarising, yes &mdash; rejecting outright, usually not. Verbose tool
+      results are a real context problem (<a href="#d5-1">5.1</a>), and a hook is exactly the right place to trim
+      them to the fields the agent needs. But rejecting means the model gets nothing and will simply call the tool
+      again. Normalise and reduce in the hook; reject only when the result violates an invariant that makes it
+      unusable.</div></details>
+    </section>
+
+    <section data-searchable id="d1-6">
+      <h2>1.6 &middot; Task decomposition strategies</h2>
+
+      <p>Two axes: <strong>fixed versus adaptive</strong>, and <strong>within-unit versus across-unit</strong>.</p>
+
+      <h3>Fixed chaining versus adaptive decomposition</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:20%">Strategy</th><th style="width:32%">Use when</th><th>Cost of getting it wrong</th></tr>
+        <tr><td><strong>Prompt chaining</strong> &mdash; a fixed sequence of model calls, each consuming the last</td><td>The stages are known and stable, and each benefits from a focused prompt: summarise → classify → draft</td><td>Applied to a variable task, it forces every input down one path and silently mishandles the cases that do not fit</td></tr>
+        <tr><td><strong>Adaptive decomposition</strong> &mdash; the model plans the subtasks for this specific input</td><td>The number and nature of the subtasks depend on the input: a research question, a bug of unknown origin, a multi-issue support ticket</td><td>Applied to a fixed task, it adds variance, cost and unpredictability to something that should have been deterministic</td></tr>
+        <tr><td><strong>Hybrid</strong> &mdash; fixed outer phases, adaptive inside one</td><td>Most real systems. &ldquo;Always: gather → analyse → report&rdquo;, with the <em>gather</em> phase deciding for itself how many sources it needs</td><td>Rarely wrong; it is often the credited answer when two options offer the pure forms</td></tr>
+      </table>
+      </div>
+
+      <h3>The per-unit plus cross-unit pattern</h3>
+      <p>This shape recurs across three domains, so learn it once. A pull request touches 14 files; a single review
+      pass over all of them dilutes attention and misses both file-level detail and system-level consequences. The
+      credited architecture is <strong>two kinds of pass</strong>:</p>
+      <ul class="tight">
+        <li><strong>Per-file passes</strong> &mdash; focused, independent, parallelisable, each seeing one file in
+        full and reporting concrete findings.</li>
+        <li><strong>An integration pass</strong> &mdash; sees the diff summary and the per-file findings, and looks
+        specifically for what no single file reveals: a changed function signature and its unchanged callers, a
+        transaction boundary crossed, a shared assumption broken.</li>
+      </ul>
+      <p>The distractor here is always &ldquo;use a larger context window so everything fits in one pass&rdquo;. It
+      misdiagnoses the problem: this is attention dilution across many items, not capacity. A bigger window holds
+      more and still spreads attention thinly &mdash; and it does nothing about the fact that a single pass has no
+      moment where the reviewer is asked the cross-file question explicitly.</p>
+
+      <div class="note rule">
+        <b>Decomposition is a coverage ceiling</b>
+        Whatever your decomposition does not name, your system cannot find. This is true of research subtasks
+        (<a href="#d1-2">1.2</a>), review passes, extraction sections and support-ticket issues. When a stem reports
+        &ldquo;X was missed&rdquo;, ask first whether any step was ever responsible for X.
+      </div>
+
+      <details class="qa"><summary>A 14-file PR review misses a signature change that breaks three callers, but the per-file comments are accurate. What is missing?</summary>
+      <div class="qa-body">The integration pass. Per-file review is structurally incapable of catching a cross-file
+      consequence &mdash; the file where the signature changed looks fine in isolation, and the caller files were
+      not modified so they may not even be in the diff. You need a second pass whose explicit job is cross-file
+      consistency, given the per-file findings and the whole diff. Note the shape of the wrong answer: &ldquo;the
+      per-file prompts should also consider callers&rdquo; asks a reviewer to reason about files it cannot
+      see.</div></details>
+    </section>
+
+    <section data-searchable id="d1-7">
+      <h2>1.7 &middot; Session state, resumption and forking</h2>
+
+      <p>Sessions persist a conversation so work can continue later. Three operations matter, and the exam tests
+      when each is appropriate rather than their syntax.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:20%">Operation</th><th style="width:28%">Surface</th><th>Use when</th></tr>
+        <tr><td><strong>Resume</strong></td><td>Claude Code: <code>claude --resume &lt;session&gt;</code> (or <code>--continue</code> for the most recent). Agent SDK: pass the session id as <code>resume</code></td><td>You are continuing the same line of work and the accumulated context is an asset &mdash; a long debugging session, a multi-day refactor</td></tr>
+        <tr><td><strong>Fork</strong></td><td>Resume with <code>forkSession</code> / <code>fork_session</code> set &mdash; continues from the same history but writes to a <em>new</em> session id, leaving the original untouched</td><td>You want to try a second approach from a shared starting point, or run a branch you may throw away, without contaminating the original thread</td></tr>
+        <tr><td><strong>Fresh session + summary</strong></td><td>Start clean; paste a written summary of decisions and current state</td><td>The old context is stale, polluted with dead ends, or so long that the useful facts are buried. A 300-word summary of conclusions beats 60,000 tokens of exploration</td></tr>
+      </table>
+      </div>
+      <p class="small muted"><span class="tag warn">version-sensitive</span> Flag and option spellings
+      (<code>--resume</code>, <code>--continue</code>, <code>--fork-session</code>, the SDK's
+      <code>forkSession</code>) differ between the CLI and the SDK and have shifted between releases. The
+      <em>concepts</em> &mdash; continue, branch, restart-with-summary &mdash; are what the exam grades.</p>
+
+      <div class="note trap">
+        <b>The resumption trap</b>
+        A resumed session believes the world is as it left it. If files changed, a deploy happened, or a decision
+        was reversed while it was suspended, it will reason from stale facts and produce confidently wrong work.
+        <strong>Tell a resumed session what changed.</strong> An option that resumes a two-week-old session and
+        immediately asks for a code change, with no update, is a distractor even though resuming was the right
+        call.
+      </div>
+
+      <div class="note">
+        <b>When resuming is worse than restarting</b>
+        Long sessions accumulate abandoned approaches, corrected mistakes and superseded plans. All of it is still
+        in context, all of it still influences the model, and the useful conclusions sit in the middle where
+        attention is weakest (<a href="#d5-1">5.1</a>). If the useful state is a paragraph, carry the paragraph
+        &mdash; do not carry the archaeology.
+      </div>
+
+      <details class="qa"><summary>Two engineers want to try different migration strategies from the same analysed starting point. Resume, fork, or two fresh sessions?</summary>
+      <div class="qa-body">Fork &mdash; twice. Both branches inherit the shared analysis without re-doing it, and
+      neither pollutes the other or the original. Resuming twice into the same session interleaves two incompatible
+      lines of reasoning in one history; two fresh sessions throw away the analysis they both need.</div></details>
+    </section>
+
+    <!-- ======================= DOMAIN 2 ======================= -->
+
+    <section data-searchable id="d2">
+      <h2>Domain 2 &middot; Tool Design &amp; MCP Integration <span class="tag">18%</span></h2>
+
+      <p>Five task statements about the interface between a model and the systems it acts on. The organising idea:
+      <strong>the model's only view of a tool is its name, description and schema</strong>. Every selection failure,
+      every wrong argument, every misroute is a defect in that surface &mdash; not in the model's intelligence, and
+      not usually in the tool's implementation.</p>
+
+      <div class="casebox">
+        <div class="cb-label">Worked scenario</div>
+        <h5>Ravensmoor Logistics: the tool that answered the wrong question</h5>
+        <p>Ravensmoor's support agent exposes two MCP tools:</p>
+        <table>
+          <tr><td style="width:26%"><code>lookup_order</code></td><td>&ldquo;Look up order information&rdquo;</td></tr>
+          <tr><td><code>get_order_status</code></td><td>&ldquo;Get the status of an order&rdquo;</td></tr>
+        </table>
+        <p>Telemetry shows the agent calls <code>lookup_order</code> for pure status questions
+        (&ldquo;where is my parcel?&rdquo;) about 40% of the time, then calls <code>get_order_status</code> as well
+        &mdash; two round trips, extra latency, and a full order payload pulled into context for no reason. A
+        proposal circulates to merge the two into one <code>order_tool</code> with a <code>mode</code>
+        parameter.</p>
+        <table>
+          <tr><th style="width:34%">Option on the table</th><th>Verdict</th></tr>
+          <tr><td>Merge into one tool with a <code>mode</code> enum</td><td><strong>No, not as a first step.</strong> It hides the routing decision inside an argument the model must still choose correctly, and it is a redesign of every caller. Sometimes right; rarely the credited <em>first</em> move</td></tr>
+          <tr><td>Add a system-prompt rule: &ldquo;for status questions use <code>get_order_status</code>&rdquo;</td><td><strong>No.</strong> Patching a description defect with prose. It also breaks silently when a third order tool appears</td></tr>
+          <tr><td>Order the tools so <code>get_order_status</code> appears first in the array</td><td><strong>No.</strong> Position is not a selection mechanism, and betting on it is not a design</td></tr>
+          <tr><td><strong>Rewrite both descriptions so each states what it returns, when to use it, and when to use the other instead</strong></td><td><strong>Yes.</strong> &ldquo;Returns current delivery status and tracking only &mdash; use for &lsquo;where is my order&rsquo;. For line items, totals or payment details use <code>lookup_order</code>.&rdquo; Cheapest change, largest effect, no caller rewrite</td></tr>
+        </table>
+        <div class="cb-take"><b>The takeaway</b> Tool descriptions are the routing table. When two tools overlap,
+        the fix is to make each description say what it covers <em>and what it does not</em>, naming its
+        sibling.</div>
+      </div>
+    </section>
+
+    <section data-searchable id="d2-1">
+      <h2>2.1 &middot; Tool interface design <span class="tag warn">high yield</span></h2>
+
+      <p>The model sees three things: <code>name</code>, <code>description</code>, <code>input_schema</code>. It does
+      not see your implementation, your docs, or your intentions. Anthropic's own guidance is blunt about the
+      leverage here: improving a tool description is usually a bigger accuracy win than any prompt change.</p>
+
+      <h3>Anatomy of a description that routes correctly</h3>
+<pre><code>{
+  "name": "process_refund",
+  "description":
+    "Issue a refund against a specific order line. "
+    // 1. WHAT IT DOES — one sentence, unambiguous
+    "Use after the customer's identity has been verified with get_customer and the order "
+    "has been located with lookup_order. "
+    // 2. WHEN TO USE IT — including prerequisites the model must satisfy
+    "Do NOT use for billing disputes on subscriptions (use adjust_subscription) or for "
+    "goodwill credits (use apply_credit). "
+    // 3. WHEN NOT TO USE IT — naming the sibling tools explicitly
+    "Returns the refund id and the expected settlement date. Refunds above 500 USD are "
+    "rejected with a permission error and must be escalated.",
+    // 4. WHAT COMES BACK, and the boundaries of what it will accept
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "order_id":   {"type": "string", "description": "Order id from lookup_order, e.g. ORD-84213"},
+      "line_id":    {"type": "string", "description": "Line id within the order; omit to refund the whole order"},
+      "amount":     {"type": "number", "description": "Refund amount in the order's currency, ≤ the line total"},
+      "reason_code":{"type": "string", "enum": ["damaged","not_received","wrong_item","late","other"]},
+      "reason_note":{"type": "string", "description": "Required when reason_code is 'other'"}
+    },
+    "required": ["order_id", "amount", "reason_code"]
+  }
+}</code></pre>
+
+      <div class="note rule">
+        <b>Four things every description should carry</b>
+        <ol class="tight">
+          <li><strong>What it does</strong> &mdash; in one unambiguous sentence, in the vocabulary a user would
+          use.</li>
+          <li><strong>When to use it</strong> &mdash; the triggering situation, plus any prerequisite tools.</li>
+          <li><strong>When <em>not</em> to use it</strong> &mdash; naming the sibling tool by name. This is the line
+          that fixes confusable pairs, and the line teams most often omit.</li>
+          <li><strong>What it returns and its limits</strong> &mdash; so the model can plan the next step and knows
+          which requests will be refused.</li>
+        </ol>
+      </div>
+
+      <h3>Diagnosing selection failures</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Observed behaviour</th><th style="width:30%">Cause</th><th>Fix</th></tr>
+        <tr><td>Picks tool A when B was right, on a recognisable class of requests</td><td>Overlapping descriptions; no boundary statement</td><td>Differentiate: each description states its scope and names the other</td></tr>
+        <tr><td>Calls two tools where one would do</td><td>Neither description says what it returns, so the model hedges</td><td>State the return contents explicitly</td></tr>
+        <tr><td>Calls the right tool with wrong or invented arguments</td><td>Parameter descriptions missing, or the format is unstated</td><td>Describe every parameter: units, format, provenance (&ldquo;the id returned by <code>lookup_order</code>&rdquo;)</td></tr>
+        <tr><td>Uses one generic tool for everything and gets it wrong at the edges</td><td>The tool is too broad &mdash; <code>manage_account(action, ...)</code></td><td><strong>Split it</strong> into distinct named operations. Distinct tools with distinct schemas route better than one tool with an <code>action</code> enum</td></tr>
+        <tr><td>Fails to use a tool at all when it obviously applies</td><td>Vocabulary mismatch &mdash; the description says &ldquo;remuneration record&rdquo;, users say &ldquo;payslip&rdquo;</td><td>Write descriptions in the users' words, and include the synonyms</td></tr>
+        <tr><td>Selection degrades across the board as the toolset grows</td><td>Too many tools &mdash; see <a href="#d2-3">2.3</a></td><td>Scope tool sets per role; do not hand every agent everything</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The keyword-sensitivity trap</b>
+        A system prompt that says &ldquo;when the customer mentions <em>refund</em>, call
+        <code>process_refund</code>&rdquo; produces an agent that fires on &ldquo;I don't want a refund, I want a
+        replacement&rdquo;. Keyword rules in prompts are brittle by construction. The exam prefers descriptions that
+        capture the <em>situation</em> (&ldquo;use when the customer is owed money back for a completed
+        order&rdquo;) over prompts that capture the <em>string</em>.
+      </div>
+
+      <details class="qa"><summary>When <em>is</em> consolidating two tools the right answer?</summary>
+      <div class="qa-body">When the split is genuinely artificial &mdash; the two tools hit the same backend
+      endpoint with a different flag and no user-visible distinction exists &mdash; or when the toolset is large
+      enough that reducing count is itself the goal. Even then, a consolidated tool needs a schema whose enum makes
+      the mode obvious and a description that explains each mode. What the exam penalises is reaching for
+      consolidation as the <em>first</em> response to a description defect, when rewriting two paragraphs would fix
+      it without touching a single caller.</div></details>
+
+      <details class="qa"><summary>How do you write a description for a tool with a genuinely narrow, easily-confused sibling?</summary>
+      <div class="qa-body">Make the boundary the second sentence, and name the sibling. &ldquo;Returns
+      <em>current</em> shipment status and tracking events only. For order contents, pricing or payment history use
+      <code>lookup_order</code>.&rdquo; Both descriptions should carry the mirror-image sentence, so whichever one
+      the model reads first it learns the boundary.</div></details>
+    </section>
+
+    <section data-searchable id="d2-2">
+      <h2>2.2 &middot; Structured error responses for MCP tools</h2>
+
+      <p>An MCP tool reports a failure by returning a normal result with <code>isError: true</code> and content
+      describing what went wrong. That content is <strong>read by the model</strong>, so it is not a log line
+      &mdash; it is an instruction to whoever must recover. Errors that say <code>Error: request failed</code> give
+      the model nothing to act on, and the agent's behaviour degrades to a generic apology.</p>
+
+<pre><code>// A tool result the model can actually act on
+{
+  "isError": true,
+  "content": [{ "type": "text", "text": JSON.stringify({
+      "errorCategory": "validation",         // transient | validation | business | permission
+      "isRetryable": false,                  // may the SAME call succeed later?
+      "message": "order_id 'ORD-8421' is not a valid identifier: expected 5 digits after 'ORD-'.",
+      "field": "order_id",
+      "suggestedAction": "Re-read the order id from the lookup_order result and retry.",
+      "alternatives": ["search_orders_by_email"]
+  })}]
+}</code></pre>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:16%">Category</th><th style="width:28%">Examples</th><th style="width:14%">Retryable</th><th>What the model should do</th></tr>
+        <tr><td><code>transient</code></td><td>Timeout, 503, connection reset, rate limit</td><td><strong>Yes</strong></td><td>Retry the identical call after a backoff &mdash; ideally the server has already retried once locally</td></tr>
+        <tr><td><code>validation</code></td><td>Bad format, out-of-range value, missing required argument</td><td><strong>Not as-is</strong></td><td>Fix the argument and retry. The message must say <em>which</em> field and <em>what</em> was expected</td></tr>
+        <tr><td><code>business</code></td><td>Order already refunded; account closed; policy limit exceeded</td><td><strong>No</strong></td><td>Stop and explain, or take the documented alternative path (escalate, offer a credit). Retrying is pure waste</td></tr>
+        <tr><td><code>permission</code></td><td>This agent, key or role may not perform this action</td><td><strong>No</strong></td><td>Escalate to a human or a privileged path. Never retry, never work around</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>Recover locally before you propagate</b>
+        A single transient network blip should be retried <em>inside the tool</em> with a short backoff, not
+        surfaced to the model. Surfacing it wastes a full agent iteration on something the server could have handled
+        in 200&nbsp;ms, and adds noise to the conversation. Propagate what the caller must <em>decide</em> about;
+        absorb what you can simply handle.
+      </div>
+
+      <div class="note trap">
+        <b>Two errors the exam punishes hardest</b>
+        <strong>Swallowing:</strong> catching the failure and returning an empty successful result. The agent now
+        believes there were no matching orders &mdash; a false negative that propagates into a confident wrong
+        answer to the customer. <strong>Crashing:</strong> letting the exception unwind the whole run, so one failed
+        source kills a report that four other sources could have carried. Both appear as options in nearly every
+        error-handling item; the credited answer is the structured middle path.
+      </div>
+
+      <div class="note good">
+        <b>&ldquo;Empty result&rdquo; and &ldquo;could not check&rdquo; are different facts</b>
+        This distinction generates items in both Domain 2 and <a href="#d5-3">Domain 5</a>. <em>No orders match that
+        email</em> is a finding. <em>The order service did not respond</em> is an absence of information. Represent
+        them differently, because the correct downstream behaviour differs completely: one lets the agent tell the
+        customer something true, the other requires a retry, an alternative source, or an honest &ldquo;I could not
+        check&rdquo;.
+      </div>
+
+      <details class="qa"><summary>A tool returns <code>{"error": "failed"}</code> with <code>isError</code> unset. What does the agent do, and why is it bad?</summary>
+      <div class="qa-body">Without <code>isError</code> the runtime treats it as a successful result, so the model
+      sees an object whose <code>error</code> field it may or may not interpret &mdash; behaviour becomes
+      unpredictable. And <code>"failed"</code> carries no category, no retryability and no field, so even a model
+      that understands it is an error cannot choose between retrying, fixing an argument and escalating. Set
+      <code>isError</code>, and make the payload say what class of failure it is and what to do next.</div></details>
+    </section>
+
+    <section data-searchable id="d2-3">
+      <h2>2.3 &middot; Tool distribution across agents, and tool choice</h2>
+
+      <h3>How many tools is too many</h3>
+      <p>Selection reliability degrades as the toolset grows, and it degrades fastest when tools are similar. There
+      is no published magic number, and the exam will not ask for one &mdash; it asks what to do about the symptom.
+      The architectural answer is <strong>scope by role</strong>: the tools an agent holds should be the tools its
+      job requires, and delegation exists partly so that each role's set stays small.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Situation</th><th>Design</th></tr>
+        <tr><td>A monolithic agent with 20 tools, misrouting between similar ones</td><td>Split by role into subagents, each with a scoped set (<a href="#d1-3">1.3</a>). Coordinator routes; specialists act</td></tr>
+        <tr><td>A subagent occasionally needs one capability that belongs to another role</td><td>Give it a <strong>narrow, constrained version</strong> of that capability &mdash; not the full toolset. A synthesis agent that sometimes needs one fact can have <code>verify_single_fact</code>, not the whole web toolkit</td></tr>
+        <tr><td>A read-only role in a system with destructive tools</td><td>Simply omit them. Enforcement surface 1 &mdash; the cheapest guarantee available</td></tr>
+        <tr><td>Two roles need the same tool with different limits</td><td>Two tools with different schemas and limits, or one tool plus a <code>PreToolUse</code> hook that enforces the per-role limit</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>&ldquo;Give it every tool so it never gets stuck&rdquo;</b>
+        This is a recurring distractor, and it is wrong twice over: it degrades selection for the common case, and
+        it removes the safety property that made the role restriction valuable. The credited pattern is a
+        <em>scoped</em> addition &mdash; the one narrow tool that covers the common cross-role need &mdash; with the
+        coordinator handling the rest.
+      </div>
+
+      <h3><code>tool_choice</code></h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Value</th><th style="width:30%">Behaviour</th><th>Use when</th></tr>
+        <tr><td><code>{"type":"auto"}</code> <span class="muted">(default)</span></td><td>The model may call zero, one or several tools, or answer in text</td><td>Conversational agents. Text is a legitimate outcome</td></tr>
+        <tr><td><code>{"type":"any"}</code></td><td>It <em>must</em> call some tool, but chooses which</td><td>Every turn must be an action &mdash; a router that must always dispatch somewhere</td></tr>
+        <tr><td><code>{"type":"tool","name":"X"}</code></td><td>It must call exactly <code>X</code></td><td><strong>Structured output</strong> (<a href="#d4-3">4.3</a>): the schema of <code>X</code> is your response contract</td></tr>
+        <tr><td><code>{"type":"none"}</code></td><td>No tool calls permitted this turn</td><td>Forcing a summarisation or explanation turn after the work is done</td></tr>
+      </table>
+      </div>
+      <p class="small">Two adjacent details worth knowing: parallel tool use can be disabled when concurrent calls
+      would be unsafe, and forcing a tool changes the model's behaviour &mdash; a forced call is not the same as a
+      chosen one, so do not force a tool on turns where &ldquo;no action needed&rdquo; is a valid answer.</p>
+
+      <details class="qa"><summary>A synthesis subagent occasionally needs to verify one fact against the web, and currently returns to the coordinator to ask. Options: give it the full web toolset, give it one narrow verification tool, or keep the round trip. Choose.</summary>
+      <div class="qa-body">The narrow verification tool, if the round trip is measurably hurting. It covers the
+      common case at minimal cost to selection quality and keeps the role boundary meaningful. The full toolset
+      turns a synthesis agent into a research agent and degrades both jobs. Keeping the round trip is defensible if
+      the case is genuinely rare &mdash; the exam usually signals which by quoting a frequency.</div></details>
+    </section>
+
+    <section data-searchable id="d2-4">
+      <h2>2.4 &middot; Integrating MCP servers</h2>
+
+      <p>MCP is how an agent reaches systems you did not build into it. For this exam, three things matter:
+      <strong>where the configuration lives</strong>, <strong>how secrets get in</strong>, and <strong>what a server
+      can expose besides tools</strong>.</p>
+
+      <h3>Scope</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:22%">Scope</th><th style="width:24%">File</th><th>Use for</th></tr>
+        <tr><td><strong>Project</strong></td><td><code>.mcp.json</code> at the repository root, committed</td><td>Servers the whole team needs for this codebase &mdash; the issue tracker, the internal API, the design system. Everyone who clones gets them</td></tr>
+        <tr><td><strong>User</strong></td><td>User-level Claude configuration (e.g. <code>~/.claude.json</code>)</td><td>Personal servers that follow you across projects &mdash; your notes, your own accounts. Never a team dependency</td></tr>
+        <tr><td><strong>Local / per-directory</strong></td><td>Machine-scoped entries not shared with the team</td><td>Experiments, or a server pointing at a local service only you run</td></tr>
+      </table>
+      </div>
+
+<pre><code>// .mcp.json — committed to the repo. Note: NO secrets in the file.
+{
+  "mcpServers": {
+    "orders": {
+      "command": "npx",
+      "args": ["-y", "@ravensmoor/orders-mcp"],
+      "env": {
+        "ORDERS_API_URL":   "${ORDERS_API_URL:-https://orders.internal}",
+        "ORDERS_API_TOKEN": "${ORDERS_API_TOKEN}"     // expanded from the environment
+      }
+    },
+    "docs": { "type": "http", "url": "https://mcp.internal/docs" }
+  }
+}</code></pre>
+
+      <div class="note rule">
+        <b>The secrets rule, which the exam does test</b>
+        A project <code>.mcp.json</code> is committed, so a literal token in it is a token in your git history.
+        Reference environment variables with <code>${VAR}</code> (and <code>${VAR:-default}</code> for optional
+        values) so each developer and each CI runner supplies its own. An option that puts a key directly in a
+        shared config file is always wrong.
+      </div>
+
+      <h3>Resources, not just tools</h3>
+      <p>MCP servers can expose <strong>resources</strong> &mdash; addressable content the client can list and read
+      &mdash; alongside tools. The distinction the exam draws: a <em>tool</em> is an action the model chooses to
+      perform; a <em>resource</em> is content that can be discovered and pulled in. When the requirement is
+      &ldquo;make this catalogue of documents/schemas/templates available for reference&rdquo;, resources are the
+      right shape, and wrapping the same content in a <code>search_documents</code> tool is a heavier answer that
+      forces every access through a model decision.</p>
+
+      <div class="note">
+        <b>Several servers at once</b>
+        A client can connect to multiple MCP servers simultaneously; their tools are all discovered and presented to
+        the model together. Two consequences: <strong>name collisions matter</strong> (namespacing keeps
+        <code>search</code> from three servers distinguishable), and <strong>tool count adds up fast</strong> &mdash;
+        three servers with eight tools each is 24 tools in one selection decision, which is exactly the
+        <a href="#d2-3">2.3</a> problem arriving by the back door.
+      </div>
+
+      <details class="qa"><summary>Your team's agent must reach an internal API. Where does the server config go, and where does the token go?</summary>
+      <div class="qa-body">The server entry goes in the project <code>.mcp.json</code> so everyone gets it on clone,
+      with <code>"API_TOKEN": "${INTERNAL_API_TOKEN}"</code>. The token itself lives in each developer's environment
+      and in CI's secret store &mdash; never in the committed file, never in <code>CLAUDE.md</code>, never in a
+      slash command. If a token must differ per developer, that is another reason the variable indirection is the
+      only workable design.</div></details>
+    </section>
+
+    <section data-searchable id="d2-5">
+      <h2>2.5 &middot; Selecting and applying built-in tools</h2>
+
+      <p>Claude Code and the Agent SDK ship a standard toolset. Items here are practical: which tool answers this
+      question at the lowest context cost, and how to explore a repository without filling the window.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:14%">Tool</th><th style="width:34%">Use it for</th><th>Do not use it for</th></tr>
+        <tr><td><code>Grep</code></td><td>Finding <strong>content</strong> &mdash; which files contain this symbol, this string, this pattern. Regex, file-type filters, counts</td><td>Reading a file you already know you need. Enumerating files by name</td></tr>
+        <tr><td><code>Glob</code></td><td>Finding files by <strong>path or name</strong> &mdash; <code>src/**/*.test.ts</code>, every migration file</td><td>Searching inside files</td></tr>
+        <tr><td><code>Read</code></td><td>Reading a specific file, or a specific line range of a large one</td><td>Reading forty files &ldquo;to understand the codebase&rdquo; &mdash; that is what a subagent is for</td></tr>
+        <tr><td><code>Edit</code></td><td>A targeted change anchored on a <strong>unique</strong> string in a file you have read</td><td>Rewriting most of a file; a change whose anchor appears twice</td></tr>
+        <tr><td><code>Write</code></td><td>Creating a new file, or a full rewrite of one you have read</td><td>Small changes &mdash; it discards everything you did not retype</td></tr>
+        <tr><td><code>Bash</code></td><td>Running the project's own commands: tests, build, linters, git, package managers</td><td>Searching and reading files. Shell <code>find</code>/<code>grep</code> output is noisier and less structured than the dedicated tools</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>The exploration ladder</b>
+        Answer the cheapest question first. <strong>Glob</strong> to establish the shape of the tree →
+        <strong>Grep</strong> to find where a concept actually lives → <strong>Read</strong> only the files that
+        search identified → delegate to a <strong>subagent</strong> when the reading is broad and only the
+        conclusion matters. Reading first and searching later is the anti-pattern, and it is how a context window
+        fills up before any work starts.
+      </div>
+
+      <div class="note trap">
+        <b>Two built-in-tool distractors</b>
+        &ldquo;Read every file in <code>src/</code> to build a complete picture&rdquo; &mdash; the context cost is
+        enormous and most of it is irrelevant to the task. And &ldquo;use <code>Bash</code> with <code>grep -r</code>
+        rather than the Grep tool&rdquo; &mdash; it works, but returns unstructured output, respects no ignore
+        rules, and is the sort of answer the exam marks down in favour of the purpose-built tool.
+      </div>
+
+      <details class="qa"><summary>You must understand how authentication works in an unfamiliar 400-file service. What is the sequence?</summary>
+      <div class="qa-body">Grep for the concept first &mdash; <code>authenticate</code>, <code>login</code>,
+      <code>jwt</code>, <code>session</code> &mdash; to find the two or three files that matter; Glob for the
+      conventional locations (<code>**/auth/**</code>, <code>**/middleware/**</code>) to confirm the layout; then
+      Read only those files, in full. If the answer needs a broad sweep whose raw material you do not want in your
+      main context, delegate it to an exploration subagent restricted to <code>Read</code>, <code>Grep</code> and
+      <code>Glob</code>, and take back a summary (<a href="#d5-4">5.4</a>).</div></details>
+    </section>
+
+    <!-- ======================= DOMAIN 3 ======================= -->
+
+    <section data-searchable id="d3">
+      <h2>Domain 3 &middot; Claude Code Configuration &amp; Workflows <span class="tag warn">20%</span></h2>
+
+      <p>Six task statements on configuring Claude Code so a team gets consistent results. The organising idea:
+      <strong>context should arrive automatically and only when relevant</strong>. Every mechanism here &mdash;
+      hierarchy, imports, path rules, skills, commands &mdash; exists to answer the question &ldquo;how does the
+      right convention reach the model at the right moment without a human pasting it&rdquo;.</p>
+
+      <div class="casebox">
+        <div class="cb-label">Worked scenario</div>
+        <h5>Sable Research: the 900-line CLAUDE.md nobody follows</h5>
+        <p>Sable's monorepo has a single <code>CLAUDE.md</code> of about 900 lines: Python conventions, React
+        conventions, Terraform conventions, database migration rules, the release process, and a long section on
+        their internal RPC framework. Engineers report that Claude follows the conventions
+        &ldquo;inconsistently&rdquo; &mdash; it applies React rules to Python files, and misses the migration rules
+        it was explicitly told about. The team's instinct is to make the file more emphatic: capitals, MUST, and a
+        summary at the top.</p>
+        <table>
+          <tr><th style="width:34%">Option on the table</th><th>Verdict</th></tr>
+          <tr><td>Rewrite in stronger, more imperative language</td><td><strong>No.</strong> The problem is that 900 lines of mostly-irrelevant instruction are loaded for every task; emphasis does not reduce dilution</td></tr>
+          <tr><td>Move everything into a skill so it loads on demand</td><td><strong>Partly.</strong> Skills fit procedural workflows, but always-on conventions are what <code>CLAUDE.md</code> is for. Wholesale migration is over-correction</td></tr>
+          <tr><td>Delete the sections nobody references</td><td><strong>No.</strong> They are relevant &mdash; just not to every task</td></tr>
+          <tr><td><strong>Split it: a short root <code>CLAUDE.md</code> with genuinely universal rules and <code>@imports</code>; per-language conventions in <code>.claude/rules/</code> files with <code>paths:</code> globs; the release process as a slash command</strong></td><td><strong>Yes.</strong> Each task now loads the universal rules plus exactly the conventions matching the files it touches. Terraform rules stop competing for attention during a React change</td></tr>
+        </table>
+        <div class="cb-take"><b>The takeaway</b> &ldquo;Claude ignores our conventions&rdquo; is almost never a
+        compliance problem. It is a <em>relevance</em> problem: too much instruction, too little of it applicable.
+        The credited answers scope context to the work.</div>
+      </div>
+    </section>
+
+    <section data-searchable id="d3-1">
+      <h2>3.1 &middot; CLAUDE.md hierarchy, scoping and modular organisation <span class="tag warn">high yield</span></h2>
+
+      <p><code>CLAUDE.md</code> is memory that loads automatically. Several files can contribute, and they compose
+      rather than replace &mdash; understanding the layering is what the exam tests.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:22%">Level</th><th style="width:26%">Location</th><th>Contains</th></tr>
+        <tr><td><strong>Enterprise / managed</strong></td><td>A system-wide managed policy path</td><td>Organisation-wide rules an administrator sets. Applies to everyone, not editable per project</td></tr>
+        <tr><td><strong>User</strong></td><td><code>~/.claude/CLAUDE.md</code></td><td>Your personal preferences across every project &mdash; how you like commits phrased, tools you always want used. <strong>Not</strong> team conventions</td></tr>
+        <tr><td><strong>Project</strong></td><td><code>./CLAUDE.md</code> at the repo root, committed</td><td>The team's shared conventions, architecture notes, build and test commands. The main surface</td></tr>
+        <tr><td><strong>Directory</strong></td><td><code>CLAUDE.md</code> inside a subtree</td><td>Conventions for that subtree, picked up when work touches files there &mdash; ideal for a monorepo package with its own rules</td></tr>
+        <tr><td><strong>Local overrides</strong></td><td>An un-committed local memory file</td><td>Personal notes for one repo, kept out of the team's history</td></tr>
+      </table>
+      </div>
+
+      <h3>Imports</h3>
+<pre><code># CLAUDE.md  (root — keep it short)
+
+## Universal
+- Conventional commits. Never commit to `main` directly.
+- Every behavioural change ships with a test.
+- Run `make check` before proposing a PR.
+
+## Detail, loaded with this file
+@docs/architecture-overview.md
+@docs/testing-strategy.md
+@~/.claude/my-personal-style.md      # a user-level file, imported deliberately</code></pre>
+
+      <div class="note rule">
+        <b>What <code>@import</code> does and does not do</b>
+        It <strong>inlines</strong> the referenced file into the memory context when this <code>CLAUDE.md</code>
+        loads. It is <em>organisation</em>, not <em>conditionality</em>: an imported file is loaded every time, so
+        importing eight convention documents recreates the 900-line problem in a tidier directory layout. When you
+        want a document to load <em>only sometimes</em>, you want a path rule (<a href="#d3-3">3.3</a>) or a skill
+        (<a href="#d3-2">3.2</a>), not an import.
+      </div>
+
+      <h3>What belongs in CLAUDE.md &mdash; and what does not</h3>
+      <div class="dd">
+        <div class="do">
+          <h5>Do put in</h5>
+          <ul class="tight">
+            <li>Build, test and lint commands, with the exact invocation</li>
+            <li>Conventions that apply to all work in the repo</li>
+            <li>Architecture facts that are not discoverable quickly &mdash; &ldquo;the queue consumer is in a separate service&rdquo;</li>
+            <li>Hard prohibitions &mdash; &ldquo;never edit <code>generated/</code>&rdquo;</li>
+            <li>Pointers: where the deeper docs live</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h5>Don't put in</h5>
+          <ul class="tight">
+            <li>Secrets, tokens or credentials &mdash; it is committed and it is loaded into context</li>
+            <li>Language conventions that apply to a subset of files (use a path rule)</li>
+            <li>Long procedures run occasionally (use a skill or a command)</li>
+            <li>Information Claude can read from the code in one Grep</li>
+            <li>Anything you would not want in every single request</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note">
+        <b>Diagnosing what actually loaded</b>
+        <code>/memory</code> shows the memory files in play and lets you edit them. When a stem says a convention
+        &ldquo;is not being followed&rdquo;, the first architectural question is whether the file containing it was
+        ever loaded for that task &mdash; a directory <code>CLAUDE.md</code> only applies when work reaches that
+        directory, and a rule with a <code>paths:</code> glob only applies when a matching file is touched.
+      </div>
+
+      <details class="qa"><summary>A convention in a package-level <code>CLAUDE.md</code> is ignored when Claude edits that package from a session started at the repo root. Bug or expected?</summary>
+      <div class="qa-body">Expected behaviour to reason about, not a bug to report. Directory-level memory attaches
+      to work in that subtree; if the session's activity has not reached those files, that memory has no reason to
+      load. If the convention must apply whenever files of a certain <em>type</em> are touched &mdash; wherever they
+      live &mdash; a directory file is the wrong mechanism and a <code>.claude/rules/</code> entry with a
+      <code>paths:</code> glob is the right one (<a href="#d3-3">3.3</a>).</div></details>
+    </section>
+
+    <section data-searchable id="d3-2">
+      <h2>3.2 &middot; Custom slash commands and skills <span class="tag warn">high yield</span></h2>
+
+      <h3>Slash commands</h3>
+      <p>A command is a prompt template stored as a Markdown file &mdash; <code>.claude/commands/name.md</code> for
+      the project, or in the user directory for personal ones. It is invoked explicitly by the human.</p>
+
+<pre><code>---
+description: Review the staged diff against our security checklist
+argument-hint: [severity-floor]
+allowed-tools: Read, Grep, Glob, Bash(git diff:*)
+---
+
+Review the staged changes for security defects at severity $1 or above.
+
+Current diff:
+!`git diff --cached`
+
+Checklist: @docs/security-checklist.md
+
+For each finding give: file and line, the concrete exploit path, and the fix.
+Report nothing that is merely stylistic.</code></pre>
+      <ul class="tight small">
+        <li><code>$ARGUMENTS</code> is everything the user typed; <code>$1</code>, <code>$2</code> are positional.</li>
+        <li><code>!`cmd`</code> runs a shell command and inlines its output at invocation time.</li>
+        <li><code>@path</code> inlines a file.</li>
+        <li><code>allowed-tools</code> restricts what the command may do &mdash; enforcement, not advice.</li>
+        <li><code>argument-hint</code> is the completion hint shown to the human in the UI.</li>
+      </ul>
+
+      <h3>Skills</h3>
+      <p>A skill is a folder &mdash; <code>.claude/skills/&lt;name&gt;/SKILL.md</code>, plus any supporting files
+      &mdash; describing a capability the model invokes <strong>when it judges the situation matches</strong>. The
+      frontmatter <code>description</code> is therefore a routing signal, exactly like a tool description.</p>
+
+<pre><code>---
+name: incident-postmortem
+description: >
+  Produce a blameless post-mortem from an incident timeline. Use when the user
+  mentions an outage, an incident, a sev-1/sev-2, or asks for an RCA document.
+  Do not use for routine bug write-ups.
+allowed-tools: Read, Grep, Glob, Write
+context: fork
+---
+
+# Incident post-mortem
+
+1. Gather the timeline: alerts, deploys, mitigations, resolution.
+2. Establish contributing factors — never a single "root cause", never a person.
+3. Write to `docs/postmortems/YYYY-MM-DD-&lt;slug&gt;.md` using @templates/postmortem.md.
+4. Produce action items with an owner and a due date each.</code></pre>
+
+      <div class="note rule">
+        <b>The three frontmatter keys the exam cares about</b>
+        <ul class="tight">
+          <li><strong><code>description</code></strong> &mdash; how the model decides to invoke it. Must say
+          <em>when to use</em> and <em>when not to</em>. A vague description means the skill never fires, or fires
+          on the wrong task.</li>
+          <li><strong><code>allowed-tools</code></strong> &mdash; the tools available while it runs. Enforcement
+          surface 1, scoped to a workflow.</li>
+          <li><strong><code>context: fork</code></strong> <span class="tag warn">version-sensitive</span> &mdash;
+          runs the skill in an isolated context that does not pollute the main conversation, returning only its
+          result. Use it for verbose work &mdash; a long audit, a broad sweep &mdash; whose intermediate output the
+          main thread does not need.</li>
+        </ul>
+      </div>
+
+      <h3>Choosing the surface</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:20%">Surface</th><th style="width:26%">Loaded</th><th>Right when</th></tr>
+        <tr><td><code>CLAUDE.md</code></td><td>Always</td><td>The rule applies to <em>all</em> work in the repo</td></tr>
+        <tr><td><code>.claude/rules/</code> with <code>paths:</code></td><td>When a matching file is touched</td><td>The rule applies to a <em>file type or area</em>, wherever it lives</td></tr>
+        <tr><td>Skill</td><td>When the model judges it applies</td><td>A multi-step <em>procedure</em> with its own tool needs &mdash; and you want the model to reach for it without being told</td></tr>
+        <tr><td>Slash command</td><td>When the human types it</td><td>A repeatable task a person deliberately triggers, often with arguments</td></tr>
+        <tr><td>Subagent / <code>Task</code></td><td>When the coordinator delegates</td><td>Work that needs its own context window and returns a summary</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The classic mis-assignment</b>
+        Putting a long, occasionally-used procedure in <code>CLAUDE.md</code> &mdash; it costs context on every
+        unrelated task and dilutes the rules that do apply. And the mirror image: putting an always-applicable
+        convention in a skill, so it only sometimes loads and the team sees inconsistent behaviour. <em>Always
+        &rarr; CLAUDE.md. Sometimes, by file type &rarr; path rule. Sometimes, by task &rarr; skill.</em>
+      </div>
+
+      <details class="qa"><summary>A team's skill never triggers. The body is excellent. Where is the bug?</summary>
+      <div class="qa-body">The <code>description</code>. It is the only part the model reads when deciding whether
+      the skill applies &mdash; the body is loaded after. A description like &ldquo;helps with documentation&rdquo;
+      gives nothing to match against. Rewrite it to name the triggering situations in the words a user would use,
+      and to name what it is <em>not</em> for so it stops competing with a neighbouring skill.</div></details>
+
+      <details class="qa"><summary>When is <code>context: fork</code> worth it?</summary>
+      <div class="qa-body">When the skill's intermediate work is voluminous and only its conclusion matters &mdash;
+      auditing 200 files, sweeping a dependency tree, running a long analysis. Forking keeps that traffic out of the
+      main conversation, so the thread you are actually working in stays focused. It is the skill-level version of
+      the subagent isolation argument in <a href="#d5-4">5.4</a>. Do not fork a skill whose step-by-step output the
+      user needs to watch and interact with.</div></details>
+    </section>
+
+    <section data-searchable id="d3-3">
+      <h2>3.3 &middot; Path-specific rules</h2>
+
+      <p><span class="tag warn">version-sensitive</span> A rules file &mdash; <code>.claude/rules/&lt;name&gt;.md</code>
+      &mdash; carries YAML frontmatter with a <code>paths:</code> list of globs. Its content loads
+      <strong>only when the work touches a matching file</strong>. It is the mechanism for conditional
+      conventions.</p>
+
+<pre><code>---
+paths:
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/__tests__/**"
+---
+
+# Test conventions
+
+- Vitest, not Jest. `describe` blocks mirror the module's export names.
+- No snapshot tests for anything with dates or ids in it.
+- Prefer `test.each` over loops so failures name the case.
+- Never mock our own modules; mock at the network boundary with MSW.</code></pre>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:34%">Requirement</th><th>Mechanism</th></tr>
+        <tr><td>Conventions for a whole package that lives in one directory</td><td>A directory-level <code>CLAUDE.md</code> in that package works fine</td></tr>
+        <tr><td>Conventions for a <strong>file type spread across the tree</strong> &mdash; tests, migrations, GraphQL resolvers, Terraform</td><td><strong>A path rule with a glob.</strong> A directory <code>CLAUDE.md</code> cannot express &ldquo;every <code>*.test.ts</code> anywhere&rdquo;</td></tr>
+        <tr><td>Rules that must apply to every task in the repo</td><td>Root <code>CLAUDE.md</code></td></tr>
+        <tr><td>A procedure invoked by task rather than by file</td><td>A skill</td></tr>
+      </table>
+      </div>
+
+      <div class="note good">
+        <b>Why this is the credited answer so often</b>
+        It fixes the dilution problem <em>and</em> the coverage problem at once. Terraform rules do not compete for
+        attention during a React change, and the test conventions apply to a new test file in a package nobody
+        thought to add a <code>CLAUDE.md</code> to. When a stem describes a monorepo with multiple stacks and
+        inconsistent convention-following, path rules are almost always in the credited answer.
+      </div>
+
+      <details class="qa"><summary>Migration files live in <code>services/*/db/migrations/</code> across eleven services, and their rules are ignored about half the time. Fix?</summary>
+      <div class="qa-body">One rules file with <code>paths: ["services/*/db/migrations/**"]</code>. Eleven
+      directory-level <code>CLAUDE.md</code> files would also work and would be eleven copies to drift apart, plus a
+      twelfth service will ship without one. The glob is a single source of truth that automatically covers services
+      that do not exist yet.</div></details>
+    </section>
+
+    <section data-searchable id="d3-4">
+      <h2>3.4 &middot; Plan mode versus direct execution</h2>
+
+      <p>Plan mode explores and proposes without changing anything; you approve before work begins. Direct execution
+      starts editing. The exam wants the judgement, not the keystroke.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:50%">Use plan mode when</th><th>Go direct when</th></tr>
+        <tr><td>The change spans multiple files or modules</td><td>The change is local and obvious &mdash; one function, one config value</td></tr>
+        <tr><td>There are several defensible approaches and the choice has consequences</td><td>There is one sensible way to do it</td></tr>
+        <tr><td>You do not yet know the blast radius</td><td>You already know exactly what to change</td></tr>
+        <tr><td>The work is architectural, or touches shared contracts</td><td>The work is mechanical &mdash; rename, formatting, a version bump</td></tr>
+        <tr><td>Being wrong is expensive to unwind</td><td>Being wrong costs one <code>git checkout</code></td></tr>
+        <tr><td>You need the team to agree before code exists</td><td>Nobody else needs to see it first</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>The under-used third option: delegate the exploration</b>
+        Understanding an unfamiliar area produces a lot of output &mdash; file listings, search results, whole files
+        read &mdash; that you do not want occupying your main context for the rest of the session. Sending that
+        discovery to an <strong>Explore-style subagent</strong> and receiving a summary keeps the working thread
+        clean. On the exam, when a stem complains that a session &ldquo;degrades after exploring the codebase&rdquo;,
+        this is the shape of the answer, not a bigger context window.
+      </div>
+
+      <div class="note trap">
+        <b>Both over-corrections are wrong answers</b>
+        Planning a two-line fix wastes a round trip and reads as process for its own sake. Going direct on a
+        cross-cutting refactor produces a large diff built on an approach nobody agreed to, which is expensive
+        precisely when it is wrong. The exam signals which by describing scope and reversibility &mdash; read those
+        two attributes out of the stem before you look at the options.
+      </div>
+
+      <details class="qa"><summary>A stem describes migrating authentication from sessions to JWTs across a service, and asks for the best workflow. What must the answer contain?</summary>
+      <div class="qa-body">Exploration first (ideally delegated, because it is verbose), then plan mode to surface
+      the approach &mdash; token lifetime, refresh strategy, migration path for live sessions, what happens to
+      existing clients &mdash; then approval, then execution in stages with tests between them. An option that
+      starts editing files is wrong because the approach has real alternatives with real consequences; an option
+      that only plans, with no staged execution and verification, is incomplete.</div></details>
+    </section>
+
+    <section data-searchable id="d3-5">
+      <h2>3.5 &middot; Iterative refinement techniques</h2>
+
+      <p>How you converge on the right output when the first attempt is not it. The exam's preference is consistent:
+      <strong>concrete beats adjectival</strong>.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:22%">Technique</th><th style="width:30%">Mechanics</th><th>Use when</th></tr>
+        <tr><td><strong>Input/output examples</strong></td><td>Show a concrete input and the exact output you want for it</td><td>The output shape or style is wrong. Two examples beat two paragraphs of description, every time</td></tr>
+        <tr><td><strong>Test-driven iteration</strong></td><td>Write (or have written) failing tests first, then iterate until they pass</td><td>Correctness is objectively checkable. Converts &ldquo;is this right?&rdquo; into a command that answers itself</td></tr>
+        <tr><td><strong>The interview pattern</strong></td><td>Ask the model to interview <em>you</em> about the requirements before it writes anything</td><td>You know the domain but have not enumerated the edge cases. Surfaces requirements you would otherwise discover in review</td></tr>
+        <tr><td><strong>Batching interacting feedback</strong></td><td>Give several related issues at once</td><td>The fixes interact &mdash; fixing them one at a time makes each fix re-break the last</td></tr>
+        <tr><td><strong>Sequencing independent feedback</strong></td><td>One at a time, verify between</td><td>The issues are unrelated and you want to know which change caused which effect</td></tr>
+        <tr><td><strong>Restarting with a better prompt</strong></td><td>Discard the thread; re-ask with what you have learned</td><td>Three rounds have not converged. Continuing to patch a wrong foundation is more expensive than restarting on a right one</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>&ldquo;Make it better&rdquo; is not feedback</b>
+        &ldquo;This is too verbose&rdquo;, &ldquo;be more careful&rdquo;, &ldquo;improve the error handling&rdquo;
+        all leave the model to guess what you meant, and the guess is usually not yours. The credited alternative is
+        always concrete: <em>this specific output, for this specific input, should look like this</em>. The same
+        principle powers <a href="#d4-1">4.1</a> (explicit criteria) and <a href="#d4-2">4.2</a> (few-shot) &mdash;
+        it is one idea appearing in three domains.
+      </div>
+
+      <details class="qa"><summary>Three rounds of feedback have made the output worse, not better. What now?</summary>
+      <div class="qa-body">Restart with a prompt that encodes what you learned. Three rounds of patches leave the
+      context full of rejected attempts and corrections, all of which still influence the model and all of which sit
+      in the low-attention middle of the conversation. A fresh session with a specification written from the three
+      rounds &mdash; including the two things you now know you do <em>not</em> want, stated concretely &mdash;
+      converges faster than a fourth patch.</div></details>
+    </section>
+
+    <section data-searchable id="d3-6">
+      <h2>3.6 &middot; CI/CD integration</h2>
+
+      <p>Claude Code runs non-interactively in a pipeline. Three flags carry most of the items.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Flag</th><th>Purpose</th></tr>
+        <tr><td><code>-p</code> / <code>--print</code></td><td>Non-interactive: run the prompt, print the result, exit. The basis of every CI invocation</td></tr>
+        <tr><td><code>--output-format json</code></td><td>Machine-readable output the pipeline can parse and branch on. <code>stream-json</code> streams incrementally for long runs</td></tr>
+        <tr><td><code>--json-schema</code> <span class="tag warn">version-sensitive</span></td><td>Constrain the output to a schema you supply, so the pipeline gets a guaranteed shape rather than parsing prose</td></tr>
+        <tr><td><code>--allowedTools</code> / permission settings</td><td>Restrict what the automated run may do. In CI this matters more than interactively &mdash; nobody is watching to approve</td></tr>
+        <tr><td><code>--model</code>, <code>--max-turns</code></td><td>Pin the model for reproducibility; bound the run so a pathological case cannot hang the pipeline</td></tr>
+      </table>
+      </div>
+
+<pre><code>claude -p "Review the diff in $GITHUB_BASE_REF..HEAD for security defects. \
+Report only BLOCKER and HIGH findings, each with file, line, exploit path and fix." \
+  --output-format json \
+  --json-schema ./ci/review-schema.json \
+  --allowedTools "Read,Grep,Glob,Bash(git diff:*)" \
+  > review.json
+
+jq -e '[.findings[] | select(.severity=="BLOCKER")] | length == 0' review.json</code></pre>
+
+      <div class="note rule">
+        <b>Three CI-specific design rules</b>
+        <ul class="tight">
+          <li><strong>Structured output is not optional.</strong> A pipeline that greps prose for the word
+          &ldquo;critical&rdquo; is a pipeline that fails silently the day the phrasing changes.</li>
+          <li><strong><code>CLAUDE.md</code> is your CI context.</strong> The repository's conventions load in CI
+          just as they do locally, which is what makes automated review aware of the team's actual standards rather
+          than generic ones.</li>
+          <li><strong>Precision over recall in a blocking gate.</strong> A reviewer that flags twenty things per PR,
+          fifteen of them noise, gets ignored within a fortnight &mdash; and an ignored gate is worse than no gate,
+          because it also blocks. This is exactly <a href="#d4-1">4.1</a>: explicit severity criteria, not
+          &ldquo;be conservative&rdquo;.</li>
+        </ul>
+      </div>
+
+      <div class="note trap">
+        <b>Do not let the author review itself</b>
+        When the pipeline both generates and reviews, use a <strong>separate invocation</strong> for the review
+        &mdash; a fresh instance with no memory of the generation reasoning. An instance that just justified a
+        design decision is poorly placed to find the flaw in it. See <a href="#d4-6">4.6</a>.
+      </div>
+
+      <div class="note warn">
+        <b>And do not batch a blocking check</b>
+        The Message Batches API is 50% cheaper and takes up to 24 hours. A pre-merge review is blocking a human, so
+        the discount is irrelevant &mdash; the option that moves a blocking gate to batch is always wrong
+        (<a href="#d4-5">4.5</a>). Nightly full-repo analysis, however, is exactly what batch is for.
+      </div>
+
+      <details class="qa"><summary>Automated PR review is being ignored by the team. Diagnose.</summary>
+      <div class="qa-body">Almost certainly precision, not coverage. Measure the false-positive rate first &mdash;
+      the stem usually supplies it. The fix is explicit severity criteria with code examples of what does and does
+      not qualify, and reporting only the top severities in the blocking gate while everything else goes to a
+      non-blocking comment. Adding more checks, a bigger model, or stronger &ldquo;be careful&rdquo; language all
+      make the ignoring worse.</div></details>
+    </section>
+
+    <!-- ======================= DOMAIN 4 ======================= -->
+
+    <section data-searchable id="d4">
+      <h2>Domain 4 &middot; Prompt Engineering &amp; Structured Output <span class="tag warn">20%</span></h2>
+
+      <p>Six task statements. The mechanics are in <a href="#p4">Primer 4</a>; the domain itself is about
+      <em>precision</em> &mdash; getting a specific, reliable, machine-usable result out of a probabilistic system.
+      The recurring judgement: <strong>which failures are fixed by schemas, which by examples, which by criteria,
+      and which by none of the three</strong>.</p>
+
+      <div class="casebox">
+        <div class="cb-label">Worked scenario</div>
+        <h5>Kestrel Systems: the reviewer nobody reads</h5>
+        <p>Kestrel added an automated code reviewer to its pipeline. The prompt ends &ldquo;<em>be conservative and
+        only report issues you are confident about</em>&rdquo;. After six weeks: <strong>an average of 23 comments
+        per PR, and engineers report roughly 70% are not worth acting on</strong> &mdash; style opinions,
+        hypothetical nulls that cannot occur, suggestions to refactor working code. Developers have started
+        approving through the bot without reading it. Leadership asks for a fix, and the proposals are: a stronger
+        model, a confidence score with a threshold, and a second reviewer to filter the first.</p>
+        <table>
+          <tr><th style="width:34%">Option on the table</th><th>Verdict</th></tr>
+          <tr><td>Upgrade to a larger model</td><td><strong>No.</strong> The instruction is ambiguous, so a more capable model follows an ambiguous instruction more capably. &ldquo;Confident&rdquo; is undefined either way</td></tr>
+          <tr><td>Have the model score its confidence 1&ndash;10; suppress below 7</td><td><strong>No.</strong> Self-reported confidence is not calibrated. The 70% it was wrong about are exactly the ones it felt sure of</td></tr>
+          <tr><td>Add a second model to filter the first's output</td><td><strong>No.</strong> Doubles the cost to filter noise that should not have been generated. A filter with the same vague criteria drops the wrong ones</td></tr>
+          <tr><td><strong>Replace &ldquo;be conservative&rdquo; with explicit categorical criteria: define BLOCKER, HIGH, MEDIUM with code examples of what does and does not qualify; report only BLOCKER and HIGH in the gate</strong></td><td><strong>Yes.</strong> The model now has a decidable test per finding instead of a feeling, and the gate's contents are auditable and tunable</td></tr>
+        </table>
+        <div class="cb-take"><b>The takeaway</b> When a stem quotes vague instruction language &mdash;
+        &ldquo;be conservative&rdquo;, &ldquo;use good judgement&rdquo;, &ldquo;only if confident&rdquo; &mdash; it
+        is showing you the defect. The fix is a definition, not a bigger model and not an extra model.</div>
+      </div>
+    </section>
+
+    <section data-searchable id="d4-1">
+      <h2>4.1 &middot; Explicit criteria over vague confidence language <span class="tag warn">high yield</span></h2>
+
+      <p>&ldquo;Be conservative&rdquo; is not an instruction &mdash; it is a hope. The model has no shared referent
+      for how conservative, and no test it can apply to a candidate finding. Replace the adjective with a
+      <strong>decidable rule</strong>.</p>
+
+<pre><code>Report a finding ONLY if it satisfies one of these categories.
+
+BLOCKER — a defect that is exploitable or causes data loss in production.
+  Qualifies:      unparameterised SQL built from request data; a secret in
+                  committed source; an auth check removed from a route.
+  Does NOT:       a theoretical null on a value the caller has already validated;
+                  a missing test.
+
+HIGH — a defect that will cause incorrect behaviour under conditions that occur
+  in normal operation.
+  Qualifies:      an unhandled error path on a network call in a request handler;
+                  an off-by-one in pagination; a race on a shared counter.
+  Does NOT:       inefficient-but-correct code; naming; a TODO comment.
+
+MEDIUM — correctness risk only under unusual conditions. Report, do not block.
+
+Do NOT report: formatting, naming, subjective structure preferences, or anything
+the linter already enforces.
+
+For each finding give: file, line, the concrete failure scenario (inputs → wrong
+result), and the minimal fix. If you cannot state the failure scenario in one
+sentence, it is not a finding.</code></pre>
+
+      <div class="note rule">
+        <b>Four properties of criteria that work</b>
+        <ol class="tight">
+          <li><strong>Categorical, not scalar.</strong> Named severities with definitions beat a 1&ndash;10 score,
+          because a category has a test and a number has a vibe.</li>
+          <li><strong>Illustrated both ways.</strong> What qualifies <em>and</em> what does not. The negative
+          examples do most of the precision work.</li>
+          <li><strong>Anchored in observable consequences.</strong> &ldquo;Causes incorrect behaviour under
+          conditions that occur in normal operation&rdquo; is checkable; &ldquo;important&rdquo; is not.</li>
+          <li><strong>Carrying a self-check.</strong> &ldquo;If you cannot state the failure scenario in one
+          sentence, it is not a finding&rdquo; converts the criterion into an action the model performs per
+          candidate.</li>
+        </ol>
+      </div>
+
+      <div class="note trap">
+        <b>Why self-reported confidence keeps appearing &mdash; and keeps being wrong</b>
+        It is intuitive and it is easy to implement, which is why it is written as a plausible option in item after
+        item. It fails because a model's stated confidence is not calibrated against its accuracy: the cases it gets
+        wrong are disproportionately cases it feels sure about. Confidence <em>can</em> be used &mdash; but only
+        after being calibrated against labelled data, per field, as in <a href="#d5-5">5.5</a>. Raw introspective
+        confidence as a routing threshold is a distractor.
+      </div>
+
+      <div class="note good">
+        <b>The precision/recall framing the exam expects</b>
+        In a workflow a human must trust, <strong>false positives cost more than false negatives</strong>, because
+        they destroy the trust that makes any of the output useful. A reviewer that catches 70% of real issues and
+        is right nearly every time it speaks gets read; one that catches 95% and is wrong two-thirds of the time
+        gets muted. When a stem describes people ignoring or bypassing an automated check, precision is the
+        objective.
+      </div>
+
+      <details class="qa"><summary>&ldquo;Only flag issues you are highly confident about&rdquo; and &ldquo;only flag issues where you can state a concrete failing input&rdquo;. Why is the second so much better?</summary>
+      <div class="qa-body">The second is a test the model can actually run. It must produce an artefact &mdash; the
+      failing input &mdash; and if it cannot, the finding is dropped by construction. The first asks for an
+      introspective judgement with no external referent, which the model will answer, unreliably. Prefer criteria
+      that force a checkable artefact over criteria that ask for a feeling.</div></details>
+    </section>
+
+    <section data-searchable id="d4-2">
+      <h2>4.2 &middot; Few-shot prompting</h2>
+
+      <p>Two to four examples, chosen for the cases that are actually hard. Their job is to demonstrate the
+      <em>decision boundary</em>, not to pad the prompt with easy cases the model already handles.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Use few-shot when</th><th>Because</th></tr>
+        <tr><td>The classification boundary is genuinely ambiguous</td><td>A worked case draws the line more precisely than a paragraph describing it</td></tr>
+        <tr><td>The output format is specific and hard to describe</td><td>One demonstration beats three sentences of specification</td></tr>
+        <tr><td>Inputs vary in structure &mdash; invoices from forty suppliers</td><td>Examples across the variation teach that the <em>fields</em> are the target, not the layout</td></tr>
+        <tr><td>Domain conventions are non-obvious</td><td>&ldquo;Net 30 from invoice date unless a delivery date is stated&rdquo; is easier shown than argued</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>Choosing the examples</b>
+        Pick the cases that are <strong>hard, representative and diverse</strong>. Two examples of the same easy
+        pattern teach nothing and cost tokens. One example of each confusable pair &mdash; the case that looks like
+        A but is B, and the reverse &mdash; is worth ten easy ones. Include at least one <em>negative</em> or
+        <em>edge</em> case: the document where the field is genuinely absent and the correct output is
+        <code>null</code>, so the model learns that absence is representable.
+      </div>
+
+      <div class="note trap">
+        <b>Few-shot does not generalise to unseen structure</b>
+        A recurring stem: extraction works on the four supplier formats in the examples and fails on a fifth. The
+        distractor is &ldquo;add an example for every supplier format&rdquo;, which does not scale and merely
+        postpones the problem. The credited direction is examples that are deliberately <em>structurally
+        varied</em>, plus field descriptions that define the field semantically (&ldquo;the grand total including
+        tax, wherever it appears&rdquo;) rather than positionally (&ldquo;the number in the bottom right&rdquo;).
+      </div>
+
+      <details class="qa"><summary>How many examples, and does more always help?</summary>
+      <div class="qa-body">Two to four is the working range for most tasks on this exam. More is not monotonically
+      better: examples consume context, they can over-anchor the model on their specific surface features, and a
+      long example block pushes the actual input toward the low-attention middle. If four well-chosen examples do
+      not fix it, the problem is usually the criteria or the schema, not the example count.</div></details>
+    </section>
+
+    <section data-searchable id="d4-3">
+      <h2>4.3 &middot; Enforcing structured output <span class="tag warn">high yield</span></h2>
+
+      <p>Mechanics in <a href="#p4">Primer 4</a>. Here: the design decisions and the failure taxonomy the exam
+      grades.</p>
+
+      <h3>Nullability, optionality and enums</h3>
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Situation</th><th style="width:30%">Schema decision</th><th>Why</th></tr>
+        <tr><td>The field is always present in a valid document</td><td><code>required</code>, non-null</td><td>Its absence is a genuine error worth failing on</td></tr>
+        <tr><td>The field is often absent and that is normal</td><td><code>"type": ["string","null"]</code>, and describe what null means</td><td>Gives the model a way to be honest. Otherwise it invents</td></tr>
+        <tr><td>The value exists but is illegible or ambiguous</td><td>A distinct <code>unclear</code> marker, separate from null</td><td>&ldquo;Not in the document&rdquo; and &ldquo;present but I could not read it&rdquo; need different downstream handling</td></tr>
+        <tr><td>A closed enum over an open reality</td><td>Add <code>other</code> plus a required-when-other free-text field</td><td>Preserves the signal that a new category exists rather than burying it in a wrong bucket</td></tr>
+        <tr><td>A number whose unit is ambiguous</td><td>One field for the value, one for the unit or currency &mdash; both required</td><td>Prevents the classic minor-units/major-units defect silently entering the ledger</td></tr>
+      </table>
+      </div>
+
+      <div class="note good">
+        <b>The <code>other</code>-plus-detail pattern, and why the exam loves it</b>
+        A closed enum forces every novel case into an existing member, which is wrong <em>and</em> invisible: you
+        never learn the new category exists. <code>{"enum": [...,"other"]}</code> with a
+        <code>other_description</code> field makes novelty explicit and gives you a queryable log of the cases your
+        taxonomy does not cover &mdash; which is how the taxonomy gets improved. Expect at least one item where this
+        is the credited answer over &ldquo;add more enum members&rdquo;.
+      </div>
+
+      <div class="note trap">
+        <b>What a schema cannot do</b>
+        It cannot make the model read the right number off the page. Structural guarantees are free; semantic
+        accuracy is earned with field descriptions, few-shot examples of the confusing layouts, and review of
+        low-confidence fields. When a stem reports &ldquo;the output always parses but 6% of totals are the subtotal
+        instead&rdquo;, every schema-tightening option is a distractor.
+      </div>
+
+      <details class="qa"><summary>Downstream systems keep receiving <code>payment_terms: "Net 30"</code> for invoices that do not state terms. What is the schema fix, and what is the non-schema fix?</summary>
+      <div class="qa-body">Schema: make <code>payment_terms</code> nullable and remove it from <code>required</code>,
+      with a description saying &ldquo;verbatim from the document; null if the document does not state terms&rdquo;.
+      Non-schema: a few-shot example containing a document with no terms whose expected output is <code>null</code>,
+      so the model has seen that answering &ldquo;absent&rdquo; is legitimate. The two together are the complete
+      answer; the schema alone permits null without demonstrating that it is wanted.</div></details>
+    </section>
+
+    <section data-searchable id="d4-4">
+      <h2>4.4 &middot; Validation, retry and feedback loops</h2>
+
+      <p>Validate the extraction, and when it fails, retry with enough information for the second attempt to
+      differ.</p>
+
+<pre><code>def extract_with_retry(document, max_attempts=2):
+    messages = [{"role": "user", "content": build_prompt(document)}]
+
+    for attempt in range(max_attempts + 1):
+        data = call_with_forced_tool(messages)
+        errors = validate(data)                 # schema + business rules
+        if not errors:
+            return data, None
+
+        if attempt == max_attempts:
+            break
+
+        # The retry must carry ALL THREE, or it is just a re-roll:
+        messages += [
+            {"role": "assistant", "content": json.dumps(data)},          # 1. what it produced
+            {"role": "user", "content":                                  # 2. the specific error
+                f"That output failed validation: {errors}. "
+                f"Correct only those fields and return the tool call again. "
+                f"The source document is above."},                       # 3. the document, still in context
+        ]
+
+    return None, {"status": "needs_human_review", "errors": errors, "last_attempt": data}</code></pre>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Failure</th><th style="width:16%">Retry helps?</th><th>Because</th></tr>
+        <tr><td>Malformed JSON / missing key / wrong type</td><td><strong>Yes</strong></td><td>A structural mistake the model can see and correct once it is named</td></tr>
+        <tr><td>Enum violation</td><td><strong>Yes</strong></td><td>Naming the permitted values usually resolves it in one attempt</td></tr>
+        <tr><td>Business-rule violation &mdash; line items do not sum to the total</td><td><strong>Sometimes</strong></td><td>If it was an arithmetic slip, yes. If the document itself is inconsistent, no &mdash; and that is a finding, not an error</td></tr>
+        <tr><td>Wrong value, correctly shaped</td><td><strong>No</strong></td><td>The same reasoning on the same input yields the same answer. You need better field descriptions or examples</td></tr>
+        <tr><td>The value is not in the document</td><td><strong>No</strong></td><td>Retrying an absent fact produces a more confident invention. Route to human review or supply the missing source</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>Bound it, and make the give-up path useful</b>
+        Two attempts, occasionally three. Beyond that you are paying for the same failure repeatedly. The exit path
+        matters as much as the retry: a record that goes to human review should carry the document reference, the
+        best attempt, and <em>which specific validation failed</em>, so the human starts at the problem. Silently
+        dropping the record, or writing a partially-invalid one, are both distractors.
+      </div>
+
+      <div class="note good">
+        <b>Instrument the failures, do not just handle them</b>
+        Add a field that records <em>why</em> the model made the call it did &mdash; for example a
+        <code>detected_pattern</code> or <code>evidence_span</code> alongside a classification. When 8% of records
+        need review, that field turns an opaque failure pile into a distribution you can act on: &ldquo;61% of
+        failures are the same three supplier layouts&rdquo; is a fixable finding. This is the same instinct as
+        annotating gaps in <a href="#d5-6">5.6</a>.
+      </div>
+
+      <details class="qa"><summary>An extraction pipeline retries five times with the same prompt and logs the final failure. What is wrong on both counts?</summary>
+      <div class="qa-body">The retries carry no new information, so attempts two through five are the same
+      computation at the same price &mdash; a re-roll, not a correction. A retry must include the failed output and
+      the specific validation error, and the source document must still be in context. And the log is a dead end:
+      the failure should route into a review queue with the document reference and the failing field, so a human can
+      resolve it and so the failure distribution is analysable.</div></details>
+    </section>
+
+    <section data-searchable id="d4-5">
+      <h2>4.5 &middot; Batch processing strategies</h2>
+
+      <p>The Message Batches API takes a set of independent requests and processes them asynchronously at roughly
+      <strong>half the cost</strong>, returning results within <strong>up to 24 hours</strong> (usually much
+      sooner). Each request carries a <code>custom_id</code> you use to match results back &mdash; results are not
+      guaranteed to come back in submission order.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:50%">Batch is right when</th><th>Batch is wrong when</th></tr>
+        <tr><td>Nobody is waiting &mdash; nightly reprocessing, backfills, periodic audits</td><td>A human or a pipeline stage is blocked on the result</td></tr>
+        <tr><td>The requests are independent single-shot calls</td><td>The work is a multi-turn agent loop with tool calls &mdash; batch processes each request as a unit, so an interactive tool-use loop does not fit</td></tr>
+        <tr><td>The volume is large enough that 50% is real money</td><td>The volume is small and the latency cost outweighs the saving</td></tr>
+        <tr><td>The deadline is comfortably beyond 24 hours</td><td>The SLA is hours, or the arithmetic leaves no slack for a resubmission</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>Do the SLA arithmetic the exam is asking for</b>
+        A stem that says &ldquo;12,000 documents, results needed within 24 hours&rdquo; is not a batch question with
+        a comfortable answer &mdash; it is a trap. Batch's own window is <em>up to</em> 24 hours, so a run that
+        lands late leaves zero room to resubmit the failures, and there will be failures. Either the deadline needs
+        real slack (48&nbsp;h+), or you split: batch the bulk, process the tail synchronously.
+      </div>
+
+      <div class="note trap">
+        <b>Partial failure is normal, and the plan for it is part of the answer</b>
+        Individual requests inside a batch can fail while the batch succeeds. A design that assumes all-or-nothing
+        will silently drop records. Correlate by <code>custom_id</code>, identify the failures, and resubmit them
+        &mdash; synchronously if the deadline no longer permits another batch window.
+      </div>
+
+      <details class="qa"><summary>Which parts of a document pipeline can be batched: nightly reprocessing of 50,000 archived files, the live upload path, and a weekly quality audit sampling 500 records?</summary>
+      <div class="qa-body">Nightly reprocessing and the weekly audit &mdash; both are unattended, independent and
+      deadline-tolerant. The live upload path cannot be batched: a user is waiting. The credited answers on this
+      exam are usually <em>hybrid</em> ones that route by urgency rather than moving everything to batch for the
+      discount or leaving everything synchronous for the latency.</div></details>
+    </section>
+
+    <section data-searchable id="d4-6">
+      <h2>4.6 &middot; Multi-instance and multi-pass review</h2>
+
+      <p>Two independent ideas that the exam often combines: <strong>who reviews</strong> (a fresh instance, not the
+      author) and <strong>how the work is divided</strong> (per-unit passes plus an integration pass).</p>
+
+      <h3>Why self-review is weak</h3>
+      <p>An instance that just produced a design has, in its own context, the reasoning that justified it. Asking it
+      to critique that work invites it to re-derive the same justification &mdash; the failure it is least likely to
+      find is the one baked into its own premises. An independent instance sees the artefact without the argument,
+      which is precisely the position a human reviewer occupies. On the exam, when generation and review happen in
+      the same session, that is the defect.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Architecture</th><th style="width:28%">Shape</th><th>Use when</th></tr>
+        <tr><td><strong>Independent review instance</strong></td><td>Fresh session; sees the artefact and the criteria, not the generation transcript</td><td>Always, when the output is going to be trusted. The single highest-value change in most review pipelines</td></tr>
+        <tr><td><strong>Per-unit + integration passes</strong></td><td>One focused pass per file/section, then one pass over the findings and the whole diff</td><td>Many units where both local detail and cross-unit consistency matter (<a href="#d1-6">1.6</a>)</td></tr>
+        <tr><td><strong>Specialised reviewers</strong></td><td>Separate passes for security, performance, correctness, each with its own criteria</td><td>The criteria genuinely differ and a single prompt would be an unfocused list of everything</td></tr>
+        <tr><td><strong>Consensus across runs</strong></td><td>N independent runs; keep what the majority flags</td><td>Rarely the exam's answer &mdash; it multiplies cost to paper over criteria that were never made explicit. Fix the criteria first</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>Two review distractors that look sophisticated</b>
+        <strong>&ldquo;Have the model critically review its own output before returning&rdquo;</strong> &mdash; some
+        benefit, but it does not address the structural problem, and it is offered as an alternative to the fix
+        rather than an addition. <strong>&ldquo;Run three instances and take the majority&rdquo;</strong> &mdash;
+        triples cost, and if the criteria are vague all three are vague in the same direction. Reach for consensus
+        only when the stem says explicit criteria are already in place and precision is still short.
+      </div>
+
+      <details class="qa"><summary>A CI pipeline generates code and then reviews it in the same Claude Code session, and the review approves everything. Fix?</summary>
+      <div class="qa-body">A second, independent invocation for the review, given the diff and explicit severity
+      criteria but not the generation session. If the diff spans many files, add the two-pass structure: per-file
+      review, then an integration pass over the findings. Note that both fixes are structural &mdash; neither is
+      &ldquo;tell the reviewer to be stricter&rdquo;.</div></details>
+    </section>
+
+    <!-- ======================= DOMAIN 5 ======================= -->
+
+    <section data-searchable id="d5">
+      <h2>Domain 5 &middot; Context Management &amp; Reliability <span class="tag">15%</span></h2>
+
+      <p>The smallest domain by weight and the one that decides the most items elsewhere. Six task statements about
+      what an agent knows, what it does when it does not know, and what it tells the next component. The organising
+      idea: <strong>an agent's context is a designed artefact, and honest reporting of gaps is a feature, not a
+      failure.</strong></p>
+
+      <div class="casebox">
+        <div class="cb-label">Worked scenario</div>
+        <h5>Ironvale Insurance: the agent that forgot the claim number</h5>
+        <p>Ironvale's claims agent handles conversations that routinely run 40&ndash;60 turns, each turn pulling
+        policy documents, claim histories and adjuster notes through MCP tools. Around turn 30, quality collapses:
+        the agent re-asks for the claim number it was given at turn 3, contradicts a coverage decision it
+        communicated at turn 12, and starts summarising the policy incorrectly. The context window is not full
+        &mdash; usage sits around 60%. Proposals: a bigger context window, aggressive summarisation every ten turns,
+        and a larger model.</p>
+        <table>
+          <tr><th style="width:34%">Option on the table</th><th>Verdict</th></tr>
+          <tr><td>Move to a larger context window</td><td><strong>No.</strong> At 60% usage capacity is not the constraint. The problem is <em>where</em> the facts are, not whether they fit</td></tr>
+          <tr><td>Summarise progressively every ten turns</td><td><strong>Risky on its own.</strong> Repeated summarisation of summaries erodes exactly the specific details &mdash; numbers, dates, decisions &mdash; that matter most</td></tr>
+          <tr><td>Use a larger model</td><td><strong>No.</strong> Attention dilution across a long conversation is not a capability gap</td></tr>
+          <tr><td><strong>Maintain a structured &ldquo;case facts&rdquo; block &mdash; claim number, policy, decisions taken, amounts &mdash; kept current and re-anchored near the end of the context; trim verbose tool payloads to the fields actually used</strong></td><td><strong>Yes.</strong> The critical facts stop living in the low-attention middle, and the window stops filling with document dumps nobody re-reads</td></tr>
+        </table>
+        <div class="cb-take"><b>The takeaway</b> &ldquo;It forgot&rdquo; in a long conversation is a
+        <em>placement</em> problem before it is a capacity problem. Facts that must persist should be maintained
+        explicitly, not left to survive by luck in the middle of a transcript.</div>
+      </div>
+    </section>
+
+    <section data-searchable id="d5-1">
+      <h2>5.1 &middot; Managing context across long interactions</h2>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Technique</th><th style="width:30%">Mechanics</th><th>Fixes</th></tr>
+        <tr><td><strong>Structured facts block</strong></td><td>A short, explicitly maintained record of the entities, decisions and values that must persist &mdash; updated as they change, positioned late in the context</td><td>Forgetting identifiers; contradicting earlier decisions</td></tr>
+        <tr><td><strong>Trimming tool results</strong></td><td>Return only the fields the agent uses. A 4,000-token policy document reduced to the six clauses in play &mdash; ideally in a <code>PostToolUse</code> hook (<a href="#d1-5">1.5</a>)</td><td>A window that fills with payloads nobody re-reads</td></tr>
+        <tr><td><strong>Recency ordering</strong></td><td>Put what matters most for the current turn nearest the end</td><td>&ldquo;Lost in the middle&rdquo; &mdash; attention is strongest at the beginning and end of a long context</td></tr>
+        <tr><td><strong>Subagent isolation</strong></td><td>Send verbose exploration to a subagent; keep the summary</td><td>Raw research material crowding out the working thread</td></tr>
+        <tr><td><strong>Compaction</strong></td><td><code>/compact</code>, or an automatic summarisation of older turns</td><td>Genuine capacity limits &mdash; but see the warning below</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The progressive-summarisation trap</b>
+        Summarising summaries loses specifics first: the claim number becomes &ldquo;the customer's claim&rdquo;, the
+        agreed figure becomes &ldquo;the amount discussed&rdquo;. After three rounds the context reads fluently and
+        has quietly stopped containing the facts the conversation depends on. Use compaction for <em>narrative</em>,
+        and keep <em>identifiers, decisions and amounts</em> in a structured block that is carried forward verbatim
+        rather than re-summarised.
+      </div>
+
+      <div class="note good">
+        <b>Structure what comes back from subagents</b>
+        A subagent that returns three paragraphs forces the coordinator to re-derive facts from prose. A subagent
+        that returns <code>{findings[], sources[], confidence, gaps_noted[]}</code> lets the coordinator compare
+        results, spot gaps mechanically, and cite accurately. Designing the return shape is a context-management
+        decision as much as an orchestration one.
+      </div>
+
+      <details class="qa"><summary>Context usage is 55% and the agent is contradicting itself. What does that tell you?</summary>
+      <div class="qa-body">That capacity is not the problem, so every capacity-shaped option &mdash; bigger window,
+      bigger model, more aggressive compaction &mdash; is a distractor. The facts are present but poorly placed or
+      buried under bulk. Extract them into a maintained facts block near the end of the context, and reduce the tool
+      payloads that are consuming the middle.</div></details>
+    </section>
+
+    <section data-searchable id="d5-2">
+      <h2>5.2 &middot; Escalation and ambiguity resolution</h2>
+
+      <p>An agent must know when to stop being an agent. The exam is unusually precise about what counts as a
+      trigger.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:32%">Real escalation trigger</th><th>Why it is decidable</th></tr>
+        <tr><td><strong>The customer explicitly asks for a human</strong></td><td>Unambiguous, and it must be honoured immediately &mdash; not after one more attempt to help, which is the behaviour that generates complaints</td></tr>
+        <tr><td><strong>Policy does not cover the case, or an exception is required</strong></td><td>The agent is being asked to make a decision nobody authorised it to make. Inventing policy is the worst available outcome</td></tr>
+        <tr><td><strong>The agent cannot make progress</strong> &mdash; tools failing, information unobtainable, repeated attempts not converging</td><td>Observable from the loop's own history, not from a feeling</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>Two triggers that look right and are not</b>
+        <strong>Sentiment.</strong> An angry customer with a simple, in-policy problem should be helped, not
+        transferred; a calm customer asking for an unauthorised exception must be escalated. Sentiment is
+        uncorrelated with whether the agent is competent to act. <strong>Self-reported confidence.</strong> Same
+        objection as <a href="#d4-1">4.1</a> &mdash; uncalibrated introspection, and the cases it is wrong about are
+        the ones it feels sure of. Both appear repeatedly as plausible distractors.
+      </div>
+
+      <h3>Ambiguity: ask, do not guess</h3>
+      <p>When a lookup returns three matching orders, or a request could mean two different things, the correct
+      behaviour is to <strong>present the options and ask</strong> &mdash; concretely, with enough detail to choose
+      (&ldquo;the 3 March order for the headphones, or the 19 March order for the cable?&rdquo;). Picking the most
+      recent, or the highest-value, or the first, is a silent guess that will sometimes act on the wrong object; and
+      a bare &ldquo;which order do you mean?&rdquo; puts the work back on the customer. The same rule holds between
+      agents: a subagent facing an ambiguity its brief does not resolve should report it rather than choose.</p>
+
+      <details class="qa"><summary>A customer writes: &ldquo;This is unacceptable. I want to speak to a person. My order arrived damaged.&rdquo; What should the agent do?</summary>
+      <div class="qa-body">Escalate immediately, with a structured handoff (<a href="#d1-4">1.4</a>) that includes
+      the damage report and everything already established. The temptation &mdash; offering to resolve the damaged
+      order first, since it is a simple in-policy case &mdash; is precisely the behaviour customers experience as
+      being trapped with a bot. An explicit request for a human is honoured on the turn it is made.</div></details>
+    </section>
+
+    <section data-searchable id="d5-3">
+      <h2>5.3 &middot; Error propagation across multi-agent systems</h2>
+
+      <p>Extends <a href="#d2-2">2.2</a> from tools to agents. When a subagent cannot complete its assignment, what
+      crosses back to the coordinator determines whether the system degrades gracefully or lies.</p>
+
+<pre><code>// What a failing subagent should return
+{
+  "status": "partial",
+  "completed": ["academic sources (11 papers)", "government statistics (3 datasets)"],
+  "failed": [{
+      "source": "industry-reports-api",
+      "failure": "timeout after 3 attempts",
+      "attempted_query": "manufacturing automation employment 2023-2025",
+      "impact": "no industry-side employment figures; the economic section rests on
+                 academic estimates only",
+      "alternatives": ["public filings of the top 5 manufacturers",
+                       "the 2024 trade-association summary already in the workspace"]
+  }],
+  "findings": [ ... ],           // everything it DID establish
+  "confidence": "medium — one of three source classes is missing"
+}</code></pre>
+
+      <div class="note rule">
+        <b>The three-step discipline</b>
+        <ol class="tight">
+          <li><strong>Recover locally.</strong> Retry the transient failure, try the alternative source, degrade to
+          a narrower query. Most failures should never reach the coordinator.</li>
+          <li><strong>Propagate structure, not an exception.</strong> What failed, what was attempted, what impact
+          it has, what alternatives exist, and everything that <em>did</em> succeed.</li>
+          <li><strong>Annotate the output.</strong> The final report states its coverage limits. A conclusion drawn
+          from two of three source classes says so.</li>
+        </ol>
+      </div>
+
+      <div class="note trap">
+        <b>The two failure modes, restated because they are worth full marks</b>
+        <strong>Swallowing:</strong> returning an empty successful result, so the coordinator believes the topic has
+        no material and synthesises a confident report with a silent hole in it. This is the more dangerous of the
+        two and the exam treats it as such. <strong>Crashing:</strong> propagating an exception that terminates the
+        whole run, so one flaky API costs you four subagents' completed work.
+      </div>
+
+      <div class="note good">
+        <b>Coverage annotation is the mark of a correct answer</b>
+        Options that produce a clean-looking report from incomplete data are wrong even when the data gap was
+        unavoidable. The credited answer nearly always includes telling the reader &mdash; or the coordinator &mdash;
+        what is missing and what that does to the conclusion.
+      </div>
+
+      <details class="qa"><summary>One of four research subagents fails entirely. What does the coordinator do?</summary>
+      <div class="qa-body">First decide whether the missing facet is essential. If it is, retry it &mdash; possibly
+      with a different source or a narrower query &mdash; before synthesising. If it cannot be recovered, synthesise
+      from the three that succeeded and annotate the report with the gap and its effect on the conclusions. Aborting
+      the run discards three subagents' work; synthesising silently produces a document that reads as complete and
+      is not.</div></details>
+    </section>
+
+    <section data-searchable id="d5-4">
+      <h2>5.4 &middot; Context in large codebase exploration</h2>
+
+      <p>The developer-productivity scenario in concrete form: understanding a large unfamiliar system without the
+      understanding itself consuming the window.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Technique</th><th>Mechanics</th></tr>
+        <tr><td><strong>Delegate the sweep</strong></td><td>An exploration subagent with <code>Read</code>, <code>Grep</code>, <code>Glob</code> reads forty files and returns a structured map. Forty files' content never enters your context</td></tr>
+        <tr><td><strong>Search before read</strong></td><td>Grep and Glob to narrow, then Read only what matched (<a href="#d2-5">2.5</a>)</td></tr>
+        <tr><td><strong>Scratchpad files</strong></td><td>Write findings to a file as you go &mdash; <code>notes/auth-map.md</code>. It survives compaction, survives a crash, and can be re-read selectively instead of held in context</td></tr>
+        <tr><td><strong>Phase summaries</strong></td><td>At the end of each phase, write down what was learned and what is next. That summary, not the transcript, is what the next phase needs</td></tr>
+        <tr><td><strong>A recovery manifest</strong></td><td>For long multi-step work: a file recording completed steps, current state and remaining steps, so an interrupted run resumes from the manifest rather than from nothing</td></tr>
+        <tr><td><strong><code>/compact</code></strong></td><td>Deliberate compaction at a natural boundary, ideally right after writing a phase summary so the summary survives it</td></tr>
+      </table>
+      </div>
+
+      <div class="note rule">
+        <b>Externalise state that must outlive the context</b>
+        A file is durable, selectively re-readable and survives both compaction and a crashed session. Context is
+        none of those things. Whenever a stem describes long-running work that loses its place &mdash; or a session
+        that degrades after exploration &mdash; the answer involves moving state out of the conversation.
+      </div>
+
+      <details class="qa"><summary>A migration across 200 files is repeatedly interrupted and each resumption re-does work. Design the fix.</summary>
+      <div class="qa-body">A manifest file listing every file with a status &mdash; pending, done, failed with
+      reason. The agent reads the manifest at the start of each run, works the pending entries, and updates it after
+      each one. Resumption becomes trivial and idempotent, progress is visible to humans, and no context needs to
+      survive between runs. Compare the wrong answers: a bigger context window does not survive an interruption, and
+      &ldquo;keep the session open&rdquo; is not a design.</div></details>
+    </section>
+
+    <section data-searchable id="d5-5">
+      <h2>5.5 &middot; Human review workflows and confidence calibration</h2>
+
+      <p>You cannot review everything, so review the right things. Two ideas: <strong>aggregate metrics hide segment
+      failures</strong>, and <strong>confidence is only useful once calibrated</strong>.</p>
+
+      <div class="note trap">
+        <b>The aggregate-accuracy trap</b>
+        &ldquo;94% accuracy&rdquo; across 10,000 documents is compatible with 99% on the nine common formats and 40%
+        on the tenth &mdash; and if that tenth is your highest-value customer, the aggregate is actively misleading.
+        Random sampling reproduces the same blindness, because it draws proportionally from the segments and never
+        gathers enough of the rare one to notice. <strong>Stratify:</strong> sample by document type, by source, by
+        value band, by extracted-field confidence, so each segment gets its own measured accuracy.
+      </div>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:30%">Routing rule</th><th>Why it beats reviewing a flat sample</th></tr>
+        <tr><td><strong>Field-level confidence, calibrated</strong></td><td>A record can be certain in nine fields and doubtful in one. Route the <em>field</em>, not the whole record &mdash; far less human time for the same risk reduction</td></tr>
+        <tr><td><strong>Value or risk thresholds</strong></td><td>A $2,000,000 contract deserves review at a confidence a $40 invoice does not. Expected cost of an error, not probability alone</td></tr>
+        <tr><td><strong>Novelty routing</strong></td><td>First N documents from a new supplier or a new layout go to review regardless of confidence &mdash; that is where unknown failure modes live</td></tr>
+        <tr><td><strong>Validation-failure routing</strong></td><td>Anything the retry loop could not resolve (<a href="#d4-4">4.4</a>), with the specific failure attached</td></tr>
+      </table>
+      </div>
+
+      <div class="note good">
+        <b>What &ldquo;calibrated&rdquo; means, precisely</b>
+        That when the system reports 0.8 confidence, it is right about 80% of the time &mdash; established by
+        comparing confidence against a labelled set, per field, and adjusting the mapping. Raw self-reported
+        confidence has no such property. This is the distinction between the credited answer and the
+        <a href="#d4-1">4.1</a> distractor: confidence is usable <em>after</em> calibration against ground truth,
+        never straight out of the model.
+      </div>
+
+      <div class="note">
+        <b>Review is a feedback loop, not a filter</b>
+        Corrections humans make are labelled data. Feed them back: they improve field descriptions, supply the next
+        few-shot examples, recalibrate the confidence mapping, and tell you which segments need routing rules. A
+        review queue that only fixes records and never changes the system is a permanent cost centre.
+      </div>
+
+      <details class="qa"><summary>Aggregate accuracy is 94% and the business is satisfied, but one client complains constantly. Where do you look?</summary>
+      <div class="qa-body">At that client's segment specifically. Stratify the evaluation by source and document
+      type and you will very likely find a format-specific failure that the aggregate averages away. The remedies
+      follow the diagnosis &mdash; few-shot examples of that layout, sharper field descriptions, and a routing rule
+      sending that segment to review until its measured accuracy recovers.</div></details>
+    </section>
+
+    <section data-searchable id="d5-6">
+      <h2>5.6 &middot; Provenance and uncertainty in multi-source synthesis</h2>
+
+      <p>The research scenario's reliability half. A synthesised report is only usable if a reader can trace a claim
+      to a source and can see where the sources disagreed.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:26%">Requirement</th><th>Mechanism</th></tr>
+        <tr><td><strong>Claim&ndash;source mapping</strong></td><td>Every subagent returns findings with their source attached, and the mapping survives synthesis. Citations reconstructed <em>after</em> the fact are how misattribution happens</td></tr>
+        <tr><td><strong>Conflict annotation</strong></td><td>Two sources disagree → report both, with their dates and their basis, and say why they may differ. Silently choosing one destroys information the reader needs</td></tr>
+        <tr><td><strong>Recency</strong></td><td>Carry publication dates. In a fast-moving area a 2021 figure and a 2025 figure are not a contradiction &mdash; they are a trend, but only if the dates survived</td></tr>
+        <tr><td><strong>Coverage limits</strong></td><td>State what could not be established and why (<a href="#d5-3">5.3</a>)</td></tr>
+        <tr><td><strong>Confidence that reflects evidence</strong></td><td>&ldquo;Three independent sources agree&rdquo; and &ldquo;one blog post&rdquo; are different epistemic states and should read differently</td></tr>
+        <tr><td><strong>Appropriate rendering</strong></td><td>Comparisons as tables, sequences as timelines, disagreements as side-by-side. Content shape should follow content type</td></tr>
+      </table>
+      </div>
+
+      <div class="note trap">
+        <b>The most tempting wrong answer in this task statement</b>
+        &ldquo;Have the synthesis agent resolve conflicts by selecting the most authoritative source.&rdquo; It
+        produces a cleaner document and destroys the signal. Authority is not truth, the reader cannot see what was
+        discarded, and a genuine disagreement between two credible sources is itself a finding. Annotate; do not
+        adjudicate silently.
+      </div>
+
+      <details class="qa"><summary>Two subagents return contradictory figures for the same statistic. What does the coordinator do?</summary>
+      <div class="qa-body">Report both, with source, date and methodology where known, and note the likely reason for
+      the divergence &mdash; different populations, different years, different definitions. If resolving it matters
+      to the conclusion, spawn a targeted subagent to investigate the discrepancy (iterative refinement,
+      <a href="#d1-2">1.2</a>). What it must not do is pick one and present it as settled.</div></details>
+    </section>
+
+    <!-- ======================= CLOSING ======================= -->
+
+    <section data-searchable id="antipatterns">
+      <h2>The distractor catalogue</h2>
+      <p>Every row is a wrong answer this exam writes well. Learn the left column as a set of alarms; when an option
+      matches one, the credited answer is usually in the right column.</p>
+
+      <div class="table-wrap">
+      <table>
+        <tr><th style="width:24%">Anti-pattern</th><th style="width:34%">How it is written</th><th>What is credited instead</th></tr>
+        <tr><td><strong>Prompt as guarantee</strong></td><td>&ldquo;Add a clear instruction to the system prompt that…&rdquo;</td><td>Enforcement: absent tool, dispatcher precondition, hook, or schema (<a href="#p3">Primer 3</a>)</td></tr>
+        <tr><td><strong>Emphasis as fix</strong></td><td>&ldquo;Strengthen the wording; use MUST and put it at the top&rdquo;</td><td>Reduce what is loaded so the relevant rule is not competing (<a href="#d3-1">3.1</a>, <a href="#d3-3">3.3</a>)</td></tr>
+        <tr><td><strong>Blame downstream</strong></td><td>&ldquo;The synthesis agent should be told to check for gaps&rdquo;</td><td>Fix the component the evidence indicts &mdash; usually the coordinator's decomposition (<a href="#d1-2">1.2</a>)</td></tr>
+        <tr><td><strong>Over-engineered first step</strong></td><td>&ldquo;Train a classifier on historical tickets&rdquo;; &ldquo;fine-tune a model&rdquo;</td><td>The cheap untried change: better descriptions, explicit criteria, a few-shot set. Also: fine-tuning is out of scope</td></tr>
+        <tr><td><strong>Self-reported confidence</strong></td><td>&ldquo;Rate confidence 1&ndash;10 and act below a threshold&rdquo;</td><td>Explicit categorical criteria (<a href="#d4-1">4.1</a>); calibrated field confidence (<a href="#d5-5">5.5</a>)</td></tr>
+        <tr><td><strong>Sentiment as trigger</strong></td><td>&ldquo;Escalate when frustration is detected&rdquo;</td><td>The three real triggers: explicit request, policy gap, no progress (<a href="#d5-2">5.2</a>)</td></tr>
+        <tr><td><strong>Capacity for attention</strong></td><td>&ldquo;Use a larger context window / a bigger model&rdquo;</td><td>Split the pass; restructure the context; place facts where attention is (<a href="#d1-6">1.6</a>, <a href="#d5-1">5.1</a>)</td></tr>
+        <tr><td><strong>Swallow the error</strong></td><td>&ldquo;Catch the failure and return an empty result&rdquo;</td><td>Structured failure context with partial results and impact (<a href="#d5-3">5.3</a>)</td></tr>
+        <tr><td><strong>Crash the run</strong></td><td>&ldquo;Propagate to a top-level handler that aborts&rdquo;</td><td>Local recovery, then partial results plus coverage annotation</td></tr>
+        <tr><td><strong>Everything required</strong></td><td>&ldquo;Mark all fields required so records are complete&rdquo;</td><td>Nullable fields, an <code>unclear</code> marker, an <code>other</code>+detail enum (<a href="#d4-3">4.3</a>)</td></tr>
+        <tr><td><strong>Retry the unretryable</strong></td><td>&ldquo;Retry with a stronger instruction&rdquo; for an absent or semantic failure</td><td>Classify the failure first; route absence and semantics to review or better descriptions (<a href="#d4-4">4.4</a>)</td></tr>
+        <tr><td><strong>Batch the blocking</strong></td><td>&ldquo;Move it to the Batches API for the 50% saving&rdquo;</td><td>Batch only unattended work; keep blocking paths synchronous (<a href="#d4-5">4.5</a>)</td></tr>
+        <tr><td><strong>Consolidate to disambiguate</strong></td><td>&ldquo;Merge the confusable tools into one&rdquo;</td><td>Differentiate the descriptions, each naming the other (<a href="#d2-1">2.1</a>)</td></tr>
+        <tr><td><strong>More tools, more capable</strong></td><td>&ldquo;Give the subagent the full toolset&rdquo;</td><td>Scoped role tools, plus one narrow cross-role tool if needed (<a href="#d2-3">2.3</a>)</td></tr>
+        <tr><td><strong>Self-review</strong></td><td>&ldquo;Have it critically review its own output&rdquo;</td><td>An independent instance without the generation context (<a href="#d4-6">4.6</a>)</td></tr>
+        <tr><td><strong>Detect, do not prevent</strong></td><td>&ldquo;Log every occurrence and alert on the pattern&rdquo;</td><td>Block it at the point of action. Logging is a complement, never the control</td></tr>
+        <tr><td><strong>Over-correction</strong></td><td>&ldquo;Remove the capability / route everything to humans&rdquo;</td><td>The narrow control that permits the legitimate case &mdash; check the stem's business target</td></tr>
+        <tr><td><strong>Consensus over criteria</strong></td><td>&ldquo;Run three instances and take the majority&rdquo;</td><td>Make the criteria explicit first; consensus multiplies cost, not clarity</td></tr>
+        <tr><td><strong>Paste everything as context</strong></td><td>&ldquo;Pass the full conversation to each subagent&rdquo;</td><td>A purpose-written self-contained brief per subagent (<a href="#d1-3">1.3</a>)</td></tr>
+        <tr><td><strong>Silent adjudication</strong></td><td>&ldquo;Resolve conflicts by picking the most authoritative source&rdquo;</td><td>Annotate the conflict with dates and basis (<a href="#d5-6">5.6</a>)</td></tr>
+      </table>
+      </div>
+    </section>
+
+    <section data-searchable id="playbook">
+      <h2>Exam-day playbook</h2>
+
+      <h3>Pacing</h3>
+      <p>Sixty items in 120 minutes is two minutes each, but the time is not evenly distributed: four scenario texts
+      need reading, and the items that hang off them are then quicker. Budget roughly <strong>3&ndash;4 minutes to
+      read each scenario properly the first time it appears</strong>, then 90 seconds to two minutes per item.
+      Flag-and-return anything that takes more than three minutes &mdash; leaving a hard item to come back to costs
+      you nothing, and burning eight minutes on it costs you three easier items.</p>
+
+      <h3>A five-step routine for a scenario item</h3>
+      <ol class="spaced">
+        <li><strong>Find the evidence sentence.</strong> The stem always contains one sentence with the measurement
+        or the observation: &ldquo;47 of 12,000&rdquo;, &ldquo;70% of comments are not actionable&rdquo;, &ldquo;the
+        coordinator assigned these three subtasks&rdquo;, &ldquo;context usage is 60%&rdquo;. Everything else is
+        setting.</li>
+        <li><strong>Name the component that produced it.</strong> Read the evidence back to its cause. Narrow
+        coverage → the decomposition. Misrouted tool → the descriptions. A rate of a forbidden action → the
+        enforcement surface. Contradiction late in a conversation → context placement.</li>
+        <li><strong>Read the scope word in the question.</strong> &ldquo;First step&rdquo;, &ldquo;most effective&rdquo;,
+        &ldquo;highest impact&rdquo; → the cheapest change with the largest effect. &ldquo;Design&rdquo;,
+        &ldquo;architecture&rdquo;, &ldquo;how should the system&rdquo; → a structural answer is permitted.
+        &ldquo;Select two&rdquo; → two independent contributions, not one answer split in half.</li>
+        <li><strong>Eliminate on the distractor patterns.</strong> Usually two options fall immediately: one is
+        guidance where enforcement is required, one blames a component the evidence exonerates.</li>
+        <li><strong>Break the tie on the scenario's stated goal.</strong> First-contact resolution, false-positive
+        rate, latency SLA, coverage. The option that protects the named metric while fixing the cause is the
+        credited one.</li>
+      </ol>
+
+      <div class="note rule">
+        <b>Three sentence-level tells</b>
+        Options containing <em>&ldquo;instruct&rdquo;, &ldquo;remind&rdquo;, &ldquo;emphasise&rdquo;,
+        &ldquo;encourage&rdquo;</em> against a hard requirement are usually distractors. Options containing
+        <em>&ldquo;also&rdquo;, &ldquo;in addition&rdquo;, &ldquo;as well as&rdquo;</em> often bundle a correct idea
+        with an incorrect one &mdash; check both halves, because a half-wrong option is wholly wrong. Options that
+        require machinery the guide declares <em>out of scope</em> &mdash; fine-tuning, vector-store internals,
+        cloud-specific deployment, streaming &mdash; are almost never credited.
+      </div>
+
+      <div class="note warn">
+        <b>Multiple-response items</b>
+        The item tells you how many to select, and there is no partial credit. Pick your certain answer first, then
+        test each remaining option independently against the stem &mdash; do not pick the one that &ldquo;goes
+        with&rdquo; your first choice. Two correct answers on this exam are usually from <em>different</em> layers:
+        one structural change and one process change, or one preventive and one diagnostic.
+      </div>
+
+      <div class="note good">
+        <b>The last ten minutes</b>
+        Review flagged items only, and change an answer only if you can name the specific fact you had wrong. A
+        vague sense that another option &ldquo;feels better&rdquo; is not evidence, and on a well-constructed paper
+        second-guessing without a reason costs more marks than it gains.
+      </div>
+    </section>
+
+    <section data-searchable id="cheat">
+      <h2>One-page cheat sheet</h2>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h4 class="mt0">Where the guarantee lives</h4>
+          <ul class="tight small">
+            <li>Tool not granted → capability impossible</li>
+            <li>Dispatcher precondition → ordering enforced</li>
+            <li><code>PreToolUse</code> hook → call denied</li>
+            <li><code>PostToolUse</code> hook → result normalised</li>
+            <li>Schema → invalid value inexpressible</li>
+            <li>Prompt → guidance only, non-zero failure rate</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">The loop</h4>
+          <ul class="tight small">
+            <li>Branch on <code>stop_reason</code> before reading content</li>
+            <li>Assistant turn back in history verbatim</li>
+            <li>One <code>tool_result</code> per <code>tool_use</code>, in a <em>user</em> message</li>
+            <li>Errors return with <code>is_error</code>, do not throw</li>
+            <li>Own the termination condition</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Coordinator / subagent</h4>
+          <ul class="tight small">
+            <li>Subagent context is <strong>empty</strong> &mdash; brief it fully</li>
+            <li>Only the final message returns</li>
+            <li>Decomposition is the coverage ceiling</li>
+            <li>Scopes disjoint and named</li>
+            <li>Evaluate between rounds → targeted refinement</li>
+            <li>Several <code>Task</code> calls in <em>one</em> turn = parallel</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Tool descriptions</h4>
+          <ul class="tight small">
+            <li>What it does · when to use · <strong>when not to, naming the sibling</strong> · what it returns</li>
+            <li>Describe every parameter: units, format, provenance</li>
+            <li>Split over-generic tools; scope sets per role</li>
+            <li><code>tool_choice</code>: auto / any / forced / none</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Errors</h4>
+          <ul class="tight small">
+            <li>transient → retry · validation → fix and retry</li>
+            <li>business → stop and explain · permission → escalate</li>
+            <li>Recover locally, propagate structure, annotate coverage</li>
+            <li>Empty result ≠ could not check</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Claude Code surfaces</h4>
+          <ul class="tight small">
+            <li>Always → <code>CLAUDE.md</code> (short; <code>@import</code> for detail)</li>
+            <li>By file type → <code>.claude/rules/</code> + <code>paths:</code></li>
+            <li>By task, model-invoked → skill (<code>description</code> routes; <code>context: fork</code> isolates)</li>
+            <li>By human → <code>.claude/commands/</code></li>
+            <li>CI → <code>-p</code>, <code>--output-format json</code>, <code>--json-schema</code></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Structured output</h4>
+          <ul class="tight small">
+            <li>Schema fixes syntax, never semantics, never absence</li>
+            <li>Nullable for optional; <code>unclear</code> ≠ null</li>
+            <li><code>other</code> + detail on closed enums</li>
+            <li>Semantics live in field descriptions</li>
+            <li>Retry with output + specific error + document; bound at 2</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4 class="mt0">Context &amp; review</h4>
+          <ul class="tight small">
+            <li>Facts block, trimmed tool output, recency ordering</li>
+            <li>Scratchpad files outlive the context</li>
+            <li>Escalate: explicit request · policy gap · no progress</li>
+            <li>Stratify sampling; calibrate confidence per field</li>
+            <li>Annotate conflicts and gaps &mdash; never adjudicate silently</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note rule">
+        <b>If you remember one thing</b>
+        Every CCAR-F item is asking the same question in a different costume: <strong>where does the guarantee live,
+        and which component does the evidence actually indict?</strong> Not in a sentence in a prompt &mdash; in a
+        tool that was never granted, a precondition the dispatcher checks, a hook that always runs, a schema that
+        cannot express the wrong value, a decomposition that names every dimension, or an error that carries its
+        context forward honestly. Find the option that moves the guarantee onto one of those, addresses the evidence
+        the stem planted, and respects the scenario's stated goal &mdash; and you have found the answer.
+      </div>
+    </section>
+
+    <div class="card" style="margin-top:34px">
+      <div class="spread">
+        <div><strong>Next step</strong><div class="small muted">Turn the reading into recall &mdash; the 28
+        exercises grade against these same rules, and the mock exam runs 65 items in the real exam's 120
+        minutes.</div></div>
+        <div style="display:flex;gap:8px">
+          <a class="btn ghost" href="ccarf-exercises.html">Exercises →</a>
+          <a class="btn" href="ccarf-exam.html">Mock exam →</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    Claude Study Hub · CCAR-F track — independent study material; not affiliated with or endorsed by Anthropic.
+    Product behaviour and exam policies change; verify version-sensitive details against the live documentation
+    close to your exam date.
+  </div>
+</footer>
+
+</body>
+</html>

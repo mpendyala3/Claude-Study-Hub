@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-P Exercises — Claude Certified Architect Professional</title>
+<meta name="description" content="Thirty graded exercises across all seven CCAR-P domains: solution design and architecture, models and context engineering, integration, evaluation and optimisation, governance and risk, stakeholder communication and lifecycle, and developer enablement. Graded in your browser.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-P track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarp">
+        <span class="navlabel">CCAR-P</span>
+        <a href="ccarp-index.html">Overview</a>
+        <a href="ccarp-docs.html">Docs</a>
+        <a href="ccarp-exercises.html">Exercises</a>
+        <a href="ccarp-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+
+  <aside class="sidebar">
+    <h4>Exercises</h4>
+    <div id="exNav"></div>
+    <h4>Elsewhere</h4>
+    <a href="ccarp-index.html">← CCAR-P Overview</a>
+    <a href="ccarp-docs.html">← CCAR-P Documentation</a>
+    <a href="ccarp-exam.html">CCAR-P mock exam →</a>
+    <a href="ccarf-exercises.html">CCAR-F exercises</a>
+  </aside>
+
+  <main class="content">
+    <div class="track-badge"><b>CCAR-P</b> Claude Certified Architect &mdash; Professional</div>
+    <div class="eyebrow">CCAR-P Exercises · 30 graded drills</div>
+    <h1>Thirty exercises, weighted to the blueprint</h1>
+    <p class="lede">Written against the thirty-eight objectives in the official exam guide and distributed by the
+    published domain weights, so the six exercises on
+    <a href="ccarp-docs.html#d3-1">integration</a> match the fact that it is 19% of the paper &mdash; the largest
+    single domain. Thirteen are graded in your browser as you type, six are rapid classification drills, seven are
+    prose-option decision sets, four are labs you run yourself. Each checklist names the exact property the
+    corresponding objective is written around, so a partial score tells you which property you missed rather than
+    just that you scored badly.</p>
+
+    <div class="note rule">
+      <b>Where the exercises sit against the blueprint</b>
+      D1 Solution design &amp; architecture <span class="tag">1&ndash;5 · 17%</span> ·
+      D2 Models, prompting &amp; context <span class="tag">6&ndash;9 · 13%</span> ·
+      D3 Integration <span class="tag warn">10&ndash;15 · 19%</span> ·
+      D4 Evaluation &amp; optimisation <span class="tag">16&ndash;20 · 16%</span> ·
+      D5 Governance, safety &amp; risk <span class="tag">21&ndash;24 · 14%</span> ·
+      D6 Stakeholders &amp; lifecycle <span class="tag">25&ndash;28 · 14%</span> ·
+      D7 Developer enablement <span class="tag">29&ndash;30 · 7%</span>
+      <div class="small muted" style="margin-top:8px">If you only have two hours: do
+      <b>1</b>, <b>3</b>, <b>10</b>, <b>13</b>, <b>18</b>, <b>21</b> and <b>25</b>. Those seven cover the
+      judgements the paper returns to most &mdash; where a workload sits on the pattern ladder, which option
+      survives the arithmetic in the stem, what least privilege actually looks like in a tool registry, which
+      layer owns a control, how to read a measurement before optimising, prevent versus detect, and answering the
+      question a stakeholder actually asked.</div>
+    </div>
+
+    <div class="note trap">
+      <b>Three habits these drills are built to install</b>
+      Almost every wrong answer on this paper is one of three moves. <b>Offering a detective control where a
+      preventive one was available</b> &mdash; logging a violation that a boundary could have made impossible.
+      <b>Ignoring a number in the stem</b> &mdash; recommending a full-catalogue rollout that costs
+      twenty-nine times the stated budget. And <b>optimising before diagnosing</b> &mdash; buying a bigger model
+      for a prompt-conflict problem. Exercises 13, 21 and 23 drill the first; 3, 11 and 26 drill the second;
+      6, 9, 18 and 29 drill the third. If you internalise nothing else from this page, internalise those three.
+    </div>
+
+    <div class="note rule">
+      <b>Work them without the reference solution open</b>
+      Every exercise reveals a full worked answer, but the checklist is the teaching device: each check is a
+      property the exam grades on, phrased so a failure tells you what to change. Get to a partial score first,
+      read which checks failed, fix them, and re-check &mdash; that loop is what transfers to exam day. The
+      browser-graded editors save your text locally, so a half-finished answer is still there tomorrow.
+    </div>
+
+    <div class="note trap">
+      <b>The checks reward substance, not vocabulary</b>
+      They accept the several ways a competent answer phrases a thing and are strict about whether the property is
+      present at all. A check for a stop condition passes on &ldquo;we stop if the lift is under 2%&rdquo;,
+      &ldquo;no-go at day 90 without a confidence interval excluding zero&rdquo; or &ldquo;halt and do not spend
+      the remainder&rdquo; &mdash; and fails on &ldquo;we will review progress regularly&rdquo;, because that is
+      not a condition anyone can act on. All 163 checks on this page score full marks against their own reference
+      answers, so if a check will not pass for you, the property really is missing.
+    </div>
+
+    <div class="note">
+      <b>The same six systems throughout</b>
+      <a href="ccarp-index.html">Thornbury Health</a> (HIPAA clinical documentation, clinician sign-off),
+      <b>Calderon Financial</b> (regulated adviser assist, no personalised advice, 3&nbsp;s p95),
+      <b>Merrowfield Retail</b> (40M SKUs, fixed pilot budget, 90-day payback),
+      <b>Aldergate Agency</b> (accreditation boundary and a fixed date),
+      <b>Vantis Software</b> (Claude Code across 120 engineers, MCP registry),
+      <b>Northlake Logistics</b> (multi-agent copilot, 40k sessions/day).
+      They carry the same constraints on the <a href="ccarp-docs.html">Docs</a> page and in the
+      <a href="ccarp-exam.html">mock exam</a>, so a fact you learn here is a fact you can use there.
+    </div>
+
+    <div class="grid grid-3" style="margin:22px 0 8px">
+      <div class="card"><h4 class="mt0">Browser-graded writing</h4><p class="small muted mb0">Write a solution brief a review board would approve, a prompt-restructuring plan, an identity and authorisation design for an agent acting on a clinician&rsquo;s behalf, a grading rubric two people could apply identically, a model-change runbook, and the one-page recommendation an executive can act on. Hit <em>Check</em> and each requirement passes or fails by name.</p></div>
+      <div class="card"><h4 class="mt0">JSON you actually write</h4><p class="small muted mb0">Seven exercises where your JSON is parsed and inspected: a non-functional envelope whose budgets have to compose, a context budget whose claimants have to fit the window, a least-privilege tool registry, a retrieval pipeline that cannot go stale, an evaluation harness with real gates, a risk register an auditor would accept, and a pilot-to-production plan whose gates can block.</p></div>
+      <div class="card"><h4 class="mt0">Decision sets and labs</h4><p class="small muted mb0">Seven prose-option sets on the judgements the paper repeats &mdash; build/buy, model routing, integration surface, diagnosis, governance under constraint, stakeholder communication, enablement &mdash; plus four labs you run yourself, each built so that a plausible answer visibly fails in front of you.</p></div>
+    </div>
+
+    <div id="exRoot"></div>
+
+    <div class="card" style="margin-top:30px">
+      <div class="spread">
+        <div><strong>Done with the drills?</strong><div class="small muted">Sit the timed mock. It is deliberately
+        harder than the real exam &mdash; 70 items in 120 minutes against the live 63, so the clock is tighter
+        too, and every item is built on the same six recurring systems. 720 to pass.</div></div>
+        <a class="btn" href="ccarp-exam.html">Start the CCAR-P mock exam →</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    Claude Study Hub · CCAR-P track — independent study material; not affiliated with or endorsed by Anthropic.
+  </div>
+</footer>
+<script src="assets/js/ex-helpers.js"></script>
+<script src="assets/js/exercises-ccarp.js"></script>
+<script src="assets/js/ex-engine.js"></script>
+</body>
+</html>

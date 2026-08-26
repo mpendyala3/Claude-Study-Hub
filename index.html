@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude Study Hub — prepare for the Anthropic Claude certifications</title>
-<meta name="description" content="One place to prepare for two Anthropic Claude certifications: CCAO-F (Associate) and CCDV-F (Developer). Each track has documentation, browser-graded exercises and a hard timed mock exam.">
+<meta name="description" content="One place to prepare for four Anthropic Claude certifications: CCAO-F (Associate), CCDV-F (Developer), CCAR-F and CCAR-P (Architect, Foundations and Professional). Each track has documentation, browser-graded exercises and a hard timed mock exam.">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 <script src="assets/js/app.js"></script>
@@ -18,6 +18,8 @@
       <a href="index.html" data-sect="home">Home</a>
       <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
       <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
       <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
     </nav>
   </div>
@@ -26,16 +28,26 @@
 <main class="narrow content">
 
   <div class="eyebrow">Claude Study Hub</div>
-  <h1>Two Claude certifications, one place to prepare</h1>
+  <h1>Four Claude certifications, one place to prepare</h1>
   <p class="lede">Pick an exam below. Each track is self-contained and built the same way: an
   <strong>Overview</strong> with the published blueprint, <strong>Docs</strong> covering every objective,
   <strong>Exercises</strong> graded in the browser, and a timed <strong>Mock exam</strong> written harder than
   the real one. No accounts, no network calls &mdash; everything runs locally in this page.</p>
 
+  <div class="note rule">
+    <b>The order they are meant to be taken in</b>
+    <strong>CCAO-F</strong> is the entry point and assumes nothing. <strong>CCDV-F</strong> and
+    <strong>CCAR-F</strong> sit at the same level but point in different directions &mdash; Developer is
+    <em>how do I build it</em>, Architect&nbsp;Foundations is <em>which design is correct and why</em>, and the two
+    overlap heavily on tools, MCP and context. <strong>CCAR-P</strong> is the only one that genuinely builds on
+    another: it adds RAG, evaluation, governance, regulated deployment and stakeholder work on top of the
+    Foundations architecture material, and its items assume you already hold that.
+  </div>
+
   <div class="grid grid-4" style="margin:26px 0 34px">
-    <div class="stat"><div class="k">2</div><div class="l">Certifications</div></div>
-    <div class="stat"><div class="k">54</div><div class="l">Exercises</div></div>
-    <div class="stat"><div class="k">120</div><div class="l">Mock questions</div></div>
+    <div class="stat"><div class="k">4</div><div class="l">Certifications</div></div>
+    <div class="stat"><div class="k">110</div><div class="l">Exercises</div></div>
+    <div class="stat"><div class="k">255</div><div class="l">Mock questions</div></div>
     <div class="stat"><div class="k">720</div><div class="l">Score needed to pass</div></div>
   </div>
 
@@ -71,14 +83,45 @@
       </div>
     </div>
 
+    <div class="card homecard">
+      <div class="track-badge"><b>CCAR-F</b> Architect &middot; Foundations</div>
+      <h3>Claude Certified Architect &mdash; Foundations</h3>
+      <p class="small muted">The architecture exam: agentic loops and coordinator/subagent orchestration, MCP tool
+      interfaces and structured errors, Claude Code configuration and CI, prompts that produce schema-valid output,
+      and context management under long sessions. Five domains, thirty task statements, six recurring production
+      scenarios.</p>
+      <div class="pagelinks">
+        <a href="ccarf-index.html">Overview</a>
+        <a href="ccarf-docs.html">Docs</a>
+        <a href="ccarf-exercises.html">Exercises</a>
+        <a href="ccarf-exam.html">Exam</a>
+      </div>
+    </div>
+
+    <div class="card homecard">
+      <div class="track-badge"><b>CCAR-P</b> Architect &middot; Professional</div>
+      <h3>Claude Certified Architect &mdash; Professional</h3>
+      <p class="small muted">The senior exam: end-to-end solution design, RAG and retrieval strategy, integration
+      protocol selection, evaluation and observability, governance and regulated deployment, and the stakeholder
+      and lifecycle work an architect owns. Seven domains, thirty-eight objectives. <strong>CCAR-F is not a
+      prerequisite</strong> &mdash; but it is the gentler ramp, and its mechanisms carry straight into this
+      paper.</p>
+      <div class="pagelinks">
+        <a href="ccarp-index.html">Overview</a>
+        <a href="ccarp-docs.html">Docs</a>
+        <a href="ccarp-exercises.html">Exercises</a>
+        <a href="ccarp-exam.html">Exam</a>
+      </div>
+    </div>
+
   </div>
 
   <div class="note rule" style="margin-top:30px">
     <b>How to work a track</b>
     Read the Docs, then do every Exercise, then sit the Mock exam in <em>Exam mode</em> &mdash; 120 minutes, no
     feedback until you submit. When you get a question wrong, its domain tag is the exact section of the Docs to go
-    back to. Both mocks are deliberately harder than the live papers, so aim for <strong>850+</strong> before you
-    book.
+    back to. All four mocks are deliberately harder than the live papers, so aim for <strong>850+</strong> before
+    you book.
   </div>
 
   <div class="note warn" style="margin-top:18px">

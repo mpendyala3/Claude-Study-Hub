@@ -3,13 +3,12 @@
   'use strict';
 
   /* ---- storage ----
-     Everything is saved under one prefix. It used to be ccarf-, from when the
-     Architect track lived here too; that track is its own site now, on the
-     same github.io origin, and a shared origin is a shared localStorage. The
-     two sites' exercise ids overlap, so the prefixes have to differ or one
-     site's half-typed answer lands in the other's box. Carry across the keys
-     this site still owns, once, and leave the originals where they are -- the
-     Architect site is still reading its own. */
+     Everything is saved under one prefix. It used to be ccarf-, from when this
+     site carried the Architect track on its own. Any other study site under the
+     same github.io origin shares this localStorage, and exercise ids overlap
+     between them, so the prefixes have to differ or one site's half-typed
+     answer lands in the other's box. Carry across the keys saved under the old
+     prefix, once, and leave the originals where they are. */
   var PFX = 'csh-';
 
   try {
@@ -94,6 +93,8 @@
     var sect = 'home';
     if (page.indexOf('ccao-') === 0) sect = 'ccao';
     else if (page.indexOf('ccdv-') === 0) sect = 'ccdv';
+    else if (page.indexOf('ccarf-') === 0) sect = 'ccarf';
+    else if (page.indexOf('ccarp-') === 0) sect = 'ccarp';
 
     var top = document.querySelector('.nav-main a[data-sect="' + sect + '"]');
     if (top) top.classList.add('active');

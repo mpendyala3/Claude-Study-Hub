@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-P Mock Exam — Claude Certified Architect Professional</title>
+<meta name="description" content="70-question, 120-minute mock exam written to the seven CCAR-P domains and thirty-eight objectives at their published weights, with six recurring architecture scenarios and a teaching explanation for every option.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-P track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarp">
+        <span class="navlabel">CCAR-P</span>
+        <a href="ccarp-index.html">Overview</a>
+        <a href="ccarp-docs.html">Docs</a>
+        <a href="ccarp-exercises.html">Exercises</a>
+        <a href="ccarp-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- sticky exam bar -->
+<div class="exam-bar hide" id="examBar">
+  <div class="narrow exam-bar-inner">
+    <span class="timer" id="timer">120:00</span>
+    <span class="tag accent" id="modeLabel">Study mode</span>
+    <div class="progress"><i id="progressBar"></i></div>
+    <span class="small muted" id="answeredCount">0 / 70 answered</span>
+    <button class="btn sm ghost" id="submitTop">Submit</button>
+    <button class="btn sm ghost" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<main class="narrow content">
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro">
+    <div class="track-badge"><b>CCAR-P</b> Claude Certified Architect &mdash; Professional</div>
+    <div class="eyebrow">CCAR-P Mock exam</div>
+    <h1>70 questions · 120 minutes · pass at 720</h1>
+    <p class="lede">Written to the <strong>thirty-eight CCAR-P objectives</strong> at the published domain weights,
+    and deliberately harder than the live exam. Six systems recur throughout &mdash; a hospital group whose
+    clinical note has no standing until a clinician signs it, a wealth manager that must inform without ever
+    advising, a marketplace with 40M SKUs and a fixed $150,000 pilot budget, a government programme delivering
+    inside an accreditation boundary against a date it does not control, a software company running Claude Code
+    across 120 engineers on one shared service account, and a freight operator whose 6,000-token prompt now
+    contradicts itself. Every item has <strong>two plausible finalists</strong>, and every option &mdash; right
+    and wrong &mdash; carries an explanation of why.</p>
+
+    <div class="note rule">
+      <b>Read the objective tag on each item</b>
+      Every question is labelled with its domain and its objective (for example
+      <span class="tag info">Integration</span>
+      <span class="tag">3.2 Analyse authentication and authorisation requirements</span>). When you get one wrong,
+      that tag is the exact section of the <a href="ccarp-docs.html">CCAR-P documentation</a> to go back to, and it
+      points at the matching drill in the <a href="ccarp-exercises.html">exercises</a>.
+    </div>
+
+    <div class="grid grid-2" style="margin:24px 0">
+      <div class="card">
+        <h3 class="mt0">Study mode <span class="tag ok">recommended first</span></h3>
+        <p class="small muted">Check each answer as you go and read the explanation immediately, while the question
+        is still in your head. No time pressure. This is the mode that teaches &mdash; the four explanations per
+        item are the material, not the score.</p>
+      </div>
+      <div class="card">
+        <h3 class="mt0">Exam mode <span class="tag warn">simulation</span></h3>
+        <p class="small muted">120-minute countdown, no feedback until you submit. Deliberately tighter than the
+        real thing: the live paper gives you 120 minutes for 63 items, this one gives you 120 for 70. Use it once
+        you have worked through study mode, to find out which distinctions survive time pressure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="mt0">Before you start</h3>
+      <ul class="small">
+        <li><strong>Select-2 items.</strong> <span id="multiCount">10</span> questions ask for exactly two answers,
+        and they are marked. Both must be right to score. The two are usually <em>complementary moves</em> &mdash;
+        one that fixes the defect and one that fixes whatever produced it &mdash; not two phrasings of the same
+        idea. If your picks are near duplicates, one of them is wrong.</li>
+        <li><strong>Every item has a near-miss.</strong> The distractors are drawn from the patterns in the
+        <a href="ccarp-docs.html#antipatterns">anti-pattern catalogue</a>: a detective control offered where a
+        preventive one was available, a metric that improves when the system fails, sampling something that gates
+        display, extrapolating a measurement past the population it was taken on, orchestrating a lookup, and
+        upgrading the model to fix a routing error. Learn to name the pattern and the elimination is instant.</li>
+        <li><strong>The arithmetic in the stem is never decoration.</strong> A $0.11 per-SKU price against a
+        $150,000 budget, 78% of sessions answerable from one lookup, 12 engineers producing 61% of usage, a 2.1%
+        lift with an interval running from &minus;0.4% to +4.6% &mdash; every number is there to eliminate an
+        option. If two finalists survive your reasoning, do the sum.</li>
+        <li><strong>No length tell.</strong> The correct option is never the longest and never the shortest in its
+        item, and the answer key is balanced across A/B/C/D (20/20/20/20 over the 80 correct slots). Guessing
+        strategies score at chance here.</li>
+        <li><strong>Scenarios repeat.</strong> Six systems carry all 70 items, and they are the same six used in
+        the <a href="ccarp-docs.html">documentation caseboxes</a> and the
+        <a href="ccarp-exercises.html">exercises</a> &mdash; so the context you built there transfers. Read each one
+        carefully the first time it appears; after that you can skim it.</li>
+        <li><strong>Scoring.</strong> Scaled 100&ndash;1000 like the real exam. 720 passes, which is about 49 of 70.
+        Because this mock is harder and tighter than the live paper, aim for <strong>850+</strong> here before you
+        book &mdash; and read the per-domain breakdown on the results page rather than the headline number.</li>
+        <li><strong>Watch the small objectives.</strong> Domain 3 carries thirteen items across eight objectives, so
+        three of them (3.6, 3.7 and 3.8) get a single question each, and the same is true of 2.5, 4.6 and 7.3. On
+        the live paper the same thing happens, which means one careless answer can cost you a whole objective. Do
+        not skim them because they are small.</li>
+        <li><strong>Your progress is saved</strong> in this browser, so you can close the tab mid-attempt and come
+        back. In exam mode the clock keeps running.</li>
+        <li><strong>Keyboard:</strong> <kbd>1</kbd>&ndash;<kbd>4</kbd> to select, <kbd>&larr;</kbd><kbd>&rarr;</kbd>
+        to move, <kbd>F</kbd> to flag, <kbd>Enter</kbd> to check in study mode.</li>
+      </ul>
+
+      <h4>Item distribution</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Domain</th><th style="width:90px">Blueprint</th><th style="width:90px">Items</th></tr></thead>
+          <tbody id="blueprintBody"></tbody>
+        </table>
+      </div>
+      <p class="small muted">Item counts follow the published weights, so Integration carries the most questions
+      here for the same reason it carries 19% of the real exam &mdash; nearly a fifth of the paper is about tool
+      boundaries, identity, retrieval and observability, not about designing on a whiteboard. Solution Design is
+      the second-largest at 17%, and Developer Productivity is the smallest at 7% &mdash; five items you should
+      still not give away.</p>
+
+      <label class="small" style="display:flex;gap:8px;align-items:center;margin:16px 0 4px;cursor:pointer">
+        <input type="checkbox" id="shuffleOpt" style="accent-color:var(--accent)">
+        Shuffle question order (use this on retakes, so you learn the principle rather than the position)
+      </label>
+
+      <div class="exam-actions">
+        <button class="btn" id="startStudy">Start in study mode</button>
+        <button class="btn ghost" id="startExam">Start timed exam (120 min)</button>
+      </div>
+    </div>
+
+    <div class="note trap" style="margin-top:24px">
+      <b>How to read a stem under time pressure</b>
+      Find the last sentence first &mdash; that is what is being asked. Then look for the facts the stem planted: a
+      stated <em>3-second p95</em>, a budget with <em>no extension this year</em>, a signature that is
+      <em>the legal act</em>, an index built by a job holding <em>full read access</em>, a commitment that is
+      <em>externally binding</em>, an assessor queue <em>outside the programme&rsquo;s control</em>. Those are never
+      decoration. If two options both look right, ask which one the planted fact was put there to rule out &mdash;
+      usually it is the one that would breach a stated constraint, or the one that detects a violation a boundary
+      could have prevented.
+    </div>
+
+    <div class="note warn" style="margin-top:18px">
+      <b>What these questions are and are not</b>
+      They are original items written to the domain and objective list published in the <em>Claude Certified
+      Architect &mdash; Professional Exam Guide</em>, and to documented Claude product behaviour. They are not
+      recalled or leaked exam content, and no source claiming to hold verbatim exam items was used. The live exam
+      is 63 items in 120 minutes; this mock is 70 in the same 120 minutes, which is a deliberate choice &mdash;
+      fuller coverage of all thirty-eight objectives and more time pressure than you will actually face. The
+      scenarios are invented; any resemblance to a real organisation is coincidental. A strong score here is
+      evidence you understand the material &mdash; treat it as that, not as a preview of the live item pool.
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section id="examView" class="hide">
+    <div class="q-nav" id="qnav"></div>
+    <div id="qbody"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="resultView" class="hide"></section>
+
+</main>
+
+<footer class="footer"><div class="narrow">Claude Study Hub · CCAR-P track — independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+
+<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'ccarp-exam' };</script>
+<script src="assets/js/ccarp-exam-data.js"></script>
+<script src="assets/js/exam.js"></script>
+</body>
+</html>

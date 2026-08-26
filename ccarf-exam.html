@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCAR-F Mock Exam — Claude Certified Architect Foundations</title>
+<meta name="description" content="65-question, 120-minute mock exam written to the five CCAR-F domains and thirty task statements at their published weights, with six recurring architecture scenarios and a teaching explanation for every option.">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+<script src="assets/js/app.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">C</span> Claude Study Hub <small>&middot; CCAR-F track</small></a>
+    <nav class="nav nav-main">
+      <a href="index.html" data-sect="home">Home</a>
+      <a href="ccao-index.html" data-sect="ccao">CCAO-F</a>
+      <a href="ccdv-index.html" data-sect="ccdv">CCDV-F</a>
+      <a href="ccarf-index.html" data-sect="ccarf">CCAR-F</a>
+      <a href="ccarp-index.html" data-sect="ccarp">CCAR-P</a>
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
+    </nav>
+  </div>
+  <div class="subbar">
+    <nav class="nav nav-sub">
+      <span class="navgroup" data-track="ccarf">
+        <span class="navlabel">CCAR-F</span>
+        <a href="ccarf-index.html">Overview</a>
+        <a href="ccarf-docs.html">Docs</a>
+        <a href="ccarf-exercises.html">Exercises</a>
+        <a href="ccarf-exam.html">Exam</a>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- sticky exam bar -->
+<div class="exam-bar hide" id="examBar">
+  <div class="narrow exam-bar-inner">
+    <span class="timer" id="timer">120:00</span>
+    <span class="tag accent" id="modeLabel">Study mode</span>
+    <div class="progress"><i id="progressBar"></i></div>
+    <span class="small muted" id="answeredCount">0 / 65 answered</span>
+    <button class="btn sm ghost" id="submitTop">Submit</button>
+    <button class="btn sm ghost" id="resetBtn">Reset</button>
+  </div>
+</div>
+
+<main class="narrow content">
+
+  <!-- ============ INTRO ============ -->
+  <section id="intro">
+    <div class="track-badge"><b>CCAR-F</b> Claude Certified Architect &mdash; Foundations</div>
+    <div class="eyebrow">CCAR-F Mock exam</div>
+    <h1>65 questions · 120 minutes · pass at 720</h1>
+    <p class="lede">Written to the <strong>thirty CCAR-F task statements</strong> at the published domain weights,
+    and deliberately harder than the live exam. Six organisations recur throughout &mdash; a retailer&rsquo;s
+    support agent that keeps refunding without verifying, a logistics platform with two confusable order tools and
+    three MCP servers that disagree about money, a research platform whose coordinator assigned the same facet
+    three times, a code-review pipeline producing 23 comments a pull request at 70% noise, an insurer running a
+    &ldquo;be conservative&rdquo; triage prompt over 8,000 documents a day, and a platform team turning ad-hoc
+    agent configuration into guarantees. Every item has <strong>two plausible finalists</strong>, and every option
+    &mdash; right and wrong &mdash; carries an explanation of why.</p>
+
+    <div class="note rule">
+      <b>Read the task-statement tag on each item</b>
+      Every question is labelled with its domain and its task statement (for example
+      <span class="tag info">Agentic Architecture and Orchestration</span>
+      <span class="tag">1.4 Enforcement surfaces</span>). When you get one wrong, that tag is the exact section of
+      the <a href="ccarf-docs.html">CCAR-F documentation</a> to go back to, and it points at the matching drill in
+      the <a href="ccarf-exercises.html">exercises</a>.
+    </div>
+
+    <div class="grid grid-2" style="margin:24px 0">
+      <div class="card">
+        <h3 class="mt0">Study mode <span class="tag ok">recommended first</span></h3>
+        <p class="small muted">Check each answer as you go and read the explanation immediately, while the question
+        is still in your head. No time pressure. This is the mode that teaches &mdash; the four explanations per
+        item are the material, not the score.</p>
+      </div>
+      <div class="card">
+        <h3 class="mt0">Exam mode <span class="tag warn">simulation</span></h3>
+        <p class="small muted">120-minute countdown, no feedback until you submit. Deliberately tighter than the
+        real thing: the live paper gives you 120 minutes for 60 items, this one gives you 120 for 65. Use it once
+        you have worked through study mode, to find out which distinctions survive time pressure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="mt0">Before you start</h3>
+      <ul class="small">
+        <li><strong>Select-2 items.</strong> <span id="multiCount">10</span> questions ask for exactly two answers,
+        and they are marked. Both must be right to score. The two are usually <em>complementary layers</em> &mdash;
+        one structural, one operational &mdash; not two phrasings of the same idea. If your picks are near
+        duplicates, one of them is wrong.</li>
+        <li><strong>Every item has a near-miss.</strong> The distractors are drawn from the twenty patterns in the
+        <a href="ccarf-docs.html#antipatterns">anti-pattern catalogue</a>: prose where a guarantee is required,
+        fixing the downstream component for an upstream fault, buying context instead of managing attention,
+        reformatting a bloated CLAUDE.md instead of splitting it, self-reported confidence as a routing signal,
+        retrying a failure the input cannot fix, and so on. Learn to name the pattern and the elimination is
+        instant.</li>
+        <li><strong>The right answer is usually the structural one.</strong> A large share of items turn on one
+        distinction: a requirement that must hold <em>every time</em> belongs in code, a tool schema, a dispatcher
+        precondition, a hook or an allowed-tool list &mdash; while a preference can live in a prompt. When an
+        option asks the model to police itself, it is almost always the distractor.</li>
+        <li><strong>No length tell.</strong> The correct option is never the longest and never the shortest in its
+        item, and the answer key is balanced across A/B/C/D (19/19/19/18 over the 75 correct slots). Guessing
+        strategies score at chance here.</li>
+        <li><strong>Scenarios repeat.</strong> Six organisations carry all 65 items, and they are the same six used
+        in the <a href="ccarf-docs.html">documentation caseboxes</a> and the
+        <a href="ccarf-exercises.html">exercises</a> &mdash; so the context you built there transfers. Read each one
+        carefully the first time it appears; after that you can skim it.</li>
+        <li><strong>Scoring.</strong> Scaled 100&ndash;1000 like the real exam. 720 passes, which is about 45 of 65.
+        Because this mock is harder and tighter than the live paper, aim for <strong>850+</strong> here before you
+        book &mdash; and read the per-domain breakdown on the results page rather than the headline number.</li>
+        <li><strong>Watch the small task statements.</strong> Domain 5 carries nine items across six task
+        statements, so three of them (5.3, 5.4 and 5.6) get a single question each. On the live paper the same
+        thing happens, which means one careless answer can cost you a whole task statement. Do not skim them
+        because they are small.</li>
+        <li><strong>Your progress is saved</strong> in this browser, so you can close the tab mid-attempt and come
+        back. In exam mode the clock keeps running.</li>
+        <li><strong>Keyboard:</strong> <kbd>1</kbd>&ndash;<kbd>4</kbd> to select, <kbd>&larr;</kbd><kbd>&rarr;</kbd>
+        to move, <kbd>F</kbd> to flag, <kbd>Enter</kbd> to check in study mode.</li>
+      </ul>
+
+      <h4>Item distribution</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Domain</th><th style="width:90px">Blueprint</th><th style="width:90px">Items</th></tr></thead>
+          <tbody id="blueprintBody"></tbody>
+        </table>
+      </div>
+      <p class="small muted">Item counts follow the published weights, so Agentic Architecture and Orchestration
+      carries the most questions here for the same reason it carries 27% of the real exam &mdash; more than a
+      quarter of the paper is about choosing an architecture and putting the guarantees in the right place, not
+      about writing prompts.</p>
+
+      <label class="small" style="display:flex;gap:8px;align-items:center;margin:16px 0 4px;cursor:pointer">
+        <input type="checkbox" id="shuffleOpt" style="accent-color:var(--accent)">
+        Shuffle question order (use this on retakes, so you learn the principle rather than the position)
+      </label>
+
+      <div class="exam-actions">
+        <button class="btn" id="startStudy">Start in study mode</button>
+        <button class="btn ghost" id="startExam">Start timed exam (120 min)</button>
+      </div>
+    </div>
+
+    <div class="note trap" style="margin-top:24px">
+      <b>How to read a stem under time pressure</b>
+      Find the last sentence first &mdash; that is what is being asked. Then look for the facts the stem planted: a
+      stated <em>$500 ceiling</em>, a failure count like <em>47 of 12,000</em>, a percentage that must be zero, a
+      900-line configuration file, a &ldquo;<em>the diff still fits in context</em>&rdquo;, a named
+      <code>stop_reason</code>, a next-morning deadline, an archive that could not be reached. Those are never
+      decoration. If two options both look right, ask which one the planted fact was put there to rule out &mdash;
+      usually it is the one that would still leave a failure rate where the stem demanded a guarantee.
+    </div>
+
+    <div class="note warn" style="margin-top:18px">
+      <b>What these questions are and are not</b>
+      They are original items written to the domain and task-statement list published in the <em>Claude Certified
+      Architect &mdash; Foundations Exam Guide</em>, and to documented Claude product behaviour. They are not
+      recalled or leaked exam content, and no source claiming to hold verbatim exam items was used. The live exam
+      is 60 items in 120 minutes; this mock is 65 in the same 120 minutes, which is a deliberate choice &mdash;
+      fuller coverage of all thirty task statements and more time pressure than you will actually face. The
+      scenarios are invented; any resemblance to a real organisation is coincidental. A strong score here is
+      evidence you understand the material &mdash; treat it as that, not as a preview of the live item pool.
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section id="examView" class="hide">
+    <div class="q-nav" id="qnav"></div>
+    <div id="qbody"></div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section id="resultView" class="hide"></section>
+
+</main>
+
+<footer class="footer"><div class="narrow">Claude Study Hub · CCAR-F track — independent study material; not affiliated with or endorsed by Anthropic.</div></footer>
+
+<script>window.EXAM_CONFIG = { minutes: 120, pass: 720, storeKey: 'ccarf-exam' };</script>
+<script src="assets/js/ccarf-exam-data.js"></script>
+<script src="assets/js/exam.js"></script>
+</body>
+</html>
